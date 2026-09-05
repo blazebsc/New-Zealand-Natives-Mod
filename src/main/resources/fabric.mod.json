@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "newzealandnatives",
+  "version": "${version}",
+  "name": "New Zealand Natives Mod",
+  "description": "Minecraft Mod that adds various NZ native animals to the game.",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/newzealandnativesmod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "blake7.client.newzealandnativesmodDataGenerator"
+    ],
+    "client": [
+      "blake7.client.newzealandnativesmodClient"
+    ],
+    "main": [
+      "blake7.newzealandnativesmod.NewZealandNativesMod"
+    ]
+  },
+  "mixins": [
+    "newzealandnatives.mixins.json",
+    {
+      "config": "newzealandnatives.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}",
+    "geckolib": "*"
+  }
+}

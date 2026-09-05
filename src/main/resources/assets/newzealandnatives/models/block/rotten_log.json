@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "newzealandnatives:block/rotten_log_top",
+    "side": "newzealandnatives:block/rotten_log_side"
+  }
+}

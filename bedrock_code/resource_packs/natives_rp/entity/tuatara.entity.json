@@ -1,0 +1,34 @@
+{
+   "format_version":"1.10.0",
+   "minecraft:client_entity":{
+      "description":{
+         "identifier":"ccl:tuatara",
+         "materials":{
+            "default":"tuatara"
+         },
+         "textures":{
+            "default":"textures/entity/tuatara/tuatara"
+         },
+         "geometry":{
+            "default":"geometry.tuatara"
+         },
+         "animations":{
+            "walk":"animation.tuatara.walk",
+            "look_at_target":"animation.tuatara.look_at_target"
+         },
+         "scripts":{
+            "animate":[
+               "walk",
+               "look_at_target"
+            ]
+         },
+         "render_controllers":[
+            "controller.render.tuatara"
+         ],
+         "spawn_egg":{
+            "texture":"ccl_fern",
+            "texture_index": 20
+         }
+      }
+   }
+}

@@ -1,0 +1,39 @@
+{
+   "format_version":"1.10.0",
+   "minecraft:client_entity":{
+      "description":{
+         "identifier":"ccl:ruru",
+         "materials":{
+            "default":"ruru"
+         },
+         "textures":{
+            "default":"textures/entity/ruru/ruru",
+            "baby":"textures/entity/ruru/ruru_baby"
+         },
+         "geometry":{
+            "default":"geometry.ruru"
+         },
+         "animations":{
+            "walk":"animation.ruru.walk",
+            "fly":"animation.ruru.fly",
+            "look_at_target":"animation.common.look_at_target",
+            "baby_transform":"animation.bird.baby_transform"
+         },
+         "scripts":{
+            "animate":[
+               { "walk":"query.is_on_ground" },
+               { "fly":"!query.is_on_ground" },
+               { "look_at_target": "query.is_on_ground" },
+               { "baby_transform":"query.is_baby" }
+            ]
+         },
+         "render_controllers":[
+            "controller.render.ruru"
+         ],
+         "spawn_egg":{
+            "texture":"ccl_fern",
+            "texture_index": 15
+         }
+      }
+   }
+}

@@ -1,0 +1,43 @@
+{
+   "geometry":"skinpacks/skins.json",
+   "skins":[
+      {
+         "localization_name":"MG",
+         "geometry":"geometry.humanoid.custom",
+         "texture":"maori_girl.png",
+         "type":"free"
+      },
+      {
+         "localization_name":"HH",
+         "geometry":"geometry.humanoid.custom",
+         "texture":"hoiho.png",
+         "type":"free"
+      },
+      {
+         "localization_name":"RR",
+         "geometry":"geometry.humanoid.custom",
+         "texture":"ruru.png",
+         "type":"free"
+      },
+      {
+         "localization_name":"KK",
+         "geometry":"geometry.humanoid.custom",
+         "texture":"kakapo.png",
+         "type":"free"
+      },
+      {
+         "localization_name":"TK",
+         "geometry":"geometry.humanoid.custom",
+         "texture":"takahe.png",
+         "type":"free"
+      },
+      {
+         "localization_name":"KA",
+         "geometry":"geometry.humanoid.custom",
+         "texture":"kea.png",
+         "type":"free"
+      }
+   ],
+   "serialize_name":"NZ Natives Skin Pack",
+   "localization_name":"NZN"
+}

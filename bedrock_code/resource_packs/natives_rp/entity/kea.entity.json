@@ -1,0 +1,39 @@
+{
+   "format_version":"1.10.0",
+   "minecraft:client_entity":{
+      "description":{
+         "identifier":"ccl:kea",
+         "materials":{
+            "default":"kea"
+         },
+         "textures":{
+            "default":"textures/entity/kea/kea",
+            "baby":"textures/entity/kea/kea_baby"
+         },
+         "geometry":{
+            "default":"geometry.kea"
+         },
+         "animations":{
+            "walk":"animation.kea.walk",
+            "fly":"animation.kea.fly",
+            "look_at_target":"animation.common.look_at_target",
+            "baby_transform":"animation.bird.baby_transform"
+         },
+         "scripts":{
+            "animate":[
+               { "walk":"query.modified_move_speed && query.is_on_ground" },
+               { "fly":"!query.is_on_ground" },
+               { "look_at_target": "query.is_on_ground" },
+               { "baby_transform":"query.is_baby" }
+            ]
+         },
+         "render_controllers":[
+            "controller.render.kea"
+         ],
+         "spawn_egg":{
+            "texture":"ccl_fern",
+            "texture_index": 8
+         }
+      }
+   }
+}

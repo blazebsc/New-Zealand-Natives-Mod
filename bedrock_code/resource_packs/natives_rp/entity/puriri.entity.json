@@ -1,0 +1,32 @@
+{
+   "format_version":"1.10.0",
+   "minecraft:client_entity":{
+      "description":{
+         "identifier":"ccl:puriri",
+         "materials":{
+            "default":"puriri"
+         },
+         "textures":{
+            "default":"textures/entity/puriri/puriri"
+         },
+         "geometry":{
+            "default":"geometry.puriri"
+         },
+         "animations":{
+            "flying":"animation.monarch.flying",
+            "resting":"animation.puriri.tree"
+         },
+         "scripts":{
+            "animate":[
+               { "flying": "!query.is_resting" },
+               { "resting": "query.is_resting" }
+            ]
+         },
+         "render_controllers":[ "controller.render.puriri" ],
+         "spawn_egg":{
+            "texture":"ccl_fern",
+            "texture_index": 13
+         }
+      }
+   }
+}

@@ -1,0 +1,540 @@
+{
+  "albatross.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:albatross/albatross1"
+      },
+      {
+        "name": "newzealandnatives:albatross/albatross2"
+      },
+      {
+        "name": "newzealandnatives:albatross/albatross3"
+      }
+    ]
+  },
+  "bat.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:bat/bat1"
+      },
+      {
+        "name": "newzealandnatives:bat/bat2"
+      }
+    ]
+  },
+  "falcon.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:falcon/falcon1"
+      },
+      {
+        "name": "newzealandnatives:falcon/falcon2"
+      },
+      {
+        "name": "newzealandnatives:falcon/falcon3"
+      },
+      {
+        "name": "newzealandnatives:falcon/falcon4"
+      }
+    ]
+  },
+  "fantail.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:fantail/fantail3"
+      },
+      {
+        "name": "newzealandnatives:fantail/fantail1"
+      },
+      {
+        "name": "newzealandnatives:fantail/fantail2"
+      },
+      {
+        "name": "newzealandnatives:fantail/fantail4"
+      },
+      {
+        "name": "newzealandnatives:fantail/fantail5"
+      },
+      {
+        "name": "newzealandnatives:fantail/fantail6"
+      }
+    ]
+  },
+  "hoiho.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:hoiho/hoiho1"
+      },
+      {
+        "name": "newzealandnatives:hoiho/hoiho2"
+      },
+      {
+        "name": "newzealandnatives:hoiho/hoiho3"
+      },
+      {
+        "name": "newzealandnatives:hoiho/hoiho4"
+      },
+      {
+        "name": "newzealandnatives:hoiho/hoiho5"
+      }
+    ]
+  },
+  "huia.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:huia/huia_male1"
+      },
+      {
+        "name": "newzealandnatives:huia/huia_female1"
+      },
+      {
+        "name": "newzealandnatives:huia/huia_female2"
+      },
+      {
+        "name": "newzealandnatives:huia/huia_female3"
+      },
+      {
+        "name": "newzealandnatives:huia/huia_female4"
+      },
+      {
+        "name": "newzealandnatives:huia/huia_male2"
+      },
+      {
+        "name": "newzealandnatives:huia/huia_male3"
+      },
+      {
+        "name": "newzealandnatives:huia/huia_male4"
+      },
+      {
+        "name": "newzealandnatives:huia/huia_male5"
+      }
+    ]
+  },
+  "humpback_whale.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:humpback_whale/humpback_whale"
+      }
+    ]
+  },
+  "kakapo.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:kakapo/kakapo1"
+      },
+      {
+        "name": "newzealandnatives:kakapo/kakapo_ching1"
+      },
+      {
+        "name": "newzealandnatives:kakapo/kakapo2"
+      },
+      {
+        "name": "newzealandnatives:kakapo/kakapo3"
+      },
+      {
+        "name": "newzealandnatives:kakapo/kakapo_boom"
+      },
+      {
+        "name": "newzealandnatives:kakapo/kakapo_ching2"
+      }
+    ]
+  },
+  "kea.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:kea/kea1"
+      },
+      {
+        "name": "newzealandnatives:kea/kea2"
+      },
+      {
+        "name": "newzealandnatives:kea/kea3"
+      },
+      {
+        "name": "newzealandnatives:kea/kea4"
+      },
+      {
+        "name": "newzealandnatives:kea/kea5"
+      }
+    ]
+  },
+  "kereru.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:kereru/kereru1"
+      },
+      {
+        "name": "newzealandnatives:kereru/kereru2"
+      },
+      {
+        "name": "newzealandnatives:kereru/kereru3"
+      }
+    ]
+  },
+  "kina.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:kina/kina1"
+      },
+      {
+        "name": "newzealandnatives:kina/kina2"
+      }
+    ]
+  },
+  "king_shag.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:king_shag/king_shag1"
+      },
+      {
+        "name": "newzealandnatives:king_shag/king_shag2"
+      },
+      {
+        "name": "newzealandnatives:king_shag/king_shag3"
+      },
+      {
+        "name": "newzealandnatives:king_shag/king_shag4"
+      },
+      {
+        "name": "newzealandnatives:king_shag/king_shag5"
+      }
+    ]
+  },
+  "kiwi.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:kiwi/kiwi1"
+      },
+      {
+        "name": "newzealandnatives:kiwi/kiwi2"
+      },
+      {
+        "name": "newzealandnatives:kiwi/kiwi3"
+      },
+      {
+        "name": "newzealandnatives:kiwi/kiwi4"
+      },
+      {
+        "name": "newzealandnatives:kiwi/kiwi5"
+      }
+    ]
+  },
+  "kokako.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:kokako/kokako1"
+      },
+      {
+        "name": "newzealandnatives:kokako/kokako2"
+      },
+      {
+        "name": "newzealandnatives:kokako/kokako3"
+      },
+      {
+        "name": "newzealandnatives:kokako/kokako4"
+      }
+    ]
+  },
+  "korora.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:korora/korora1"
+      },
+      {
+        "name": "newzealandnatives:korora/korora2"
+      },
+      {
+        "name": "newzealandnatives:korora/korora3"
+      },
+      {
+        "name": "newzealandnatives:korora/korora4"
+      }
+    ]
+  },
+  "kotare.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:kotare/kotare1"
+      },
+      {
+        "name": "newzealandnatives:kotare/kotare2"
+      },
+      {
+        "name": "newzealandnatives:kotare/kotare3"
+      },
+      {
+        "name": "newzealandnatives:kotare/kotare4"
+      }
+    ]
+  },
+  "kotuku.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:kotuku/kotuku3"
+      },
+      {
+        "name": "newzealandnatives:kotuku/kotuku1"
+      },
+      {
+        "name": "newzealandnatives:kotuku/kotuku2"
+      },
+      {
+        "name": "newzealandnatives:kotuku/kotuku4"
+      },
+      {
+        "name": "newzealandnatives:kotuku/kotuku5"
+      }
+    ]
+  },
+  "kunekune.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:kunekune/kunekune1"
+      },
+      {
+        "name": "newzealandnatives:kunekune/kunekune2"
+      },
+      {
+        "name": "newzealandnatives:kunekune/kunekune3"
+      }
+    ]
+  },
+  "moa.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:moa/moa1"
+      },
+      {
+        "name": "newzealandnatives:moa/moa2"
+      },
+      {
+        "name": "newzealandnatives:moa/moa3"
+      },
+      {
+        "name": "newzealandnatives:moa/moa4"
+      }
+    ]
+  },
+  "pateke.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:pateke/pateke1"
+      },
+      {
+        "name": "newzealandnatives:pateke/pateke2"
+      },
+      {
+        "name": "newzealandnatives:pateke/pateke3"
+      }
+    ]
+  },
+  "pukeko.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:pukeko/pukeko1"
+      },
+      {
+        "name": "newzealandnatives:pukeko/pukeko5"
+      },
+      {
+        "name": "newzealandnatives:pukeko/pukeko6"
+      },
+      {
+        "name": "newzealandnatives:pukeko/pukeko7"
+      },
+      {
+        "name": "newzealandnatives:pukeko/pukeko2"
+      },
+      {
+        "name": "newzealandnatives:pukeko/pukeko3"
+      },
+      {
+        "name": "newzealandnatives:pukeko/pukeko4"
+      }
+    ]
+  },
+  "ruru.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:ruru/ruru1"
+      },
+      {
+        "name": "newzealandnatives:ruru/ruru2"
+      }
+    ]
+  },
+  "saddleback.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:saddleback/saddleback1"
+      },
+      {
+        "name": "newzealandnatives:saddleback/saddleback2"
+      },
+      {
+        "name": "newzealandnatives:saddleback/saddleback3"
+      },
+      {
+        "name": "newzealandnatives:saddleback/saddleback4"
+      }
+    ]
+  },
+  "sea_lion.hurt": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:sea_lion/sea_lion5"
+      }
+    ]
+  },
+  "sea_lion.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:sea_lion/sea_lion1"
+      },
+      {
+        "name": "newzealandnatives:sea_lion/sea_lion2"
+      },
+      {
+        "name": "newzealandnatives:sea_lion/sea_lion3"
+      },
+      {
+        "name": "newzealandnatives:sea_lion/sea_lion4"
+      }
+    ]
+  },
+  "takahe.hurt": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:takahe/takahe5"
+      }
+    ]
+  },
+  "takahe.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:takahe/takahe1"
+      },
+      {
+        "name": "newzealandnatives:takahe/takahe2"
+      },
+      {
+        "name": "newzealandnatives:takahe/takahe3"
+      },
+      {
+        "name": "newzealandnatives:takahe/takahe4"
+      }
+    ]
+  },
+  "tawaki.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:tawaki/tawaki1"
+      },
+      {
+        "name": "newzealandnatives:tawaki/tawaki2"
+      },
+      {
+        "name": "newzealandnatives:tawaki/tawaki3"
+      },
+      {
+        "name": "newzealandnatives:tawaki/tawaki4"
+      }
+    ]
+  },
+  "tuatara.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:tuatara/tuatara1"
+      },
+      {
+        "name": "newzealandnatives:tuatara/tuatara2"
+      },
+      {
+        "name": "newzealandnatives:tuatara/tuatara3"
+      }
+    ]
+  },
+  "tui.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:tui/tui1"
+      },
+      {
+        "name": "newzealandnatives:tui/tui2"
+      },
+      {
+        "name": "newzealandnatives:tui/tui3"
+      },
+      {
+        "name": "newzealandnatives:tui/tui4"
+      },
+      {
+        "name": "newzealandnatives:tui/tui5"
+      }
+    ]
+  },
+  "wasp.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:wasp/wasp1"
+      },
+      {
+        "name": "newzealandnatives:wasp/wasp2"
+      }
+    ]
+  },
+  "weka.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:weka/weka1"
+      },
+      {
+        "name": "newzealandnatives:weka/weka2"
+      },
+      {
+        "name": "newzealandnatives:weka/weka3"
+      },
+      {
+        "name": "newzealandnatives:weka/weka4"
+      }
+    ]
+  },
+  "whio.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:whio/whio1"
+      },
+      {
+        "name": "newzealandnatives:whio/whio_female1"
+      },
+      {
+        "name": "newzealandnatives:whio/whio_female2"
+      },
+      {
+        "name": "newzealandnatives:whio/whio2"
+      },
+      {
+        "name": "newzealandnatives:whio/whio3"
+      },
+      {
+        "name": "newzealandnatives:whio/whio4"
+      }
+    ]
+  },
+  "haasts_eagle.say": {
+    "sounds": [
+      {
+        "name": "newzealandnatives:haasts_eagle/haasts_eagle1"
+      },
+      {
+        "name": "newzealandnatives:haasts_eagle/haasts_eagle2"
+      },
+      {
+        "name": "newzealandnatives:haasts_eagle/haasts_eagle3"
+      },
+      {
+        "name": "newzealandnatives:haasts_eagle/haasts_eagle4"
+      }
+    ]
+  }
+}

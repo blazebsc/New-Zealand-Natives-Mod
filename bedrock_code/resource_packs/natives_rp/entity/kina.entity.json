@@ -1,0 +1,26 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ccl:kina",
+      "materials": {
+        "default": "kina"
+      },
+      "textures": {
+        "default": "textures/entity/kina/kina",
+        "baby": "textures/entity/kina/kina_baby"
+      },
+      "geometry": {
+        "default": "geometry.kina"
+      },
+      "render_controllers": [
+        "controller.render.kina"
+      ],
+      "spawn_egg": {
+        "texture": "ccl_fern",
+        "texture_index": 55
+      }
+    }
+  }
+}
+	
