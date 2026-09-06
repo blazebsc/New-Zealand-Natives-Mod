@@ -26,6 +26,6 @@ class HuraModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "hura.animation");
+        return Identifier.of("newzealandnatives", "hura");
     }
 }

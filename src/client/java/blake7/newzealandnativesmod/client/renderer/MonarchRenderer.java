@@ -26,6 +26,6 @@ class MonarchModel extends software.bernie.geckolib.model.GeoModel<NativesEntity
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "monarch.animation");
+        return Identifier.of("newzealandnatives", "monarch");
     }
 }

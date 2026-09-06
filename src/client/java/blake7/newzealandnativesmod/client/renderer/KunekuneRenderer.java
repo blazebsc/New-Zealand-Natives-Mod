@@ -26,6 +26,6 @@ class KunekuneModel extends software.bernie.geckolib.model.GeoModel<NativesEntit
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "kunekune.animation");
+        return Identifier.of("newzealandnatives", "kunekune");
     }
 }

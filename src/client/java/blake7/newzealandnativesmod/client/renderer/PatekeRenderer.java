@@ -26,6 +26,6 @@ class PatekeModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "pateke.animation");
+        return Identifier.of("newzealandnatives", "pateke");
     }
 }

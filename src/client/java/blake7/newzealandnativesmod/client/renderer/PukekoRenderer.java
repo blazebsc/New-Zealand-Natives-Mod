@@ -26,6 +26,6 @@ class PukekoModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "pukeko.animation");
+        return Identifier.of("newzealandnatives", "pukeko");
     }
 }

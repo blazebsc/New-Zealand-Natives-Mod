@@ -26,6 +26,6 @@ class FalconModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "falcon.animation");
+        return Identifier.of("newzealandnatives", "falcon");
     }
 }

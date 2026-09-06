@@ -26,6 +26,6 @@ class BasketFungusModel extends software.bernie.geckolib.model.GeoModel<NativesE
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "flora.animation");
+        return Identifier.of("newzealandnatives", "flora");
     }
 }

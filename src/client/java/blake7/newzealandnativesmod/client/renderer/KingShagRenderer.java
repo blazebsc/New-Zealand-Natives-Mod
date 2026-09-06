@@ -26,6 +26,6 @@ class KingShagModel extends software.bernie.geckolib.model.GeoModel<NativesEntit
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "king_shag.animation");
+        return Identifier.of("newzealandnatives", "king_shag");
     }
 }

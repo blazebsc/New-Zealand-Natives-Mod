@@ -26,6 +26,6 @@ class HaastsEagleModel extends software.bernie.geckolib.model.GeoModel<NativesEn
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "falcon.animation");
+        return Identifier.of("newzealandnatives", "falcon");
     }
 }

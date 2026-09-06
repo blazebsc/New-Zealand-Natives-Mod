@@ -26,6 +26,6 @@ class HarvestmanModel extends software.bernie.geckolib.model.GeoModel<NativesEnt
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "harvestman.animation");
+        return Identifier.of("newzealandnatives", "harvestman");
     }
 }

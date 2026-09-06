@@ -26,6 +26,6 @@ class HumpbackWhaleModel extends software.bernie.geckolib.model.GeoModel<Natives
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "humpback_whale.animation");
+        return Identifier.of("newzealandnatives", "humpback_whale");
     }
 }

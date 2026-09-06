@@ -26,6 +26,6 @@ class KatipoModel extends software.bernie.geckolib.model.GeoModel<KatipoEntity> 
 
     @Override
     public Identifier getAnimationResource(KatipoEntity animatable) {
-        return Identifier.of("newzealandnatives", "katipo.animation");
+        return Identifier.of("newzealandnatives", "katipo");
     }
 }
