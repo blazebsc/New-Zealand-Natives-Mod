@@ -21,7 +21,7 @@ class TawakiModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/tawaki/tawaki");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/tawaki/tawaki.png");
     }
 
     @Override

@@ -21,7 +21,7 @@ class RedAdmiralModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/red_admiral/red_admiral");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/red_admiral/red_admiral.png");
     }
 
     @Override

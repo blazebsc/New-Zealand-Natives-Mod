@@ -21,7 +21,7 @@ class HumpbackWhaleModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/humpback_whale/humpback_whale");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/humpback_whale/humpback_whale.png");
     }
 
     @Override

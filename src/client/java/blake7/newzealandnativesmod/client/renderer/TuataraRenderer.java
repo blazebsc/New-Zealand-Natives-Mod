@@ -21,7 +21,7 @@ class TuataraModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/tuatara/tuatara");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/tuatara/tuatara.png");
     }
 
     @Override

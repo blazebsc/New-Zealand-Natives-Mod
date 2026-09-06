@@ -21,7 +21,7 @@ class SeaLionModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/sea_lion/sea_lion_baby");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/sea_lion/sea_lion_baby.png");
     }
 
     @Override

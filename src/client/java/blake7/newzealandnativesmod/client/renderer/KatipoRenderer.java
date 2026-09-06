@@ -21,7 +21,7 @@ class KatipoModel extends com.geckolib.model.GeoModel<KatipoEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/katipo/katipo");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/katipo/katipo.png");
     }
 
     @Override

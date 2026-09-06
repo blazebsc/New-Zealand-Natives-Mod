@@ -21,7 +21,7 @@ class FantailModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/fantail/fantail");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/fantail/fantail.png");
     }
 
     @Override

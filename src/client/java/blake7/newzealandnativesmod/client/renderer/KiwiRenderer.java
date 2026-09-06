@@ -21,7 +21,7 @@ class KiwiModel extends com.geckolib.model.GeoModel<KiwiEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/kiwi/kiwi");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/kiwi/kiwi.png");
     }
 
     @Override

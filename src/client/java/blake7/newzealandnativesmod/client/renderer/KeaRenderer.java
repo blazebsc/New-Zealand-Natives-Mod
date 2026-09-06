@@ -21,7 +21,7 @@ class KeaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/kea/kea");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/kea/kea.png");
     }
 
     @Override

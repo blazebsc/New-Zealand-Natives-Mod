@@ -21,7 +21,7 @@ class WetaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/weta/weta");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/weta/weta.png");
     }
 
     @Override

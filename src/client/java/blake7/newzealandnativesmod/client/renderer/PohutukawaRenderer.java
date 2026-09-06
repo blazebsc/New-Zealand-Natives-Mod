@@ -21,7 +21,7 @@ class PohutukawaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/flora/pohutukawa");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/flora/pohutukawa.png");
     }
 
     @Override
