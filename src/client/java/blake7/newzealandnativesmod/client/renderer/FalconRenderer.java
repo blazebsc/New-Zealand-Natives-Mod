@@ -21,7 +21,7 @@ class FalconModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/falcon/falcon.png");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/falcon/falcon");
     }
 
     @Override

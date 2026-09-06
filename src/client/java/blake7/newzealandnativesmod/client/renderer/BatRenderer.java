@@ -21,7 +21,7 @@ class BatModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/bat/bat.png");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/bat/bat");
     }
 
     @Override

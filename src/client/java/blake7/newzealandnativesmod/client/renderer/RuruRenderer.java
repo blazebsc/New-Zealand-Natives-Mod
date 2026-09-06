@@ -21,7 +21,7 @@ class RuruModel extends com.geckolib.model.GeoModel<RuruEntity> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/ruru/ruru.png");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/ruru/ruru");
     }
 
     @Override
