@@ -40,6 +40,7 @@ public class NewZealandNativesMod implements ModInitializer {
                         .add(Attributes.MAX_HEALTH, 4.0D)
                         .add(Attributes.MOVEMENT_SPEED, 0.2D)
                         .add(Attributes.FOLLOW_RANGE, 16.0D)
+                        .add(Attributes.TEMPT_RANGE, 10.0D)
                         .build());
 
         FabricDefaultAttributeRegistry.register(KatipoEntity.TYPE, KatipoEntity.createAttributes());
@@ -50,6 +51,7 @@ public class NewZealandNativesMod implements ModInitializer {
                         .add(Attributes.MAX_HEALTH, 6.0D)
                         .add(Attributes.MOVEMENT_SPEED, 0.4D)
                         .add(Attributes.FOLLOW_RANGE, 16.0D)
+                        .add(Attributes.TEMPT_RANGE, 10.0D)
                         .add(Attributes.FLYING_SPEED, 0.4D)
                         .build());
 
@@ -68,6 +70,7 @@ public class NewZealandNativesMod implements ModInitializer {
                         .add(Attributes.MAX_HEALTH, stats[0])
                         .add(Attributes.MOVEMENT_SPEED, stats[1])
                         .add(Attributes.FOLLOW_RANGE, id.equals("haasts_eagle") ? 64.0D : 16.0D)
+                        .add(Attributes.TEMPT_RANGE, 10.0D)
                         .add(Attributes.FLYING_SPEED, 0.4D);
                 if (id.equals("haasts_eagle")) {
                     builder.add(Attributes.ATTACK_DAMAGE, 6.0D);
