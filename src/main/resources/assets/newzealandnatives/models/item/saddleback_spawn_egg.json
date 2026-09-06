@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "newzealandnatives:item/saddleback_fern"
+    "layer0": "newzealandnatives:item/saddleback_spawn_egg"
   }
 }

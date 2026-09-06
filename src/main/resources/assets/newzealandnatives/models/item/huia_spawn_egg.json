@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "newzealandnatives:item/huia_fern"
+    "layer0": "newzealandnatives:item/huia_spawn_egg"
   }
 }

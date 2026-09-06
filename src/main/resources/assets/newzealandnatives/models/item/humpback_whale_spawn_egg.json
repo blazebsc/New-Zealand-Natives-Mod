@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "newzealandnatives:item/humpback_whale_fern"
+    "layer0": "newzealandnatives:item/humpback_whale_spawn_egg"
   }
 }

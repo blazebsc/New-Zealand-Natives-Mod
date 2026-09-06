@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "newzealandnatives:item/kotare_fern"
+    "layer0": "newzealandnatives:item/kotare_spawn_egg"
   }
 }

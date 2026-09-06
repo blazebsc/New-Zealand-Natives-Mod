@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "newzealandnatives:item/hectors_dolphin_fern"
+    "layer0": "newzealandnatives:item/hectors_dolphin_spawn_egg"
   }
 }
