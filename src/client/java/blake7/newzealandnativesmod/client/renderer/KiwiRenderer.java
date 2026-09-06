@@ -26,6 +26,6 @@ class KiwiModel extends com.geckolib.model.GeoModel<KiwiEntity> {
 
     @Override
     public Identifier getAnimationResource(KiwiEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "kiwi.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "kiwi");
     }
 }
