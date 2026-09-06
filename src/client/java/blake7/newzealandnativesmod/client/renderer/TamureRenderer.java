@@ -16,7 +16,7 @@ public class TamureRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class TamureModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/tamure.geo.json");
+        return Identifier.of("newzealandnatives", "geo/tamure");
     }
 
     @Override
@@ -26,6 +26,6 @@ class TamureModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/tamure.animation.json");
+        return Identifier.of("newzealandnatives", "tamure.animation");
     }
 }

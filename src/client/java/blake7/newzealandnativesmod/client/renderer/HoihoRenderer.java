@@ -16,7 +16,7 @@ public class HoihoRenderer extends GeoEntityRenderer<NativesEntity, EntityRender
 class HoihoModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/hoiho.geo.json");
+        return Identifier.of("newzealandnatives", "geo/hoiho");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HoihoModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> 
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/hoiho.animation.json");
+        return Identifier.of("newzealandnatives", "hoiho.animation");
     }
 }

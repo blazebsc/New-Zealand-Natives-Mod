@@ -16,7 +16,7 @@ public class KouraRenderer extends GeoEntityRenderer<NativesEntity, EntityRender
 class KouraModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/koura.geo.json");
+        return Identifier.of("newzealandnatives", "geo/koura");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KouraModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> 
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/koura.animation.json");
+        return Identifier.of("newzealandnatives", "koura.animation");
     }
 }

@@ -16,7 +16,7 @@ public class WekaRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderS
 class WekaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/weka.geo.json");
+        return Identifier.of("newzealandnatives", "geo/weka");
     }
 
     @Override
@@ -26,6 +26,6 @@ class WekaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/takahe.animation.json");
+        return Identifier.of("newzealandnatives", "takahe.animation");
     }
 }

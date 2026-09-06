@@ -16,7 +16,7 @@ public class WetaRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderS
 class WetaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/weta.geo.json");
+        return Identifier.of("newzealandnatives", "geo/weta");
     }
 
     @Override
@@ -26,6 +26,6 @@ class WetaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/weta.animation.json");
+        return Identifier.of("newzealandnatives", "weta.animation");
     }
 }

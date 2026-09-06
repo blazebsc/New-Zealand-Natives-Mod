@@ -16,7 +16,7 @@ public class BatRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderSt
 class BatModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/bat.geo.json");
+        return Identifier.of("newzealandnatives", "geo/bat");
     }
 
     @Override
@@ -26,6 +26,6 @@ class BatModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/bat.animation.json");
+        return Identifier.of("newzealandnatives", "bat.animation");
     }
 }

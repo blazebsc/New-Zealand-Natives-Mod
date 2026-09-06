@@ -16,7 +16,7 @@ public class PatekeRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class PatekeModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/pateke.geo.json");
+        return Identifier.of("newzealandnatives", "geo/pateke");
     }
 
     @Override
@@ -26,6 +26,6 @@ class PatekeModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/pateke.animation.json");
+        return Identifier.of("newzealandnatives", "pateke.animation");
     }
 }

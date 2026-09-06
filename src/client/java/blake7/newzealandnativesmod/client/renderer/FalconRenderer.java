@@ -16,7 +16,7 @@ public class FalconRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class FalconModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/falcon.geo.json");
+        return Identifier.of("newzealandnatives", "geo/falcon");
     }
 
     @Override
@@ -26,6 +26,6 @@ class FalconModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/falcon.animation.json");
+        return Identifier.of("newzealandnatives", "falcon.animation");
     }
 }

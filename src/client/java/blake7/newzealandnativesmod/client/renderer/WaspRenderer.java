@@ -16,7 +16,7 @@ public class WaspRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderS
 class WaspModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/wasp.geo.json");
+        return Identifier.of("newzealandnatives", "geo/wasp");
     }
 
     @Override
@@ -26,6 +26,6 @@ class WaspModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/wasp.animation.json");
+        return Identifier.of("newzealandnatives", "wasp.animation");
     }
 }

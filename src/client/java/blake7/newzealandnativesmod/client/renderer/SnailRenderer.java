@@ -16,7 +16,7 @@ public class SnailRenderer extends GeoEntityRenderer<NativesEntity, EntityRender
 class SnailModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/snail.geo.json");
+        return Identifier.of("newzealandnatives", "geo/snail");
     }
 
     @Override
@@ -26,6 +26,6 @@ class SnailModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> 
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/hura.animation.json");
+        return Identifier.of("newzealandnatives", "hura.animation");
     }
 }

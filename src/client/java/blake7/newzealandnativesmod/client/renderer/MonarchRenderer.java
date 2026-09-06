@@ -16,7 +16,7 @@ public class MonarchRenderer extends GeoEntityRenderer<NativesEntity, EntityRend
 class MonarchModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/monarch.geo.json");
+        return Identifier.of("newzealandnatives", "geo/monarch");
     }
 
     @Override
@@ -26,6 +26,6 @@ class MonarchModel extends software.bernie.geckolib.model.GeoModel<NativesEntity
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/monarch.animation.json");
+        return Identifier.of("newzealandnatives", "monarch.animation");
     }
 }

@@ -16,7 +16,7 @@ public class KingShagRenderer extends GeoEntityRenderer<NativesEntity, EntityRen
 class KingShagModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/king_shag.geo.json");
+        return Identifier.of("newzealandnatives", "geo/king_shag");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KingShagModel extends software.bernie.geckolib.model.GeoModel<NativesEntit
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/king_shag.animation.json");
+        return Identifier.of("newzealandnatives", "king_shag.animation");
     }
 }

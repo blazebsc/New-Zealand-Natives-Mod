@@ -16,7 +16,7 @@ public class PuririRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class PuririModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/puriri.geo.json");
+        return Identifier.of("newzealandnatives", "geo/puriri");
     }
 
     @Override
@@ -26,6 +26,6 @@ class PuririModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/puriri.animation.json");
+        return Identifier.of("newzealandnatives", "puriri.animation");
     }
 }

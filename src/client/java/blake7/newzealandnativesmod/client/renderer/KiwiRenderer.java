@@ -16,7 +16,7 @@ public class KiwiRenderer extends GeoEntityRenderer<KiwiEntity, EntityRenderStat
 class KiwiModel extends software.bernie.geckolib.model.GeoModel<KiwiEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/kiwi.geo.json");
+        return Identifier.of("newzealandnatives", "geo/kiwi");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KiwiModel extends software.bernie.geckolib.model.GeoModel<KiwiEntity> {
 
     @Override
     public Identifier getAnimationResource(KiwiEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/kiwi.animation.json");
+        return Identifier.of("newzealandnatives", "kiwi.animation");
     }
 }

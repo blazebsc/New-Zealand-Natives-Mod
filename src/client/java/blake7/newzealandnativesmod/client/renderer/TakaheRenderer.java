@@ -16,7 +16,7 @@ public class TakaheRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class TakaheModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/takahe.geo.json");
+        return Identifier.of("newzealandnatives", "geo/takahe");
     }
 
     @Override
@@ -26,6 +26,6 @@ class TakaheModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/takahe.animation.json");
+        return Identifier.of("newzealandnatives", "takahe.animation");
     }
 }

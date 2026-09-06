@@ -16,7 +16,7 @@ public class WhioRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderS
 class WhioModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/whio.geo.json");
+        return Identifier.of("newzealandnatives", "geo/whio");
     }
 
     @Override
@@ -26,6 +26,6 @@ class WhioModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/whio.animation.json");
+        return Identifier.of("newzealandnatives", "whio.animation");
     }
 }

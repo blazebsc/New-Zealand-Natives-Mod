@@ -16,7 +16,7 @@ public class WeevilRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class WeevilModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/weevil_male.geo.json");
+        return Identifier.of("newzealandnatives", "geo/weevil_male");
     }
 
     @Override
@@ -26,6 +26,6 @@ class WeevilModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/weevil.animation.json");
+        return Identifier.of("newzealandnatives", "weevil.animation");
     }
 }

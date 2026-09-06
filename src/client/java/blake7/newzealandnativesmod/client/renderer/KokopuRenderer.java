@@ -16,7 +16,7 @@ public class KokopuRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class KokopuModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/kokopu.geo.json");
+        return Identifier.of("newzealandnatives", "geo/kokopu");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KokopuModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/kokopu.animation.json");
+        return Identifier.of("newzealandnatives", "kokopu.animation");
     }
 }

@@ -16,7 +16,7 @@ public class FrogRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderS
 class FrogModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/frog.geo.json");
+        return Identifier.of("newzealandnatives", "geo/frog");
     }
 
     @Override
@@ -26,6 +26,6 @@ class FrogModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/frog.animation.json");
+        return Identifier.of("newzealandnatives", "frog.animation");
     }
 }

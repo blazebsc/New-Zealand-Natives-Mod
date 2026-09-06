@@ -16,7 +16,7 @@ public class KotareRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class KotareModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/kotare.geo.json");
+        return Identifier.of("newzealandnatives", "geo/kotare");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KotareModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/kotare.animation.json");
+        return Identifier.of("newzealandnatives", "kotare.animation");
     }
 }

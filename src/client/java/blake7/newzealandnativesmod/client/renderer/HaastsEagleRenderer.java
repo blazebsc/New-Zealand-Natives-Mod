@@ -16,7 +16,7 @@ public class HaastsEagleRenderer extends GeoEntityRenderer<NativesEntity, Entity
 class HaastsEagleModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/haasts_eagle.geo.json");
+        return Identifier.of("newzealandnatives", "geo/haasts_eagle");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HaastsEagleModel extends software.bernie.geckolib.model.GeoModel<NativesEn
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/falcon.animation.json");
+        return Identifier.of("newzealandnatives", "falcon.animation");
     }
 }

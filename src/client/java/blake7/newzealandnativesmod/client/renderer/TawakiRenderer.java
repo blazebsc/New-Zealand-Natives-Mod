@@ -16,7 +16,7 @@ public class TawakiRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class TawakiModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/tawaki.geo.json");
+        return Identifier.of("newzealandnatives", "geo/tawaki");
     }
 
     @Override
@@ -26,6 +26,6 @@ class TawakiModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/tawaki.animation.json");
+        return Identifier.of("newzealandnatives", "tawaki.animation");
     }
 }

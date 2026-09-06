@@ -16,7 +16,7 @@ public class HarvestmanRenderer extends GeoEntityRenderer<NativesEntity, EntityR
 class HarvestmanModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/harvestman.geo.json");
+        return Identifier.of("newzealandnatives", "geo/harvestman");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HarvestmanModel extends software.bernie.geckolib.model.GeoModel<NativesEnt
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/harvestman.animation.json");
+        return Identifier.of("newzealandnatives", "harvestman.animation");
     }
 }

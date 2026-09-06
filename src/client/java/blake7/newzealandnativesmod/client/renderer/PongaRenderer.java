@@ -16,7 +16,7 @@ public class PongaRenderer extends GeoEntityRenderer<NativesEntity, EntityRender
 class PongaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/ponga.geo.json");
+        return Identifier.of("newzealandnatives", "geo/ponga");
     }
 
     @Override
@@ -26,6 +26,6 @@ class PongaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> 
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/flora.animation.json");
+        return Identifier.of("newzealandnatives", "flora.animation");
     }
 }

@@ -16,7 +16,7 @@ public class AlbatrossRenderer extends GeoEntityRenderer<NativesEntity, EntityRe
 class AlbatrossModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/albatross.geo.json");
+        return Identifier.of("newzealandnatives", "geo/albatross");
     }
 
     @Override
@@ -26,6 +26,6 @@ class AlbatrossModel extends software.bernie.geckolib.model.GeoModel<NativesEnti
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/albatross.animation.json");
+        return Identifier.of("newzealandnatives", "albatross.animation");
     }
 }

@@ -16,7 +16,7 @@ public class PohutukawaRenderer extends GeoEntityRenderer<NativesEntity, EntityR
 class PohutukawaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/pohutukawa.geo.json");
+        return Identifier.of("newzealandnatives", "geo/pohutukawa");
     }
 
     @Override
@@ -26,6 +26,6 @@ class PohutukawaModel extends software.bernie.geckolib.model.GeoModel<NativesEnt
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/flora.animation.json");
+        return Identifier.of("newzealandnatives", "flora.animation");
     }
 }

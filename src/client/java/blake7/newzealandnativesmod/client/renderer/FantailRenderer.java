@@ -16,7 +16,7 @@ public class FantailRenderer extends GeoEntityRenderer<NativesEntity, EntityRend
 class FantailModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/fantail.geo.json");
+        return Identifier.of("newzealandnatives", "geo/fantail");
     }
 
     @Override
@@ -26,6 +26,6 @@ class FantailModel extends software.bernie.geckolib.model.GeoModel<NativesEntity
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/fantail.animation.json");
+        return Identifier.of("newzealandnatives", "fantail.animation");
     }
 }

@@ -16,7 +16,7 @@ public class RedAdmiralRenderer extends GeoEntityRenderer<NativesEntity, EntityR
 class RedAdmiralModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/red_admiral.geo.json");
+        return Identifier.of("newzealandnatives", "geo/red_admiral");
     }
 
     @Override
@@ -26,6 +26,6 @@ class RedAdmiralModel extends software.bernie.geckolib.model.GeoModel<NativesEnt
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/monarch.animation.json");
+        return Identifier.of("newzealandnatives", "monarch.animation");
     }
 }

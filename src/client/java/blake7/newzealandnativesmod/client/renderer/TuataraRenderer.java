@@ -16,7 +16,7 @@ public class TuataraRenderer extends GeoEntityRenderer<NativesEntity, EntityRend
 class TuataraModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/tuatara.geo.json");
+        return Identifier.of("newzealandnatives", "geo/tuatara");
     }
 
     @Override
@@ -26,6 +26,6 @@ class TuataraModel extends software.bernie.geckolib.model.GeoModel<NativesEntity
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/tuatara.animation.json");
+        return Identifier.of("newzealandnatives", "tuatara.animation");
     }
 }

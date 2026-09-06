@@ -16,7 +16,7 @@ public class HumpbackWhaleRenderer extends GeoEntityRenderer<NativesEntity, Enti
 class HumpbackWhaleModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/humpback_whale.geo.json");
+        return Identifier.of("newzealandnatives", "geo/humpback_whale");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HumpbackWhaleModel extends software.bernie.geckolib.model.GeoModel<Natives
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/humpback_whale.animation.json");
+        return Identifier.of("newzealandnatives", "humpback_whale.animation");
     }
 }

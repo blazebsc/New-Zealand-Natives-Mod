@@ -16,7 +16,7 @@ public class MoaRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderSt
 class MoaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/moa.geo.json");
+        return Identifier.of("newzealandnatives", "geo/moa");
     }
 
     @Override
@@ -26,6 +26,6 @@ class MoaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/moa.animation.json");
+        return Identifier.of("newzealandnatives", "moa.animation");
     }
 }

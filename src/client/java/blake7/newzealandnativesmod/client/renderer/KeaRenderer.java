@@ -16,7 +16,7 @@ public class KeaRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderSt
 class KeaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/kea.geo.json");
+        return Identifier.of("newzealandnatives", "geo/kea");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KeaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/kea.animation.json");
+        return Identifier.of("newzealandnatives", "kea.animation");
     }
 }
