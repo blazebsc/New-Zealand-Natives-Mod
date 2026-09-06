@@ -84,8 +84,6 @@ public class newzealandnativesmodClient implements ClientModInitializer {
                 EntityRendererRegistry.register(type, KotukuRenderer::new);
             } else if (id.equals("koura")) {
                 EntityRendererRegistry.register(type, KouraRenderer::new);
-            } else if (id.equals("kowhai")) {
-                EntityRendererRegistry.register(type, KowhaiRenderer::new);
             } else if (id.equals("kunekune")) {
                 EntityRendererRegistry.register(type, KunekuneRenderer::new);
             } else if (id.equals("moa")) {

@@ -104,7 +104,6 @@ public final class NativesEntities {
             new Entry("kotare",          "Kōtare",                  MobCategory.CREATURE),
             new Entry("kotuku",          "Kotuku",                  MobCategory.CREATURE),
             new Entry("koura",           "Kēkēwai",                MobCategory.WATER_CREATURE),
-            new Entry("kowhai",          "Kowhai",                  MobCategory.CREATURE),
             new Entry("kunekune",        "Kunekune Pig",            MobCategory.CREATURE),
             new Entry("moa",             "South Island Moa",        MobCategory.CREATURE),
             new Entry("monarch",         "Monarch",                 MobCategory.CREATURE),
