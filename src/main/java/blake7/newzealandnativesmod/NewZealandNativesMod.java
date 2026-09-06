@@ -39,6 +39,7 @@ public class NewZealandNativesMod implements ModInitializer {
                 KiwiEntity.createMobAttributes()
                         .add(EntityAttributes.MAX_HEALTH, 4.0D)
                         .add(EntityAttributes.MOVEMENT_SPEED, 0.2D)
+                        .add(EntityAttributes.TEMPT_RANGE, 10.0D)
                         .add(EntityAttributes.FOLLOW_RANGE, 16.0D)
                         .build());
 
@@ -49,6 +50,7 @@ public class NewZealandNativesMod implements ModInitializer {
                 RuruEntity.createMobAttributes()
                         .add(EntityAttributes.MAX_HEALTH, 6.0D)
                         .add(EntityAttributes.MOVEMENT_SPEED, 0.4D)
+                        .add(EntityAttributes.TEMPT_RANGE, 10.0D)
                         .add(EntityAttributes.FOLLOW_RANGE, 16.0D)
                         .add(EntityAttributes.FLYING_SPEED, 0.4D)
                         .build());
@@ -67,6 +69,7 @@ public class NewZealandNativesMod implements ModInitializer {
                 var builder = NativesEntity.createMobAttributes()
                         .add(EntityAttributes.MAX_HEALTH, stats[0])
                         .add(EntityAttributes.MOVEMENT_SPEED, stats[1])
+                        .add(EntityAttributes.TEMPT_RANGE, 10.0D)
                         .add(EntityAttributes.FOLLOW_RANGE, id.equals("haasts_eagle") ? 64.0D : 16.0D)
                         .add(EntityAttributes.FLYING_SPEED, 0.4D);
                 if (id.equals("haasts_eagle")) {
