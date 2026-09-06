@@ -18,6 +18,9 @@
     ],
     "main": [
       "blake7.newzealandnativesmod.NewZealandNativesMod"
+    ],
+    "modmenu": [
+      "blake7.newzealandnativesmod.client.NativesModMenu"
     ]
   },
   "mixins": [
