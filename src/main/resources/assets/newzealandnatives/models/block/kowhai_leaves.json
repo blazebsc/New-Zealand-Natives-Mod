@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "newzealandnatives:block/kowhai_leaves"
+  }
+}

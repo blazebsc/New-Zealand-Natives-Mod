@@ -98,8 +98,6 @@ public final class SpeciesEntities {
             return EntityDimensions.fixed(1.0f, 1.2f);
         } else if (id.equals("kunekune")) {
             return EntityDimensions.fixed(0.6f, 0.7f);
-        } else if (id.equals("kowhai")) {
-            return EntityDimensions.fixed(0.6f, 0.7f);
         } else if (id.equals("koura")) {
             return EntityDimensions.fixed(0.6f, 0.7f);
         } else if (id.equals("kotuku")) {

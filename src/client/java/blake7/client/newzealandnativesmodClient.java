@@ -6,9 +6,12 @@ import blake7.newzealandnativesmod.entity.KatipoEntity;
 import blake7.newzealandnativesmod.entity.HectorsDolphinEntity;
 import blake7.newzealandnativesmod.entity.RuruEntity;
 import blake7.newzealandnativesmod.entity.NativesEntity;
+import blake7.newzealandnativesmod.registry.NativesBlocks;
 import blake7.newzealandnativesmod.registry.NativesEntities;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.entity.EntityType;
 
 public class newzealandnativesmodClient implements ClientModInitializer {
@@ -84,8 +87,6 @@ public class newzealandnativesmodClient implements ClientModInitializer {
                 EntityRendererRegistry.register(type, KotukuRenderer::new);
             } else if (id.equals("koura")) {
                 EntityRendererRegistry.register(type, KouraRenderer::new);
-            } else if (id.equals("kowhai")) {
-                EntityRendererRegistry.register(type, KowhaiRenderer::new);
             } else if (id.equals("kunekune")) {
                 EntityRendererRegistry.register(type, KunekuneRenderer::new);
             } else if (id.equals("moa")) {
@@ -136,5 +137,8 @@ public class newzealandnativesmodClient implements ClientModInitializer {
                 EntityRendererRegistry.register(type, WhioRenderer::new);
             }
         }
+
+        BlockRenderLayerMap.putBlock(NativesBlocks.KOWHAI_LEAVES, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(NativesBlocks.KOWHAI_SAPLING, BlockRenderLayer.CUTOUT);
     }
 }

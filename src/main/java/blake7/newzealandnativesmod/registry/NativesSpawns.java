@@ -47,7 +47,7 @@ public final class NativesSpawns {
 
         // Forest birds / flora.
         String[] forest = {"kakapo", "kereru", "puriri", "ruru", "takahe", "tui", "weka",
-                "kowhai", "pohutukawa", "ponga", "harakeke", "kea", "basket_fungus",
+                "pohutukawa", "ponga", "harakeke", "kea", "basket_fungus",
                 "gecko", "skink", "tuatara"};
         for (String id : forest) add(byId, id, NativesSpawns::forest, 20, 2, 3);
         add(byId, "bat", NativesSpawns::forest, 20, 2, 3);
@@ -76,7 +76,7 @@ public final class NativesSpawns {
         String[] day = {"falcon", "fantail", "frog", "huia", "hura", "kokako", "kotare",
                 "kunekune", "pateke", "pukeko", "saddleback", "wasp", "weevil", "whio",
                 "kiwi", "moa", "haasts_eagle", "harvestman", "kakapo", "kereru", "puriri",
-                "ruru", "takahe", "tui", "weka", "kowhai", "pohutukawa", "ponga", "harakeke",
+                "ruru", "takahe", "tui", "weka", "pohutukawa", "ponga", "harakeke",
                 "kea", "basket_fungus", "kotuku", "monarch", "red_admiral", "albatross",
                 "king_shag", "hoiho", "korora", "tawaki", "eel", "kokopu", "kina", "papaka",
                 "tamure", "humpback_whale"};
@@ -93,6 +93,12 @@ public final class NativesSpawns {
                 GenerationStep.Feature.VEGETAL_DECORATION,
                 RegistryKey.of(RegistryKeys.PLACED_FEATURE,
                         Identifier.of("newzealandnatives", "rotten_log_patch")));
+        // Kowhai trees dot the forest canopy.
+        BiomeModifications.addFeature(
+                NativesSpawns::forest,
+                GenerationStep.Feature.VEGETAL_DECORATION,
+                RegistryKey.of(RegistryKeys.PLACED_FEATURE,
+                        Identifier.of("newzealandnatives", "kowhai_trees")));
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})

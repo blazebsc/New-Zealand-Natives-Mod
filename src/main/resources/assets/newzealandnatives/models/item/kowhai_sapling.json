@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "newzealandnatives:item/kowhai_spawn_egg"
+    "layer0": "newzealandnatives:block/kowhai_sapling"
   }
 }

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "stage=0": {
+      "model": "newzealandnatives:block/kowhai_sapling"
+    },
+    "stage=1": {
+      "model": "newzealandnatives:block/kowhai_sapling"
+    }
+  }
+}

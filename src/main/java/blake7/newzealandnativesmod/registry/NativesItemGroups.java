@@ -20,6 +20,9 @@ public final class NativesItemGroups {
                 }
                 entries.add(NativesItems.HUHU_GRUB);
                 entries.add(NativesBlocks.ROTTEN_LOG);
+                entries.add(NativesBlocks.KOWHAI_LOG);
+                entries.add(NativesBlocks.KOWHAI_LEAVES);
+                entries.add(NativesBlocks.KOWHAI_SAPLING);
             })
             .build();
 
