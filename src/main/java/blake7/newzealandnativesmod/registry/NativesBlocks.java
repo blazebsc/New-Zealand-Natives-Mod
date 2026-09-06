@@ -9,21 +9,29 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+
+import java.util.function.Function;
 
 public final class NativesBlocks {
     private NativesBlocks() {}
 
-    public static final Block ROTTEN_LOG = register("rotten_log",
-            new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(MapColor.BROWN)));
+    public static final Block ROTTEN_LOG = register("rotten_log", key ->
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(MapColor.BROWN).registryKey(key)));
 
     public static void register() {
     }
 
-    private static Block register(String id, Block block) {
-        Block registered = Registry.register(Registries.BLOCK, Identifier.of("newzealandnatives", id), block);
-        Registry.register(Registries.ITEM, Identifier.of("newzealandnatives", id),
-                new BlockItem(registered, new Item.Settings()));
+    private static Block register(String id, Function<RegistryKey<Block>, Block> factory) {
+        Identifier identifier = Identifier.of("newzealandnatives", id);
+        RegistryKey<Block> blockKey = RegistryKey.of(RegistryKeys.BLOCK, identifier);
+        RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, identifier);
+        Block block = factory.apply(blockKey);
+        Block registered = Registry.register(Registries.BLOCK, identifier, block);
+        Registry.register(Registries.ITEM, identifier,
+                new BlockItem(registered, new Item.Settings().registryKey(itemKey)));
         return registered;
     }
 }
