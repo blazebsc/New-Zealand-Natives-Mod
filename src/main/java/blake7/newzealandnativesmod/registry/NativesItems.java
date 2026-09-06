@@ -92,7 +92,6 @@ public final class NativesItems {
             Map.entry("kotare",         new int[]{0x4A8AC8, 0xF5D800}),
             Map.entry("kotuku",          new int[]{0xF0F0F0, 0xD0C8A0}),
             Map.entry("koura",           new int[]{0x8B3A2A, 0x4A1A10}),
-            Map.entry("kowhai",         new int[]{0xF5D800, 0x4A7A2A}),
             Map.entry("kunekune",       new int[]{0xC8865A, 0x8B6B3A}),
             Map.entry("moa",             new int[]{0x8B6B3A, 0x5A4225}),
             Map.entry("monarch",         new int[]{0xFF8C00, 0xFFFFFF}),

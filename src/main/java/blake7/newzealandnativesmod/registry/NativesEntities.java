@@ -102,7 +102,6 @@ public final class NativesEntities {
             new Entry("kotare",          "Kōtare",                  SpawnGroup.CREATURE),
             new Entry("kotuku",          "Kotuku",                  SpawnGroup.CREATURE),
             new Entry("koura",           "Kēkēwai",                SpawnGroup.WATER_CREATURE),
-            new Entry("kowhai",          "Kowhai",                  SpawnGroup.CREATURE),
             new Entry("kunekune",        "Kunekune Pig",            SpawnGroup.CREATURE),
             new Entry("moa",             "South Island Moa",        SpawnGroup.CREATURE),
             new Entry("monarch",         "Monarch",                 SpawnGroup.CREATURE),

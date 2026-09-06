@@ -140,7 +140,7 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
     );
 
     // Upstream issue #11: plant entities drift with water. They stay planted.
-    static final Set<String> FLORA = Set.of("basket_fungus", "harakeke", "kowhai", "pohutukawa", "ponga");
+    static final Set<String> FLORA = Set.of("basket_fungus", "harakeke", "pohutukawa", "ponga");
 
     @Override
     public boolean isPushable() {

@@ -54,7 +54,6 @@ public final class NativesAnimRegistry {
         anim("saddleback", "animation.huia.walk", null, "animation.huia.fly", null);
         anim("basket_fungus", null, "animation.flora.idle", null, null);
         anim("harakeke", null, "animation.flora.idle", null, null);
-        anim("kowhai", null, "animation.flora.idle", null, null);
         anim("pohutukawa", null, "animation.flora.idle", null, null);
         anim("ponga", null, "animation.flora.idle", null, null);
         anim("sea_lion", "animation.sea_lion.walk", null, null, "animation.sea_lion.swim");
