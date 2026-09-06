@@ -1,31 +1,31 @@
 package blake7.newzealandnativesmod.client.renderer;
 
 import blake7.newzealandnativesmod.entity.NativesEntity;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.util.Identifier;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.Identifier;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class HaastsEagleRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderState> {
-    public HaastsEagleRenderer(EntityRendererFactory.Context ctx) {
+    public HaastsEagleRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new HaastsEagleModel());
     }
 }
 
-class HaastsEagleModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
+class HaastsEagleModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/haasts_eagle.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/haasts_eagle.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "textures/entity/haasts_eagle/haasts_eagle.png");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/haasts_eagle/haasts_eagle.png");
     }
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/falcon.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/falcon.animation.json");
     }
 }

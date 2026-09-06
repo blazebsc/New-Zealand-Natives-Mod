@@ -15,9 +15,9 @@ import blake7.newzealandnativesmod.registry.NativesSounds;
 import blake7.newzealandnativesmod.registry.NativesSpawns;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,20 +37,20 @@ public class NewZealandNativesMod implements ModInitializer {
 
         FabricDefaultAttributeRegistry.register(KiwiEntity.TYPE,
                 KiwiEntity.createMobAttributes()
-                        .add(EntityAttributes.MAX_HEALTH, 4.0D)
-                        .add(EntityAttributes.MOVEMENT_SPEED, 0.2D)
-                        .add(EntityAttributes.FOLLOW_RANGE, 16.0D)
+                        .add(Attributes.MAX_HEALTH, 4.0D)
+                        .add(Attributes.MOVEMENT_SPEED, 0.2D)
+                        .add(Attributes.FOLLOW_RANGE, 16.0D)
                         .build());
 
         FabricDefaultAttributeRegistry.register(KatipoEntity.TYPE, KatipoEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(HectorsDolphinEntity.TYPE,
-                HectorsDolphinEntity.createDolphinAttributes().build());
+                HectorsDolphinEntity.createAttributes().build());
         FabricDefaultAttributeRegistry.register(RuruEntity.TYPE,
                 RuruEntity.createMobAttributes()
-                        .add(EntityAttributes.MAX_HEALTH, 6.0D)
-                        .add(EntityAttributes.MOVEMENT_SPEED, 0.4D)
-                        .add(EntityAttributes.FOLLOW_RANGE, 16.0D)
-                        .add(EntityAttributes.FLYING_SPEED, 0.4D)
+                        .add(Attributes.MAX_HEALTH, 6.0D)
+                        .add(Attributes.MOVEMENT_SPEED, 0.4D)
+                        .add(Attributes.FOLLOW_RANGE, 16.0D)
+                        .add(Attributes.FLYING_SPEED, 0.4D)
                         .build());
 
         var allTypes = NativesEntities.all();
@@ -61,16 +61,16 @@ public class NewZealandNativesMod implements ModInitializer {
             if (i < allTypes.size()) {
                 EntityType<?> type = allTypes.get(i);
                 @SuppressWarnings("unchecked")
-                EntityType<? extends net.minecraft.entity.LivingEntity> livingType =
-                        (EntityType<? extends net.minecraft.entity.LivingEntity>) type;
+                EntityType<? extends net.minecraft.world.entity.LivingEntity> livingType =
+                        (EntityType<? extends net.minecraft.world.entity.LivingEntity>) type;
                 double[] stats = SpeciesEntities.statsFor(allSpecies[i]);
                 var builder = NativesEntity.createMobAttributes()
-                        .add(EntityAttributes.MAX_HEALTH, stats[0])
-                        .add(EntityAttributes.MOVEMENT_SPEED, stats[1])
-                        .add(EntityAttributes.FOLLOW_RANGE, id.equals("haasts_eagle") ? 64.0D : 16.0D)
-                        .add(EntityAttributes.FLYING_SPEED, 0.4D);
+                        .add(Attributes.MAX_HEALTH, stats[0])
+                        .add(Attributes.MOVEMENT_SPEED, stats[1])
+                        .add(Attributes.FOLLOW_RANGE, id.equals("haasts_eagle") ? 64.0D : 16.0D)
+                        .add(Attributes.FLYING_SPEED, 0.4D);
                 if (id.equals("haasts_eagle")) {
-                    builder.add(EntityAttributes.ATTACK_DAMAGE, 6.0D);
+                    builder.add(Attributes.ATTACK_DAMAGE, 6.0D);
                 }
                 FabricDefaultAttributeRegistry.register(livingType, builder.build());
             }
@@ -81,10 +81,10 @@ public class NewZealandNativesMod implements ModInitializer {
     }
 
     public static Identifier id(String path) {
-        return Identifier.of(MOD_ID, path);
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
     public static Identifier bedrockId(String path) {
-        return Identifier.of(MOD_ID, path);
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 }

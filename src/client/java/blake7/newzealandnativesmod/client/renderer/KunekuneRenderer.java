@@ -1,31 +1,31 @@
 package blake7.newzealandnativesmod.client.renderer;
 
 import blake7.newzealandnativesmod.entity.NativesEntity;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.util.Identifier;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.Identifier;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class KunekuneRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderState> {
-    public KunekuneRenderer(EntityRendererFactory.Context ctx) {
+    public KunekuneRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new KunekuneModel());
     }
 }
 
-class KunekuneModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
+class KunekuneModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/kunekune.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/kunekune.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "textures/entity/kunekune/kunekune.png");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/kunekune/kunekune.png");
     }
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/kunekune.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/kunekune.animation.json");
     }
 }

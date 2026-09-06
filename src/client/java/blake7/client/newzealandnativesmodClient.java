@@ -9,7 +9,7 @@ import blake7.newzealandnativesmod.entity.NativesEntity;
 import blake7.newzealandnativesmod.registry.NativesEntities;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.EntityType;
 
 public class newzealandnativesmodClient implements ClientModInitializer {
 

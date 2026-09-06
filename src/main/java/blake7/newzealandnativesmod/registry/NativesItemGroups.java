@@ -1,30 +1,30 @@
 package blake7.newzealandnativesmod.registry;
 
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
 public final class NativesItemGroups {
     private NativesItemGroups() {}
 
-    public static final ItemGroup NATIVES = FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup.newzealandnatives.natives"))
+    public static final CreativeModeTab NATIVES = FabricCreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.newzealandnatives.natives"))
             .icon(() -> new ItemStack(NativesItems.KIWI_SPAWN_EGG))
-            .entries((ctx, entries) -> {
+            .displayItems((ctx, entries) -> {
                 for (var egg : NativesItems.spawnEggs().values()) {
-                    entries.add(egg);
+                    entries.accept(egg);
                 }
-                entries.add(NativesItems.HUHU_GRUB);
-                entries.add(NativesBlocks.ROTTEN_LOG);
+                entries.accept(NativesItems.HUHU_GRUB);
+                entries.accept(NativesBlocks.ROTTEN_LOG);
             })
             .build();
 
     public static void register() {
-        Registry.register(Registries.ITEM_GROUP,
-                Identifier.of("newzealandnatives", "natives"), NATIVES);
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
+                Identifier.fromNamespaceAndPath("newzealandnatives", "natives"), NATIVES);
     }
 }

@@ -1,8 +1,8 @@
 package blake7.newzealandnativesmod.registry;
 
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
 import blake7.newzealandnativesmod.entity.NativesEntity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
 
 public final class SpeciesEntities {
     private SpeciesEntities() {}

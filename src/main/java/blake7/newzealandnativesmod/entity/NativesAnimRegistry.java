@@ -1,8 +1,8 @@
 package blake7.newzealandnativesmod.entity;
 
-import net.minecraft.entity.EntityType;
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.world.entity.EntityType;
 
 public final class NativesAnimRegistry {
     private NativesAnimRegistry() {}

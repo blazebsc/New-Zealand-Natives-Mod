@@ -1,33 +1,40 @@
 package blake7.newzealandnativesmod.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.control.FlightMoveControl;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.BirdNavigation;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import blake7.newzealandnativesmod.registry.NativesItems;
 import blake7.newzealandnativesmod.registry.NativesSounds;
 
 import java.util.Map;
 import java.util.Set;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.object.PlayState;
-import software.bernie.geckolib.animation.state.AnimationTest;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.*;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.util.GeckoLibUtil;
 
-public class NativesEntity extends AnimalEntity implements GeoEntity {
+public class NativesEntity extends Animal implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private MovementType moveType;
 
@@ -40,21 +47,21 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
             "pateke", "pukeko", "puriri", "red_admiral", "ruru", "saddleback",
             "takahe", "tui", "wasp", "weka", "whio");
 
-    public NativesEntity(EntityType<? extends AnimalEntity> entityType, World world) {
+    public NativesEntity(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
         this.moveType = NativesAnimRegistry.getMovementType(NativesAnimRegistry.getId(entityType));
         if (moveType == MovementType.FLY) {
-            this.moveControl = new FlightMoveControl(this, 20, true);
+            this.moveControl = new FlyingMoveControl(this, 20, true);
         }
     }
 
     @Override
-    public boolean handleFallDamage(double fallDistance, float damageMultiplier,
-            net.minecraft.entity.damage.DamageSource damageSource) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier,
+            net.minecraft.world.damagesource.DamageSource damageSource) {
         if (FALL_IMMUNE.contains(NativesAnimRegistry.getId(this.getType()))) {
             return false;
         }
-        return super.handleFallDamage(fallDistance, damageMultiplier, damageSource);
+        return super.causeFallDamage(fallDistance, damageMultiplier, damageSource);
     }
 
     private MovementType resolveMoveType() {
@@ -63,20 +70,20 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
     }
 
     @Override
-    protected EntityNavigation createNavigation(World world) {
+    protected PathNavigation createNavigation(Level world) {
         MovementType mt = moveType != null ? moveType : resolveMoveType();
         if (mt == MovementType.FLY) {
-            BirdNavigation nav = new BirdNavigation(this, world);
-            nav.setCanSwim(false);
+            FlyingPathNavigation nav = new FlyingPathNavigation(this, world);
+            nav.setCanFloat(false);
             return nav;
         }
         return super.createNavigation(world);
     }
 
     @Override
-    public boolean canMoveVoluntarily() {
+    public boolean canSimulateMovement() {
         MovementType mt = moveType != null ? moveType : resolveMoveType();
-        return mt == MovementType.FLY || super.canMoveVoluntarily();
+        return mt == MovementType.FLY || super.canSimulateMovement();
     }
 
     // Bedrock tempt/breed items per species (bare ids resolved: fish->cod, dye:0->ink, S4->4 seeds, F7->3 flowers).
@@ -149,47 +156,47 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
     }
 
     @Override
-    public boolean isPushedByFluids() {
-        return !FLORA.contains(NativesAnimRegistry.getId(this.getType())) && super.isPushedByFluids();
+    public boolean isPushedByFluid() {
+        return !FLORA.contains(NativesAnimRegistry.getId(this.getType())) && super.isPushedByFluid();
     }
 
     @Override
-    protected void initGoals() {
+    protected void registerGoals() {
         MovementType mt = resolveMoveType();
         String id = NativesAnimRegistry.getId(this.getType());
         boolean flora = FLORA.contains(id);
         if (!flora) {
-            this.goalSelector.add(0, new SwimGoal(this));
+            this.goalSelector.addGoal(0, new FloatGoal(this));
         }
         if (id.equals("eel")) {
-            this.goalSelector.add(1, new FleeEntityGoal<>(this, PlayerEntity.class, 10.0f, 1.5, 2.0));
+            this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 10.0f, 1.5, 2.0));
         } else if (id.equals("kokopu")) {
-            this.goalSelector.add(1, new FleeEntityGoal<>(this, PlayerEntity.class, 6.0f, 1.5, 2.0));
+            this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 6.0f, 1.5, 2.0));
         } else if (id.equals("moa")) {
-            this.goalSelector.add(1, new FleeEntityGoal<>(this, PlayerEntity.class, 5.0f, 1.3, 1.8));
+            this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 5.0f, 1.3, 1.8));
         }
         Set<Item> tempt = TEMPT.getOrDefault(id, Set.of());
         if (!tempt.isEmpty()) {
-            this.goalSelector.add(1, new TemptGoal(this, 1.1, stack -> tempt.contains(stack.getItem()), false));
+            this.goalSelector.addGoal(1, new TemptGoal(this, 1.1, stack -> tempt.contains(stack.getItem()), false));
         }
         if (BREED.containsKey(id)) {
-            this.goalSelector.add(2, new AnimalMateGoal(this, 1.0));
+            this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
         }
         if (flora) {
             // no movement goals: plants stay where planted
         } else if (mt == MovementType.FLY) {
-            this.goalSelector.add(3, new WanderFlyGoal(this));
+            this.goalSelector.addGoal(3, new WanderFlyGoal(this));
         } else if (mt == MovementType.WATER) {
-            this.goalSelector.add(3, new WanderSwimGoal(this));
+            this.goalSelector.addGoal(3, new WanderSwimGoal(this));
         } else if (mt == MovementType.AMPHIBIOUS) {
-            this.goalSelector.add(3, new WanderSwimGoal(this));
-            this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
+            this.goalSelector.addGoal(3, new WanderSwimGoal(this));
+            this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0));
         } else {
-            this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0));
+            this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0));
         }
-        this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.add(5, new LookAroundGoal(this));
-        this.goalSelector.add(6, new FollowParentGoal(this, 1.2));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0f));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.2));
     }
 
     @Override
@@ -197,10 +204,10 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
         controllers.add(new AnimationController<>("main", 0, state -> {
             NativesAnimRegistry.AnimSet set =
                     NativesAnimRegistry.getAnims(NativesAnimRegistry.getId(this.getType()));
-            if (this.isTouchingWater() && set.swim() != null) {
+            if (this.isInWater() && set.swim() != null) {
                 return loop(state, set.swim());
             }
-            if (!this.isOnGround() && !this.isTouchingWater() && set.fly() != null) {
+            if (!this.onGround() && !this.isInWater() && set.fly() != null) {
                 return loop(state, set.fly());
             }
             if (state.isMoving() && set.walk() != null) {
@@ -233,7 +240,7 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
     }
 
     @Override
-    protected SoundEvent getHurtSound(net.minecraft.entity.damage.DamageSource source) {
+    protected SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource source) {
         SoundEvent hurt = NativesSounds.get(NativesAnimRegistry.getId(this.getType()), "hurt");
         return hurt != null ? hurt : super.getHurtSound(source);
     }
@@ -273,23 +280,23 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
     );
 
     @Override
-    public float getScaleFactor() {
+    public float getAgeScale() {
         if (this.isBaby()) {
             Float s = BABY_SCALE.get(NativesAnimRegistry.getId(this.getType()));
             if (s != null) return s;
         }
-        return super.getScaleFactor();
+        return super.getAgeScale();
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
+    public boolean isFood(ItemStack stack) {
         Set<Item> breed = BREED.get(NativesAnimRegistry.getId(this.getType()));
         return breed != null && breed.contains(stack.getItem());
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return new NativesEntity((EntityType<? extends AnimalEntity>) this.getType(), world);
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
+        return new NativesEntity((EntityType<? extends Animal>) this.getType(), world);
     }
 }

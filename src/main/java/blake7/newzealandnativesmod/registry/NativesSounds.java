@@ -1,12 +1,11 @@
 package blake7.newzealandnativesmod.registry;
 
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvent;
 
 public final class NativesSounds {
     private NativesSounds() {}
@@ -51,8 +50,8 @@ public final class NativesSounds {
     }
 
     private static void register(String path) {
-        Identifier id = Identifier.of("newzealandnatives", path);
-        EVENTS.put(path, Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id)));
+        Identifier id = Identifier.fromNamespaceAndPath("newzealandnatives", path);
+        EVENTS.put(path, Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id)));
     }
 
     public static SoundEvent get(String species, String kind) {

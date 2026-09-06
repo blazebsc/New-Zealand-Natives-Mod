@@ -1,31 +1,31 @@
 package blake7.newzealandnativesmod.client.renderer;
 
 import blake7.newzealandnativesmod.entity.NativesEntity;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.util.Identifier;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.Identifier;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class AlbatrossRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderState> {
-    public AlbatrossRenderer(EntityRendererFactory.Context ctx) {
+    public AlbatrossRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new AlbatrossModel());
     }
 }
 
-class AlbatrossModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
+class AlbatrossModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/albatross.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/albatross.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "textures/entity/albatross/albatross.png");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/albatross/albatross.png");
     }
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/albatross.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/albatross.animation.json");
     }
 }

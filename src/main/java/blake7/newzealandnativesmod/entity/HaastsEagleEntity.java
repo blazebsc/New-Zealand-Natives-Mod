@@ -1,31 +1,31 @@
 package blake7.newzealandnativesmod.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 // Bedrock attacks players within 64 blocks with swoop + circle-anchor.
 // Vanilla has no swoop goal; polar-bear pattern (melee + FlyGoal) approximates it.
 public class HaastsEagleEntity extends NativesEntity {
-    public static final EntityType<HaastsEagleEntity> TYPE = EntityType.Builder.create(HaastsEagleEntity::new, SpawnGroup.CREATURE)
-            .dimensions(0.7f, 0.8f)
-            .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", "haasts_eagle")));
+    public static final EntityType<HaastsEagleEntity> TYPE = EntityType.Builder.of(HaastsEagleEntity::new, MobCategory.CREATURE)
+            .sized(0.7f, 0.8f)
+            .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath("newzealandnatives", "haasts_eagle")));
 
-    public HaastsEagleEntity(EntityType<? extends AnimalEntity> entityType, World world) {
+    public HaastsEagleEntity(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    protected void initGoals() {
-        super.initGoals();
-        this.goalSelector.add(1, new MeleeAttackGoal(this, 1.2, true));
-        this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, false, true));
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false, true));
     }
 }

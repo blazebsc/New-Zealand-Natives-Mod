@@ -1,31 +1,31 @@
 package blake7.newzealandnativesmod.client.renderer;
 
 import blake7.newzealandnativesmod.entity.RuruEntity;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.util.Identifier;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.Identifier;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class RuruRenderer extends GeoEntityRenderer<RuruEntity, EntityRenderState> {
-    public RuruRenderer(EntityRendererFactory.Context ctx) {
+    public RuruRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new RuruModel());
     }
 }
 
-class RuruModel extends software.bernie.geckolib.model.GeoModel<RuruEntity> {
+class RuruModel extends com.geckolib.model.GeoModel<RuruEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/ruru.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/ruru.geo.json");
     }
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "textures/entity/ruru/ruru.png");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "textures/entity/ruru/ruru.png");
     }
 
     @Override
     public Identifier getAnimationResource(RuruEntity animatable) {
-        return Identifier.of("newzealandnatives", "animations/ruru.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/ruru.animation.json");
     }
 }
