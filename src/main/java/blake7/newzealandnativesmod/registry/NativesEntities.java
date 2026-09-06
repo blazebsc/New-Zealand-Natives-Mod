@@ -2,6 +2,8 @@ package blake7.newzealandnativesmod.registry;
 
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -63,7 +65,7 @@ public final class NativesEntities {
                         Identifier.of("newzealandnatives", e.shortId()),
                         EntityType.Builder.create(SpeciesEntities.factoryFor(e), e.spawnGroup())
                                 .dimensions(SpeciesEntities.sizeFor(e).width(), SpeciesEntities.sizeFor(e).height())
-                                .build(Identifier.of("newzealandnatives", e.shortId()).toString())
+                                .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", e.shortId())))
                 );
             }
             REGISTERED.add(type);

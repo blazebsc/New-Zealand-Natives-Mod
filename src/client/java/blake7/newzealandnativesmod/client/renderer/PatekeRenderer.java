@@ -3,9 +3,11 @@ package blake7.newzealandnativesmod.client.renderer;
 import blake7.newzealandnativesmod.entity.NativesEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
+import net.minecraft.client.render.entity.state.EntityRenderState;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
-public class PatekeRenderer extends GeoEntityRenderer<NativesEntity> {
+public class PatekeRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderState> {
     public PatekeRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new PatekeModel());
     }
@@ -13,12 +15,12 @@ public class PatekeRenderer extends GeoEntityRenderer<NativesEntity> {
 
 class PatekeModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
-    public Identifier getModelResource(NativesEntity object) {
+    public Identifier getModelResource(GeoRenderState renderState) {
         return Identifier.of("newzealandnatives", "geo/pateke.geo.json");
     }
 
     @Override
-    public Identifier getTextureResource(NativesEntity object) {
+    public Identifier getTextureResource(GeoRenderState renderState) {
         return Identifier.of("newzealandnatives", "textures/entity/pateke/pateke.png");
     }
 

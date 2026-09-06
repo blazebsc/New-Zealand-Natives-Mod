@@ -57,4 +57,4 @@ Minecraft Mod that adds various NZ native animals to the game.
 - Wētā
 - Whio (Blue Duck)
 
-Downloads for Windows 10, Education Edition, MCPE and other Bedrock editions available on the [Releases](https://github.com/eccentricdevotion/New-Zealand-Natives-Addon/releases) page.
+Downloads for 1.21.1, 1.21.11 and 26.2 available on the [Releases](https://github.com/blazebsc/New-Zealand-Natives-Addon/releases) page.

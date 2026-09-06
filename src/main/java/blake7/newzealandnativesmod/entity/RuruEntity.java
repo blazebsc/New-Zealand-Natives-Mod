@@ -23,15 +23,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.object.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -41,7 +43,7 @@ public class RuruEntity extends TameableEntity implements GeoEntity {
 
     public static final EntityType<RuruEntity> TYPE = EntityType.Builder.create(RuruEntity::new, SpawnGroup.CREATURE)
             .dimensions(0.6f, 0.7f)
-            .build(Identifier.of("newzealandnatives", "ruru").toString());
+            .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", "ruru")));
 
     public RuruEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
@@ -69,9 +71,7 @@ public class RuruEntity extends TameableEntity implements GeoEntity {
     @Override
     protected EntityNavigation createNavigation(World world) {
         BirdNavigation nav = new BirdNavigation(this, world);
-        nav.setCanPathThroughDoors(false);
         nav.setCanSwim(false);
-        nav.setCanEnterOpenDoors(true);
         return nav;
     }
 
@@ -81,7 +81,7 @@ public class RuruEntity extends TameableEntity implements GeoEntity {
         if (this.isTamed()) {
             if (this.isOwner(player) && !isSeed(stack)) {
                 this.setSitting(!this.isSitting());
-                return ActionResult.success(this.getWorld().isClient);
+                return ActionResult.SUCCESS;
             }
         } else if (isSeed(stack)) {
             stack.decrementUnlessCreative(1, player);
@@ -89,18 +89,18 @@ public class RuruEntity extends TameableEntity implements GeoEntity {
                 this.setOwner(player);
                 this.setTamed(true, true);
                 this.setSitting(true);
-                this.getWorld().sendEntityStatus(this, (byte) 7);
+                this.getEntityWorld().sendEntityStatus(this, (byte) 7);
             } else {
-                this.getWorld().sendEntityStatus(this, (byte) 6);
+                this.getEntityWorld().sendEntityStatus(this, (byte) 6);
             }
-            return ActionResult.success(this.getWorld().isClient);
+            return ActionResult.SUCCESS;
         }
         return super.interactMob(player, hand);
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "main", 0, state -> {
+        controllers.add(new AnimationController<>("main", 0, state -> {
             if (!this.isOnGround()) {
                 state.setAnimation(RawAnimation.begin().thenLoop("animation.ruru.fly"));
                 return PlayState.CONTINUE;
@@ -114,7 +114,7 @@ public class RuruEntity extends TameableEntity implements GeoEntity {
     }
 
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier,
+    public boolean handleFallDamage(double fallDistance, float damageMultiplier,
             net.minecraft.entity.damage.DamageSource damageSource) {
         return false;
     }

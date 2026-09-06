@@ -2,7 +2,7 @@ package blake7.newzealandnativesmod.client.renderer;
 
 import net.minecraft.client.render.entity.DolphinEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.entity.passive.DolphinEntity;
+import net.minecraft.client.render.entity.state.DolphinEntityRenderState;
 import net.minecraft.util.Identifier;
 
 public class HectorsDolphinRenderer extends DolphinEntityRenderer {
@@ -13,7 +13,7 @@ public class HectorsDolphinRenderer extends DolphinEntityRenderer {
     }
 
     @Override
-    public Identifier getTexture(DolphinEntity entity) {
+    public Identifier getTexture(DolphinEntityRenderState state) {
         return TEXTURE;
     }
 }

@@ -14,7 +14,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.biome.SpawnSettings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -157,10 +156,5 @@ public final class NativesSpawns {
         }
         if (group == null) return;
         BiomeModifications.addSpawn(selector, group, (EntityType) raw, weight, min, max);
-    }
-
-    @SuppressWarnings("unused")
-    private static SpawnSettings.SpawnEntry entry(EntityType<?> type, int weight, int min, int max) {
-        return new SpawnSettings.SpawnEntry((EntityType<?>) type, weight, min, max);
     }
 }
