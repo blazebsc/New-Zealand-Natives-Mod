@@ -16,7 +16,7 @@ public class HumpbackWhaleRenderer extends GeoEntityRenderer<NativesEntity, Enti
 class HumpbackWhaleModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/humpback_whale.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/humpback_whale");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HumpbackWhaleModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/humpback_whale.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "humpback_whale.animation");
     }
 }

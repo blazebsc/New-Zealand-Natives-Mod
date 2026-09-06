@@ -16,7 +16,7 @@ public class TuiRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderSt
 class TuiModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/tui.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/tui");
     }
 
     @Override
@@ -26,6 +26,6 @@ class TuiModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/tui.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "tui.animation");
     }
 }

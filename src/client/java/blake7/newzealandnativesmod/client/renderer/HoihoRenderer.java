@@ -16,7 +16,7 @@ public class HoihoRenderer extends GeoEntityRenderer<NativesEntity, EntityRender
 class HoihoModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/hoiho.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/hoiho");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HoihoModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/hoiho.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "hoiho.animation");
     }
 }

@@ -16,7 +16,7 @@ public class KeaRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderSt
 class KeaModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/kea.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/kea");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KeaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/kea.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "kea.animation");
     }
 }

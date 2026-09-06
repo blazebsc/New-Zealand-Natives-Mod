@@ -16,7 +16,7 @@ public class HaastsEagleRenderer extends GeoEntityRenderer<NativesEntity, Entity
 class HaastsEagleModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/haasts_eagle.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/haasts_eagle");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HaastsEagleModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/falcon.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "falcon.animation");
     }
 }

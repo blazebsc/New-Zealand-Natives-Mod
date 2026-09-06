@@ -16,7 +16,7 @@ public class KororaRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class KororaModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/korora.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/korora");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KororaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/korora.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "korora.animation");
     }
 }

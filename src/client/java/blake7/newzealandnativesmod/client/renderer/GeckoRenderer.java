@@ -16,7 +16,7 @@ public class GeckoRenderer extends GeoEntityRenderer<NativesEntity, EntityRender
 class GeckoModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/gecko.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/gecko");
     }
 
     @Override
@@ -26,6 +26,6 @@ class GeckoModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/skink.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "skink.animation");
     }
 }

@@ -16,7 +16,7 @@ public class FalconRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class FalconModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/falcon.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/falcon");
     }
 
     @Override
@@ -26,6 +26,6 @@ class FalconModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/falcon.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "falcon.animation");
     }
 }

@@ -16,7 +16,7 @@ public class KatipoRenderer extends GeoEntityRenderer<KatipoEntity, EntityRender
 class KatipoModel extends com.geckolib.model.GeoModel<KatipoEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/katipo.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/katipo");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KatipoModel extends com.geckolib.model.GeoModel<KatipoEntity> {
 
     @Override
     public Identifier getAnimationResource(KatipoEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/katipo.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "katipo.animation");
     }
 }

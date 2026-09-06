@@ -16,7 +16,7 @@ public class SkinkRenderer extends GeoEntityRenderer<NativesEntity, EntityRender
 class SkinkModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/skink.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/skink");
     }
 
     @Override
@@ -26,6 +26,6 @@ class SkinkModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/skink.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "skink.animation");
     }
 }

@@ -16,7 +16,7 @@ public class AlbatrossRenderer extends GeoEntityRenderer<NativesEntity, EntityRe
 class AlbatrossModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/albatross.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/albatross");
     }
 
     @Override
@@ -26,6 +26,6 @@ class AlbatrossModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/albatross.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "albatross.animation");
     }
 }

@@ -16,7 +16,7 @@ public class HarvestmanRenderer extends GeoEntityRenderer<NativesEntity, EntityR
 class HarvestmanModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/harvestman.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/harvestman");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HarvestmanModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/harvestman.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "harvestman.animation");
     }
 }

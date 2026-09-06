@@ -16,7 +16,7 @@ public class KotukuRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class KotukuModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/kotuku.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/kotuku");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KotukuModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/kotuku.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "kotuku.animation");
     }
 }

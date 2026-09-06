@@ -16,7 +16,7 @@ public class PuririRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class PuririModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/puriri.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/puriri");
     }
 
     @Override
@@ -26,6 +26,6 @@ class PuririModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/puriri.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "puriri.animation");
     }
 }

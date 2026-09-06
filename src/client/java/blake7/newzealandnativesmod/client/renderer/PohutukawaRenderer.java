@@ -16,7 +16,7 @@ public class PohutukawaRenderer extends GeoEntityRenderer<NativesEntity, EntityR
 class PohutukawaModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/pohutukawa.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/pohutukawa");
     }
 
     @Override
@@ -26,6 +26,6 @@ class PohutukawaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/flora.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "flora.animation");
     }
 }

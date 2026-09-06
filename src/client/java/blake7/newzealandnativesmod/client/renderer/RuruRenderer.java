@@ -16,7 +16,7 @@ public class RuruRenderer extends GeoEntityRenderer<RuruEntity, EntityRenderStat
 class RuruModel extends com.geckolib.model.GeoModel<RuruEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/ruru.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/ruru");
     }
 
     @Override
@@ -26,6 +26,6 @@ class RuruModel extends com.geckolib.model.GeoModel<RuruEntity> {
 
     @Override
     public Identifier getAnimationResource(RuruEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/ruru.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "ruru.animation");
     }
 }

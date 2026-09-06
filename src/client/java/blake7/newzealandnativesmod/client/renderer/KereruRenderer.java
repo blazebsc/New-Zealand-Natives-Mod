@@ -16,7 +16,7 @@ public class KereruRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class KereruModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/kereru.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/kereru");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KereruModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/kereru.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "kereru.animation");
     }
 }

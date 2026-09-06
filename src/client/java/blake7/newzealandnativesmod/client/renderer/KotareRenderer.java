@@ -16,7 +16,7 @@ public class KotareRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class KotareModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/kotare.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/kotare");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KotareModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/kotare.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "kotare.animation");
     }
 }

@@ -16,7 +16,7 @@ public class SaddlebackRenderer extends GeoEntityRenderer<NativesEntity, EntityR
 class SaddlebackModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/saddleback.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/saddleback");
     }
 
     @Override
@@ -26,6 +26,6 @@ class SaddlebackModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/huia.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "huia.animation");
     }
 }

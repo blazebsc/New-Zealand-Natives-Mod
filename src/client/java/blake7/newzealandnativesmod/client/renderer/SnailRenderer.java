@@ -16,7 +16,7 @@ public class SnailRenderer extends GeoEntityRenderer<NativesEntity, EntityRender
 class SnailModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/snail.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/snail");
     }
 
     @Override
@@ -26,6 +26,6 @@ class SnailModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/hura.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "hura.animation");
     }
 }

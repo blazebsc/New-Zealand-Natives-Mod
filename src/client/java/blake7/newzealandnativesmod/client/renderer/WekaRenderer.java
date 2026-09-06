@@ -16,7 +16,7 @@ public class WekaRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderS
 class WekaModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/weka.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/weka");
     }
 
     @Override
@@ -26,6 +26,6 @@ class WekaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/takahe.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "takahe.animation");
     }
 }

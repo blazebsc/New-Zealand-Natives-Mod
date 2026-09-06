@@ -16,7 +16,7 @@ public class PukekoRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class PukekoModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/pukeko.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/pukeko");
     }
 
     @Override
@@ -26,6 +26,6 @@ class PukekoModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/pukeko.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "pukeko.animation");
     }
 }

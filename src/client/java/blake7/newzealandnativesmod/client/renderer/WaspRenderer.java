@@ -16,7 +16,7 @@ public class WaspRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderS
 class WaspModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/wasp.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/wasp");
     }
 
     @Override
@@ -26,6 +26,6 @@ class WaspModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/wasp.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "wasp.animation");
     }
 }

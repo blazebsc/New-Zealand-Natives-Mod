@@ -16,7 +16,7 @@ public class HarakekeRenderer extends GeoEntityRenderer<NativesEntity, EntityRen
 class HarakekeModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/harakeke.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/harakeke");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HarakekeModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/flora.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "flora.animation");
     }
 }

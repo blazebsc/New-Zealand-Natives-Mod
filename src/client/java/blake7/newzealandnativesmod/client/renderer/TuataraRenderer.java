@@ -16,7 +16,7 @@ public class TuataraRenderer extends GeoEntityRenderer<NativesEntity, EntityRend
 class TuataraModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/tuatara.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/tuatara");
     }
 
     @Override
@@ -26,6 +26,6 @@ class TuataraModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/tuatara.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "tuatara.animation");
     }
 }

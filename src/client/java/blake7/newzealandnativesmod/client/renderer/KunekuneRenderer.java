@@ -16,7 +16,7 @@ public class KunekuneRenderer extends GeoEntityRenderer<NativesEntity, EntityRen
 class KunekuneModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/kunekune.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/kunekune");
     }
 
     @Override
@@ -26,6 +26,6 @@ class KunekuneModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/kunekune.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "kunekune.animation");
     }
 }

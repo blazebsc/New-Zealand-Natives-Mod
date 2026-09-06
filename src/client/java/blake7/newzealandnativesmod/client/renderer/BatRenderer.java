@@ -16,7 +16,7 @@ public class BatRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderSt
 class BatModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/bat.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/bat");
     }
 
     @Override
@@ -26,6 +26,6 @@ class BatModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/bat.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "bat.animation");
     }
 }

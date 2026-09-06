@@ -16,7 +16,7 @@ public class HuhuRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderS
 class HuhuModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/huhu_beetle.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/huhu_beetle");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HuhuModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/huhu.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "huhu.animation");
     }
 }

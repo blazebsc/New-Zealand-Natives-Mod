@@ -16,7 +16,7 @@ public class PapakaRenderer extends GeoEntityRenderer<NativesEntity, EntityRende
 class PapakaModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/papaka.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/papaka");
     }
 
     @Override
@@ -26,6 +26,6 @@ class PapakaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/papaka.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "papaka.animation");
     }
 }

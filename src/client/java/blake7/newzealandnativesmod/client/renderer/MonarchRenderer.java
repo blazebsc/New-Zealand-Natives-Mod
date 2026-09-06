@@ -16,7 +16,7 @@ public class MonarchRenderer extends GeoEntityRenderer<NativesEntity, EntityRend
 class MonarchModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/monarch.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/monarch");
     }
 
     @Override
@@ -26,6 +26,6 @@ class MonarchModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/monarch.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "monarch.animation");
     }
 }

@@ -16,7 +16,7 @@ public class HuraRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderS
 class HuraModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/hura.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/hura");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HuraModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/hura.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "hura.animation");
     }
 }

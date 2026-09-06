@@ -16,7 +16,7 @@ public class HuiaRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderS
 class HuiaModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/huia.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/huia");
     }
 
     @Override
@@ -26,6 +26,6 @@ class HuiaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/huia.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "huia.animation");
     }
 }

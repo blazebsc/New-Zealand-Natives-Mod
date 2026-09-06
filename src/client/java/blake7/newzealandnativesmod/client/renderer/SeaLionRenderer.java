@@ -16,7 +16,7 @@ public class SeaLionRenderer extends GeoEntityRenderer<NativesEntity, EntityRend
 class SeaLionModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/sea_lion.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/sea_lion");
     }
 
     @Override
@@ -26,6 +26,6 @@ class SeaLionModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/sea_lion.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "sea_lion.animation");
     }
 }

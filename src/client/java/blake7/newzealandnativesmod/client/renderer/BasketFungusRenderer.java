@@ -16,7 +16,7 @@ public class BasketFungusRenderer extends GeoEntityRenderer<NativesEntity, Entit
 class BasketFungusModel extends com.geckolib.model.GeoModel<NativesEntity> {
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/basket_fungus.geo.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "geo/basket_fungus");
     }
 
     @Override
@@ -26,6 +26,6 @@ class BasketFungusModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "animations/flora.animation.json");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "flora.animation");
     }
 }
