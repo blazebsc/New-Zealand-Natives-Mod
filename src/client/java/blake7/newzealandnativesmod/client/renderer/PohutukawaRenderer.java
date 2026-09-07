@@ -26,6 +26,6 @@ class PohutukawaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "flora.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "flora");
     }
 }

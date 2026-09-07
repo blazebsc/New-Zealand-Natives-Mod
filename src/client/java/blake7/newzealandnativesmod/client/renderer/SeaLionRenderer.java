@@ -26,6 +26,6 @@ class SeaLionModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "sea_lion.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "sea_lion");
     }
 }

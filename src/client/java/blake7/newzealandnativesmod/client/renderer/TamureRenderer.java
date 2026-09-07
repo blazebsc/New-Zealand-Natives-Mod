@@ -26,6 +26,6 @@ class TamureModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "tamure.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "tamure");
     }
 }

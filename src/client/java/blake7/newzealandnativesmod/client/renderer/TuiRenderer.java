@@ -26,6 +26,6 @@ class TuiModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "tui.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "tui");
     }
 }

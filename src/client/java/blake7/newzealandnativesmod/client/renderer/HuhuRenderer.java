@@ -26,6 +26,6 @@ class HuhuModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "huhu.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "huhu");
     }
 }

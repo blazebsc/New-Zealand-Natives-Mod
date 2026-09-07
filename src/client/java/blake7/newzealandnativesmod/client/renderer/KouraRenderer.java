@@ -26,6 +26,6 @@ class KouraModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "koura.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "koura");
     }
 }

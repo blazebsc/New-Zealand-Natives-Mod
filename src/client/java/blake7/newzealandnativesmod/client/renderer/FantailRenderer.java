@@ -26,6 +26,6 @@ class FantailModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "fantail.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "fantail");
     }
 }

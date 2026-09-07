@@ -26,6 +26,6 @@ class KotukuModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "kotuku.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "kotuku");
     }
 }

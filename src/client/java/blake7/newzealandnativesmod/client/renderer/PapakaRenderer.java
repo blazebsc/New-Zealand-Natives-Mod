@@ -26,6 +26,6 @@ class PapakaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "papaka.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "papaka");
     }
 }

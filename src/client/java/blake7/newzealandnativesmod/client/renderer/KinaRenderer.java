@@ -26,6 +26,6 @@ class KinaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "korora.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "korora");
     }
 }

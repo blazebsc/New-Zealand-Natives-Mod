@@ -26,6 +26,6 @@ class RuruModel extends com.geckolib.model.GeoModel<RuruEntity> {
 
     @Override
     public Identifier getAnimationResource(RuruEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "ruru.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "ruru");
     }
 }

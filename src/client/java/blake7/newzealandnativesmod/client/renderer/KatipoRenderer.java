@@ -26,6 +26,6 @@ class KatipoModel extends com.geckolib.model.GeoModel<KatipoEntity> {
 
     @Override
     public Identifier getAnimationResource(KatipoEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "katipo.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "katipo");
     }
 }

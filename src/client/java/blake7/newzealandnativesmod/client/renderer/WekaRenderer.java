@@ -26,6 +26,6 @@ class WekaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "takahe.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "takahe");
     }
 }

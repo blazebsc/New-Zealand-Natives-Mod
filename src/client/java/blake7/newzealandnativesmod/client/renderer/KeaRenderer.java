@@ -26,6 +26,6 @@ class KeaModel extends com.geckolib.model.GeoModel<NativesEntity> {
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.fromNamespaceAndPath("newzealandnatives", "kea.animation");
+        return Identifier.fromNamespaceAndPath("newzealandnatives", "kea");
     }
 }
