@@ -55,7 +55,7 @@ public class FallenLogFeature extends Feature<DefaultFeatureConfig> {
             BlockPos above = ground.up();
             if (!world.getFluidState(above).isEmpty()) return false;
             BlockState over = world.getBlockState(above);
-            if (!over.isAir() && !over.canBeReplaced() && !over.isIn(BlockTags.LEAVES) && !over.isIn(BlockTags.CLIMBABLE))
+            if (!over.isAir() && !over.isReplaceable() && !over.isIn(BlockTags.LEAVES) && !over.isIn(BlockTags.CLIMBABLE))
                 return false;
             spots[i] = above;
         }
@@ -75,7 +75,7 @@ public class FallenLogFeature extends Feature<DefaultFeatureConfig> {
             if (!world.getFluidState(cursor).isEmpty()) return null;
             BlockState state = world.getBlockState(cursor);
             if (state.isIn(BlockTags.DIRT)) return cursor;
-            if (state.isAir() || state.canBeReplaced() || state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.LOGS)
+            if (state.isAir() || state.isReplaceable() || state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.LOGS)
                     || state.isIn(BlockTags.CLIMBABLE)) {
                 cursor = cursor.down();
                 continue;
