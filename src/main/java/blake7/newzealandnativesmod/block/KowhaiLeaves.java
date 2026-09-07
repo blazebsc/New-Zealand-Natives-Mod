@@ -1,19 +1,40 @@
 package blake7.newzealandnativesmod.block;
 
+import blake7.newzealandnativesmod.registry.NativesBlocks;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.MapLike;
+import com.mojang.serialization.RecordBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.LeavesBlock;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class KowhaiLeaves extends LeavesBlock {
-    public static final MapCodec<KowhaiLeaves> CODEC = MapCodec.unit(new KowhaiLeaves(0.0f,
-            AbstractBlock.Settings.create().registryKey(
-                    RegistryKey.of(RegistryKeys.BLOCK, Identifier.of("newzealandnatives", "kowhai_leaves")))));
+    // ponytail: no throwaway instance here — an unregistered block trips the registry freeze check.
+    public static final MapCodec<KowhaiLeaves> CODEC = new MapCodec<>() {
+        @Override
+        public <T> RecordBuilder<T> encode(KowhaiLeaves input, DynamicOps<T> ops, RecordBuilder<T> prefix) {
+            return prefix;
+        }
+
+        @Override
+        public <T> DataResult<KowhaiLeaves> decode(DynamicOps<T> ops, MapLike<T> input) {
+            return DataResult.success((KowhaiLeaves) NativesBlocks.KOWHAI_LEAVES);
+        }
+
+        @Override
+        public <T> java.util.stream.Stream<T> keys(DynamicOps<T> ops) {
+            return java.util.stream.Stream.empty();
+        }
+
+        @Override
+        public String toString() {
+            return "KowhaiLeaves";
+        }
+    };
 
     public KowhaiLeaves(float leafParticleChance, AbstractBlock.Settings settings) {
         super(leafParticleChance, settings);
