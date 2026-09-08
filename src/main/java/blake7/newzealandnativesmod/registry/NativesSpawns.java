@@ -104,9 +104,9 @@ public final class NativesSpawns {
                     RegistryKey.of(RegistryKeys.PLACED_FEATURE,
                             Identifier.of("newzealandnatives", "rotten_log_patch")));
         }
-        // Kowhai trees dot the forest canopy.
+        // Kowhai trees dot open country, never closed canopy (Bedrock lists plains/savanna first).
         BiomeModifications.addFeature(
-                NativesSpawns::forest,
+                NativesSpawns::openCountry,
                 GenerationStep.Feature.VEGETAL_DECORATION,
                 RegistryKey.of(RegistryKeys.PLACED_FEATURE,
                         Identifier.of("newzealandnatives", "kowhai_trees")));
@@ -137,6 +137,12 @@ public final class NativesSpawns {
 
     private static boolean forest(BiomeSelectionContext ctx) {
         return ctx.hasTag(BiomeTags.IS_FOREST) || ctx.hasTag(BiomeTags.IS_JUNGLE);
+    }
+
+    private static boolean openCountry(BiomeSelectionContext ctx) {
+        return ctx.hasTag(ConventionalBiomeTags.IS_PLAINS)
+                || ctx.hasTag(ConventionalBiomeTags.IS_SAVANNA)
+                || ctx.hasTag(ConventionalBiomeTags.IS_FLOWER_FOREST);
     }
 
     private static boolean ocean(BiomeSelectionContext ctx) {
