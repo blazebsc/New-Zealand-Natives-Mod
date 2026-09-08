@@ -17,10 +17,18 @@ import net.minecraft.world.Heightmap;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 
 public final class NativesSpawns {
     private NativesSpawns() {}
+
+    private static final Set<String> WATER = Set.of(
+            "eel", "hectors_dolphin", "humpback_whale", "kina",
+            "kokopu", "koura", "papaka", "tamure");
+    private static final Set<String> MONSTERS = Set.of("katipo");
+    private static final Set<String> PLANTS = Set.of(
+            "basket_fungus", "harakeke", "pohutukawa", "ponga");
 
     public static void register() {
         Map<String, EntityType<?>> byId = new HashMap<>();
@@ -88,11 +96,13 @@ public final class NativesSpawns {
         // ponytail: grass-only blocks and herd "born" events not enforced.
 
         // Fallen logs on the forest floor (Bedrock has no worldgen for these; mushroom-patch pattern).
-        BiomeModifications.addFeature(
-                NativesSpawns::forest,
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                RegistryKey.of(RegistryKeys.PLACED_FEATURE,
-                        Identifier.of("newzealandnatives", "rotten_log_patch")));
+        if (NativesConfig.INSTANCE.fallenLogs) {
+            BiomeModifications.addFeature(
+                    NativesSpawns::forest,
+                    GenerationStep.Feature.VEGETAL_DECORATION,
+                    RegistryKey.of(RegistryKeys.PLACED_FEATURE,
+                            Identifier.of("newzealandnatives", "rotten_log_patch")));
+        }
         // Kowhai trees dot open country, never closed canopy (Bedrock lists plains/savanna first).
         BiomeModifications.addFeature(
                 NativesSpawns::openCountry,
@@ -157,6 +167,15 @@ public final class NativesSpawns {
     @SuppressWarnings({"unchecked", "rawtypes"})
     private static void add(Map<String, EntityType<?>> byId, String id,
             Predicate<BiomeSelectionContext> selector, int weight, int min, int max) {
+        if (WATER.contains(id)) {
+            if (!NativesConfig.INSTANCE.spawnWater) return;
+        } else if (MONSTERS.contains(id)) {
+            if (!NativesConfig.INSTANCE.spawnMonsters) return;
+        } else if (PLANTS.contains(id)) {
+            if (!NativesConfig.INSTANCE.spawnPlants) return;
+        } else {
+            if (!NativesConfig.INSTANCE.spawnLand) return;
+        }
         EntityType<?> raw = byId.get(id);
         if (raw == null) return;
         SpawnGroup group = null;
@@ -167,6 +186,7 @@ public final class NativesSpawns {
             }
         }
         if (group == null) return;
-        BiomeModifications.addSpawn(selector, group, (EntityType) raw, weight, min, max);
+        int scaled = Math.max(1, (int) Math.round(weight * NativesConfig.INSTANCE.spawnRate));
+        BiomeModifications.addSpawn(selector, group, (EntityType) raw, scaled, min, max);
     }
 }

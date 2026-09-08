@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.entity;
 
+import blake7.newzealandnativesmod.registry.NativesConfig;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -25,7 +26,9 @@ public class HaastsEagleEntity extends NativesEntity {
     @Override
     protected void initGoals() {
         super.initGoals();
-        this.goalSelector.add(1, new MeleeAttackGoal(this, 1.2, true));
-        this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, false, true));
+        if (NativesConfig.INSTANCE.eagleHostile) {
+            this.goalSelector.add(1, new MeleeAttackGoal(this, 1.2, true));
+            this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, false, true));
+        }
     }
 }
