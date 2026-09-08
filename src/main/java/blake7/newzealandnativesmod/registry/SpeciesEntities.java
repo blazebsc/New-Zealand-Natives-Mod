@@ -125,7 +125,7 @@ public final class SpeciesEntities {
         } else if (id.equals("kakapo")) {
             return EntityDimensions.fixed(0.6f, 0.7f);
         } else if (id.equals("hura")) {
-            return EntityDimensions.fixed(0.4f, 0.3f);
+            return EntityDimensions.fixed(3.0f, 0.4f);
         } else if (id.equals("humpback_whale")) {
             return EntityDimensions.fixed(1.0f, 1.2f);
         } else if (id.equals("huia")) {
