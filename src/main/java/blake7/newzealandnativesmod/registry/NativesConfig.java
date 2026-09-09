@@ -20,6 +20,7 @@ public final class NativesConfig {
     public boolean eagleHostile = true;
     public boolean poison = true;
     public boolean fallenLogs = true;
+    public boolean kowhaiTrees = true;
 
     public static NativesConfig INSTANCE = new NativesConfig();
 
