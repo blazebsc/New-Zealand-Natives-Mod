@@ -105,11 +105,13 @@ public final class NativesSpawns {
                             Identifier.of("newzealandnatives", "rotten_log_patch")));
         }
         // Kowhai trees dot open country, never closed canopy (Bedrock lists plains/savanna first).
-        BiomeModifications.addFeature(
-                NativesSpawns::openCountry,
-                GenerationStep.Feature.VEGETAL_DECORATION,
-                RegistryKey.of(RegistryKeys.PLACED_FEATURE,
-                        Identifier.of("newzealandnatives", "kowhai_trees")));
+        if (NativesConfig.INSTANCE.kowhaiTrees) {
+            BiomeModifications.addFeature(
+                    NativesSpawns::openCountry,
+                    GenerationStep.Feature.VEGETAL_DECORATION,
+                    RegistryKey.of(RegistryKeys.PLACED_FEATURE,
+                            Identifier.of("newzealandnatives", "kowhai_trees")));
+        }
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
