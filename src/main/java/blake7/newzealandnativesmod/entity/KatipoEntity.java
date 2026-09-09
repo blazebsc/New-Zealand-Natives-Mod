@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.entity;
 
+import blake7.newzealandnativesmod.registry.NativesConfig;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -56,7 +57,7 @@ public class KatipoEntity extends Monster implements GeoEntity {
     @Override
     public boolean doHurtTarget(net.minecraft.server.level.ServerLevel world, net.minecraft.world.entity.Entity target) {
         boolean hit = super.doHurtTarget(world, target);
-        if (hit && target instanceof net.minecraft.world.entity.LivingEntity living) {
+        if (hit && NativesConfig.INSTANCE.poison && target instanceof net.minecraft.world.entity.LivingEntity living) {
             living.addEffect(new net.minecraft.world.effect.MobEffectInstance(
                     net.minecraft.world.effect.MobEffects.POISON, 200, 0));
         }

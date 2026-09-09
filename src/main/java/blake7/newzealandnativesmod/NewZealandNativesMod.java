@@ -6,6 +6,7 @@ import blake7.newzealandnativesmod.entity.HectorsDolphinEntity;
 import blake7.newzealandnativesmod.entity.RuruEntity;
 import blake7.newzealandnativesmod.entity.NativesEntity;
 import blake7.newzealandnativesmod.registry.NativesEntities;
+import blake7.newzealandnativesmod.registry.NativesConfig;
 import blake7.newzealandnativesmod.registry.SpeciesEntities;
 import blake7.newzealandnativesmod.registry.NativesItemGroups;
 import blake7.newzealandnativesmod.registry.NativesBlocks;
@@ -27,6 +28,7 @@ public class NewZealandNativesMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        NativesConfig.load();
         NativesEntities.register();
         NativesItems.register();
         NativesBlocks.register();
