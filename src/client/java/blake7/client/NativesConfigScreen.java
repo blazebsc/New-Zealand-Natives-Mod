@@ -53,6 +53,10 @@ public class NativesConfigScreen extends Screen {
                 .build(x, y, w, h, Text.literal("Fallen Logs"),
                         (btn, val) -> cfg.fallenLogs = val));
         y += gap;
+        this.addDrawableChild(CyclingButtonWidget.onOffBuilder(cfg.kowhaiTrees)
+                .build(x, y, w, h, Text.literal("Kowhai Trees"),
+                        (btn, val) -> cfg.kowhaiTrees = val));
+        y += gap;
         this.addDrawableChild(new SliderWidget(x, y, w, h,
                 Text.literal("Spawn Rate: " + cfg.spawnRate), (cfg.spawnRate - 0.25) / 2.75) {
             @Override
