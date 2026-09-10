@@ -3,11 +3,11 @@
   "id": "newzealandnatives",
   "version": "${version}",
   "name": "New Zealand Natives Mod",
-  "description": "Minecraft Mod that adds various NZ native animals to the game.",
-  "authors": [],
+  "description": "Minecraft Mod that adds various NZ native animals, trees and plants to the game.",
+  "authors": ["BlazeBSC"],
   "contact": {},
   "license": "MIT",
-  "icon": "assets/newzealandnativesmod/icon.png",
+  "icon": "assets/newzealandnatives/icon.png",
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
