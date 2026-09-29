@@ -1,0 +1,60 @@
+name: Release
+
+# Release by tagging the version branch, e.g. on branch 26.3:
+#   git tag 26.3-v1.0.0 && git push origin 26.3-v1.0.0
+# The tag must match gradle.properties (<minecraft_version>-v<mod_version>),
+# otherwise this workflow fails instead of publishing a mislabeled release.
+
+on:
+  push:
+    tags:
+      - '*-v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Read versions from gradle.properties
+        id: versions
+        run: |
+          echo "mod_version=$(grep '^mod_version=' gradle.properties | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+          echo "mc_version=$(grep '^minecraft_version=' gradle.properties | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+
+      - name: Check tag matches gradle.properties
+        run: |
+          expected="${{ steps.versions.outputs.mc_version }}-v${{ steps.versions.outputs.mod_version }}"
+          if [ "${GITHUB_REF_NAME}" != "$expected" ]; then
+            echo "Tag ${GITHUB_REF_NAME} does not match gradle.properties (${expected})"
+            exit 1
+          fi
+
+      - name: Build
+        run: ./gradlew build --no-daemon
+
+      - name: Tag jars with MC version
+        run: |
+          cd build/libs
+          for f in *.jar; do
+            mv "$f" "${f%.jar}+${{ steps.versions.outputs.mc_version }}.jar"
+          done
+          ls
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/libs/*.jar
+          generate_release_notes: true
