@@ -45,6 +45,18 @@ jobs:
       - name: Build
         run: ./gradlew build --no-daemon
 
+      - name: Decide pre-release
+        id: flags
+        run: |
+          MOD="${{ steps.versions.outputs.mod_version }}"
+          if [[ "$MOD" == 0.* || "$MOD" == *-* ]]; then
+            echo "pre-release $MOD detected"
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "full release $MOD"
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Tag jars with MC version
         run: |
           cd build/libs
@@ -58,3 +70,4 @@ jobs:
         with:
           files: build/libs/*.jar
           generate_release_notes: true
+          prerelease: ${{ steps.flags.outputs.prerelease == 'true' }}
