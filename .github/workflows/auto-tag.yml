@@ -1,0 +1,39 @@
+name: Auto-tag release
+
+# When mod_version in gradle.properties changes on a version branch,
+# tag the commit as <minecraft_version>-v<mod_version>.
+# Pushing that tag triggers the Release workflow, so bumping the
+# version is all it takes to cut a release. Commits that don't touch
+# the version (or re-push an already-tagged version) do nothing.
+
+on:
+  push:
+    branches:
+      - '1.21.1'
+      - '1.21.11'
+      - '26.2'
+      - '26.3'
+    paths:
+      - gradle.properties
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tag new version
+        run: |
+          MOD=$(grep '^mod_version=' gradle.properties | cut -d= -f2)
+          MC=$(grep '^minecraft_version=' gradle.properties | cut -d= -f2)
+          TAG="$MC-v$MOD"
+          echo "Version in gradle.properties is $TAG"
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists, nothing to do."
+          else
+            git tag "$TAG"
+            git push origin "$TAG" || echo "Tag $TAG appeared concurrently, skipping."
+          fi
