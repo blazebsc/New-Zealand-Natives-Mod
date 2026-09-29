@@ -1,7 +1,7 @@
 package blake7.newzealandnativesmod.worldgen;
 
 import blake7.newzealandnativesmod.registry.NativesBlocks;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -13,27 +13,26 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 // A 3-5 block horizontal trunk on the forest floor, like a fallen tree.
-public class FallenLogFeature extends Feature<NoneFeatureConfiguration> {
-    public FallenLogFeature(Codec<NoneFeatureConfiguration> codec) {
-        super(codec);
+public class FallenLogFeature implements Feature {
+    public static final MapCodec<FallenLogFeature> CODEC = MapCodec.unit(FallenLogFeature::new);
+
+    @Override
+    public MapCodec<FallenLogFeature> codec() {
+        return CODEC;
     }
 
     public static void register() {
-        Registry.register(BuiltInRegistries.FEATURE, Identifier.fromNamespaceAndPath("newzealandnatives", "fallen_log"),
-                new FallenLogFeature(NoneFeatureConfiguration.CODEC));
+        Registry.register(BuiltInRegistries.FEATURE_TYPE, Identifier.fromNamespaceAndPath("newzealandnatives", "fallen_log"),
+                CODEC);
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        WorldGenLevel world = context.level();
-        RandomSource random = context.random();
-        BlockPos origin = context.origin();
+    public boolean place(WorldGenLevel world, ChunkGenerator generator, RandomSource random, BlockPos origin) {
         // ponytail: dense forest rarely fits a 3-4 log runway on the first try; poke around.
         for (int attempt = 0; attempt < 6; attempt++) {
             BlockPos candidate = origin.offset(random.nextInt(13) - 6, 0, random.nextInt(13) - 6);
