@@ -1,0 +1,130 @@
+name: Publish combined release
+
+# Publishes ONE release (v<mod_version>) containing all four MC-version jars.
+# Fires when any version branch finishes building; proceeds only when every
+# version branch sits on the same mod_version with no release for it yet.
+# Manual trigger: git tag v0.0.3 && git push origin v0.0.3
+
+on:
+  workflow_run:
+    workflows: ['Build']
+    types: [completed]
+    branches: ['1.21.1', '1.21.11', '26.2', '26.3']
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: unified-release
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.resolve.outputs.version }}
+      proceed: ${{ steps.resolve.outputs.proceed }}
+    steps:
+      - name: Resolve version
+        id: resolve
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          ver_of() {
+            gh api "repos/$REPO/contents/gradle.properties?ref=$1" --jq '.content' | base64 -d | grep '^mod_version=' | cut -d= -f2
+          }
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            X="${GITHUB_REF_NAME#v}"
+          else
+            X=$(ver_of "${{ github.event.workflow_run.head_branch }}")
+          fi
+          echo "candidate version: $X"
+          OK=1
+          for b in 1.21.1 1.21.11 26.2 26.3; do
+            V=$(ver_of "$b")
+            echo "$b -> $V"
+            [ "$V" = "$X" ] || OK=0
+          done
+          if [ "$OK" = "1" ] && ! gh release view "v$X" --repo "$REPO" >/dev/null 2>&1; then
+            echo "version=$X" >> "$GITHUB_OUTPUT"
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=$X" >> "$GITHUB_OUTPUT"
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    needs: check
+    if: needs.check.outputs.proceed == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - branch: '1.21.1'
+            java: '21'
+          - branch: '1.21.11'
+            java: '21'
+          - branch: '26.2'
+            java: '25'
+          - branch: '26.3'
+            java: '25'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.branch }}
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Confirm branch is on release version
+        run: |
+          V=$(grep '^mod_version=' gradle.properties | cut -d= -f2)
+          [ "$V" = "${{ needs.check.outputs.version }}" ]
+
+      - name: Build
+        run: ./gradlew build --no-daemon
+
+      - name: Tag jar with MC version
+        run: |
+          cd build/libs
+          for f in *.jar; do
+            mv "$f" "${f%.jar}+${{ matrix.branch }}.jar"
+          done
+
+      - name: Upload jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: jar-${{ matrix.branch }}
+          path: build/libs/*.jar
+
+  publish:
+    needs: [check, build]
+    if: needs.check.outputs.proceed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: jar-*
+          path: dist
+          merge-multiple: true
+
+      - name: Publish single release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ls dist
+          X="${{ needs.check.outputs.version }}"
+          FLAGS="--title $X --generate-notes"
+          case "$X" in 0.*|*-*) FLAGS="$FLAGS --prerelease";; esac
+          # shellcheck disable=SC2086
+          gh release create "v$X" dist/*.jar $FLAGS
