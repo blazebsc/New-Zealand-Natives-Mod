@@ -33,8 +33,13 @@ public class WanderFlyGoal extends Goal {
             double x = mob.getX() + (mob.getRandom().nextDouble() - 0.5) * 24.0;
             double y = mob.getY() + (mob.getRandom().nextDouble() - 0.5) * 10.0;
             double z = mob.getZ() + (mob.getRandom().nextDouble() - 0.5) * 24.0;
-            if (y < mob.getEntityWorld().getBottomY() + 2) continue;
+//? if <=1.21.1 {
+            if (y < mob.getWorld().getBottomY() + 2) continue;
+            if (!mob.getWorld().isAir(BlockPos.ofFloored(x, y, z))) continue;
+//?} else {
+            /*if (y < mob.getEntityWorld().getBottomY() + 2) continue;
             if (!mob.getEntityWorld().isAir(BlockPos.ofFloored(x, y, z))) continue;
+*///?}
             mob.getMoveControl().moveTo(x, y, z, 1.0);
             break;
         }

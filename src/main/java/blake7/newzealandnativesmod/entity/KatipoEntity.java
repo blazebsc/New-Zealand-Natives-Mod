@@ -9,15 +9,21 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.RegistryKey;
+//? if >1.21.1 {
+/*import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+*///?}
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.manager.AnimatableManager;
+//? if >1.21.1 {
+/*import software.bernie.geckolib.animatable.manager.AnimatableManager;
+*///?}
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.object.PlayState;
+//? if >1.21.1 {
+/*import software.bernie.geckolib.animation.object.PlayState;
+*///?}
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class KatipoEntity extends HostileEntity implements GeoEntity {
@@ -25,7 +31,11 @@ public class KatipoEntity extends HostileEntity implements GeoEntity {
 
     public static final EntityType<KatipoEntity> TYPE = EntityType.Builder.create(KatipoEntity::new, SpawnGroup.MONSTER)
             .dimensions(0.75f, 0.5f)
-            .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", "katipo")));
+//? if <=1.21.1 {
+            .build(Identifier.of("newzealandnatives", "katipo").toString());
+//?} else {
+            /*.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", "katipo")));
+*///?}
 
     public KatipoEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -33,10 +43,17 @@ public class KatipoEntity extends HostileEntity implements GeoEntity {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.MAX_HEALTH, 4.0)
+//? if <=1.21.1 {
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.1)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16.0)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0);
+//?} else {
+                /*.add(EntityAttributes.MAX_HEALTH, 4.0)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.1)
                 .add(EntityAttributes.FOLLOW_RANGE, 16.0)
                 .add(EntityAttributes.ATTACK_DAMAGE, 4.0);
+*///?}
     }
 
     @Override
@@ -50,8 +67,13 @@ public class KatipoEntity extends HostileEntity implements GeoEntity {
     }
 
     @Override
-    public boolean tryAttack(net.minecraft.server.world.ServerWorld world, net.minecraft.entity.Entity target) {
+//? if <=1.21.1 {
+    public boolean tryAttack(net.minecraft.entity.Entity target) {
+        boolean hit = super.tryAttack(target);
+//?} else {
+    /*public boolean tryAttack(net.minecraft.server.world.ServerWorld world, net.minecraft.entity.Entity target) {
         boolean hit = super.tryAttack(world, target);
+*///?}
         if (hit && NativesConfig.INSTANCE.poison && target instanceof net.minecraft.entity.LivingEntity living) {
             living.addStatusEffect(new net.minecraft.entity.effect.StatusEffectInstance(
                     net.minecraft.entity.effect.StatusEffects.POISON, 200, 0));
@@ -61,7 +83,11 @@ public class KatipoEntity extends HostileEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>("walk", 0, state -> {
+//? if <=1.21.1 {
+        controllers.add(new AnimationController<>(this, "walk", 0, state -> {
+//?} else {
+        /*controllers.add(new AnimationController<>("walk", 0, state -> {
+*///?}
             if (state.isMoving()) {
                 state.setAnimation(RawAnimation.begin().thenLoop("katipo.walk"));
                 return PlayState.CONTINUE;

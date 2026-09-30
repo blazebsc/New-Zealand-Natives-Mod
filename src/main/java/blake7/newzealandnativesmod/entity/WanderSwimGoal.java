@@ -34,7 +34,11 @@ public class WanderSwimGoal extends Goal {
             double y = mob.getY() + (mob.getRandom().nextDouble() - 0.5) * 6.0;
             double z = mob.getZ() + (mob.getRandom().nextDouble() - 0.5) * 16.0;
             BlockPos p = BlockPos.ofFloored(x, y, z);
-            if (!mob.getEntityWorld().getFluidState(p).isIn(FluidTags.WATER)) continue;
+//? if <=1.21.1 {
+            if (!mob.getWorld().getFluidState(p).isIn(FluidTags.WATER)) continue;
+//?} else {
+            /*if (!mob.getEntityWorld().getFluidState(p).isIn(FluidTags.WATER)) continue;
+*///?}
             mob.getMoveControl().moveTo(x, y, z, 1.0);
             break;
         }

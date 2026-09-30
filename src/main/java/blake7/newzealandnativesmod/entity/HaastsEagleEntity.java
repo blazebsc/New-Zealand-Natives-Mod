@@ -7,8 +7,10 @@ import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.RegistryKey;
+//? if >1.21.1 {
+/*import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+*///?}
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -17,7 +19,11 @@ import net.minecraft.world.World;
 public class HaastsEagleEntity extends NativesEntity {
     public static final EntityType<HaastsEagleEntity> TYPE = EntityType.Builder.create(HaastsEagleEntity::new, SpawnGroup.CREATURE)
             .dimensions(0.7f, 0.8f)
-            .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", "haasts_eagle")));
+//? if <=1.21.1 {
+            .build(Identifier.of("newzealandnatives", "haasts_eagle").toString());
+//?} else {
+            /*.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", "haasts_eagle")));
+*///?}
 
     public HaastsEagleEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);

@@ -39,10 +39,16 @@ public class NewZealandNativesMod implements ModInitializer {
 
         FabricDefaultAttributeRegistry.register(KiwiEntity.TYPE,
                 KiwiEntity.createMobAttributes()
-                        .add(EntityAttributes.MAX_HEALTH, 4.0D)
+//? if <=1.21.1 {
+                        .add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0D)
+                        .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
+                        .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16.0D)
+//?} else {
+                        /*.add(EntityAttributes.MAX_HEALTH, 4.0D)
                         .add(EntityAttributes.MOVEMENT_SPEED, 0.2D)
                         .add(EntityAttributes.TEMPT_RANGE, 10.0D)
                         .add(EntityAttributes.FOLLOW_RANGE, 16.0D)
+*///?}
                         .build());
 
         FabricDefaultAttributeRegistry.register(KatipoEntity.TYPE, KatipoEntity.createAttributes());
@@ -50,11 +56,18 @@ public class NewZealandNativesMod implements ModInitializer {
                 HectorsDolphinEntity.createDolphinAttributes().build());
         FabricDefaultAttributeRegistry.register(RuruEntity.TYPE,
                 RuruEntity.createMobAttributes()
-                        .add(EntityAttributes.MAX_HEALTH, 6.0D)
+//? if <=1.21.1 {
+                        .add(EntityAttributes.GENERIC_MAX_HEALTH, 6.0D)
+                        .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D)
+                        .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16.0D)
+                        .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4D)
+//?} else {
+                        /*.add(EntityAttributes.MAX_HEALTH, 6.0D)
                         .add(EntityAttributes.MOVEMENT_SPEED, 0.4D)
                         .add(EntityAttributes.TEMPT_RANGE, 10.0D)
                         .add(EntityAttributes.FOLLOW_RANGE, 16.0D)
                         .add(EntityAttributes.FLYING_SPEED, 0.4D)
+*///?}
                         .build());
 
         var allTypes = NativesEntities.all();
@@ -69,13 +82,24 @@ public class NewZealandNativesMod implements ModInitializer {
                         (EntityType<? extends net.minecraft.entity.LivingEntity>) type;
                 double[] stats = SpeciesEntities.statsFor(allSpecies[i]);
                 var builder = NativesEntity.createMobAttributes()
-                        .add(EntityAttributes.MAX_HEALTH, stats[0])
+//? if <=1.21.1 {
+                        .add(EntityAttributes.GENERIC_MAX_HEALTH, stats[0])
+                        .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, stats[1])
+                        .add(EntityAttributes.GENERIC_FOLLOW_RANGE, id.equals("haasts_eagle") ? 64.0D : 16.0D)
+                        .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4D);
+//?} else {
+                        /*.add(EntityAttributes.MAX_HEALTH, stats[0])
                         .add(EntityAttributes.MOVEMENT_SPEED, stats[1])
                         .add(EntityAttributes.TEMPT_RANGE, 10.0D)
                         .add(EntityAttributes.FOLLOW_RANGE, id.equals("haasts_eagle") ? 64.0D : 16.0D)
                         .add(EntityAttributes.FLYING_SPEED, 0.4D);
+*///?}
                 if (id.equals("haasts_eagle")) {
-                    builder.add(EntityAttributes.ATTACK_DAMAGE, 6.0D);
+//? if <=1.21.1 {
+                    builder.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D);
+//?} else {
+                    /*builder.add(EntityAttributes.ATTACK_DAMAGE, 6.0D);
+*///?}
                 }
                 FabricDefaultAttributeRegistry.register(livingType, builder.build());
             }

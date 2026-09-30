@@ -14,6 +14,9 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.Heightmap;
+//? if 1.21.1 {
+import net.minecraft.world.biome.SpawnSettings;
+//?}
 
 import java.util.HashMap;
 import java.util.Map;
@@ -191,4 +194,11 @@ public final class NativesSpawns {
         int scaled = Math.max(1, (int) Math.round(weight * NativesConfig.INSTANCE.spawnRate));
         BiomeModifications.addSpawn(selector, group, (EntityType) raw, scaled, min, max);
     }
+//? if <=1.21.1 {
+
+    @SuppressWarnings("unused")
+    private static SpawnSettings.SpawnEntry entry(EntityType<?> type, int weight, int min, int max) {
+        return new SpawnSettings.SpawnEntry((EntityType<?>) type, weight, min, max);
+    }
+//?}
 }

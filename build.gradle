@@ -1,9 +1,10 @@
 plugins {
     id 'fabric-loom' version '1.17-SNAPSHOT'
     id 'maven-publish'
+    id 'dev.kikugie.stonecutter' version '0.9.8'
 }
 
-version = project.mod_version
+version = "${project.mod_version}+${sc.current.version}"
 group = project.maven_group
 
 base {
@@ -51,8 +52,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation "software.bernie.geckolib:geckolib-fabric-1.21.11:${project.geckolib_version}"
-    modImplementation "com.terraformersmc:modmenu:17.0.0"
+    modImplementation "software.bernie.geckolib:${project.geckolib_artifact}:${project.geckolib_version}"
+    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
 processResources {

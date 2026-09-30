@@ -3,11 +3,19 @@ package blake7.newzealandnativesmod.client.renderer;
 import blake7.newzealandnativesmod.entity.NativesEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;
-import net.minecraft.client.render.entity.state.EntityRenderState;
+//? if >1.21.1 {
+/*import net.minecraft.client.render.entity.state.EntityRenderState;
+*///?}
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+//? if >1.21.1 {
+/*import software.bernie.geckolib.renderer.base.GeoRenderState;
+*///?}
 
-public class HaastsEagleRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderState> {
+//? if <=1.21.1 {
+public class HaastsEagleRenderer extends GeoEntityRenderer<NativesEntity> {
+//?} else {
+/*public class HaastsEagleRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderState> {
+*///?}
     public HaastsEagleRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new HaastsEagleModel());
     }
@@ -15,17 +23,30 @@ public class HaastsEagleRenderer extends GeoEntityRenderer<NativesEntity, Entity
 
 class HaastsEagleModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
-    public Identifier getModelResource(GeoRenderState renderState) {
+//? if <=1.21.1 {
+    public Identifier getModelResource(NativesEntity object) {
+        return Identifier.of("newzealandnatives", "geo/haasts_eagle.geo.json");
+//?} else {
+    /*public Identifier getModelResource(GeoRenderState renderState) {
         return Identifier.of("newzealandnatives", "geo/haasts_eagle");
+*///?}
     }
 
     @Override
-    public Identifier getTextureResource(GeoRenderState renderState) {
+//? if <=1.21.1 {
+    public Identifier getTextureResource(NativesEntity object) {
+//?} else {
+    /*public Identifier getTextureResource(GeoRenderState renderState) {
+*///?}
         return Identifier.of("newzealandnatives", "textures/entity/haasts_eagle/haasts_eagle.png");
     }
 
     @Override
     public Identifier getAnimationResource(NativesEntity animatable) {
-        return Identifier.of("newzealandnatives", "falcon");
+//? if <=1.21.1 {
+        return Identifier.of("newzealandnatives", "animations/falcon.animation.json");
+//?} else {
+        /*return Identifier.of("newzealandnatives", "falcon");
+*///?}
     }
 }

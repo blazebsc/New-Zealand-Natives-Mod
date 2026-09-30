@@ -18,28 +18,53 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 import java.util.Optional;
-import java.util.function.Function;
+//? if >1.21.1 {
+/*import java.util.function.Function;
+*///?}
 
 public final class NativesBlocks {
     private NativesBlocks() {}
 
-    public static final Block ROTTEN_LOG = register("rotten_log", key ->
+//? if <=1.21.1 {
+    public static final Block ROTTEN_LOG = register("rotten_log",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(MapColor.BROWN)));
+//?} else {
+    /*public static final Block ROTTEN_LOG = register("rotten_log", key ->
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(MapColor.BROWN).registryKey(key)));
+*///?}
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> KOWHAI_TREE = RegistryKey.of(
             RegistryKeys.CONFIGURED_FEATURE, Identifier.of("newzealandnatives", "kowhai"));
-    public static final Block KOWHAI_LOG = register("kowhai_log", key ->
+//? if <=1.21.1 {
+    public static final Block KOWHAI_LOG = register("kowhai_log",
+            new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(MapColor.OAK_TAN)));
+    public static final Block KOWHAI_LEAVES = register("kowhai_leaves",
+            new KowhaiLeaves(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)));
+    public static final Block KOWHAI_SAPLING = register("kowhai_sapling",
+//?} else {
+    /*public static final Block KOWHAI_LOG = register("kowhai_log", key ->
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(MapColor.OAK_TAN).registryKey(key)));
     public static final Block KOWHAI_LEAVES = register("kowhai_leaves", key ->
             new KowhaiLeaves(0.0f, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).registryKey(key)));
     public static final Block KOWHAI_SAPLING = register("kowhai_sapling", key ->
+*///?}
             new KowhaiSapling(new SaplingGenerator("kowhai", Optional.empty(), Optional.of(KOWHAI_TREE), Optional.empty()),
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(key)));
+//? if <=1.21.1 {
+                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)));
+//?} else {
+                    /*AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(key)));
+*///?}
 
     public static void register() {
     }
 
-    private static Block register(String id, Function<RegistryKey<Block>, Block> factory) {
+//? if <=1.21.1 {
+    private static Block register(String id, Block block) {
+        Block registered = Registry.register(Registries.BLOCK, Identifier.of("newzealandnatives", id), block);
+        Registry.register(Registries.ITEM, Identifier.of("newzealandnatives", id),
+                new BlockItem(registered, new Item.Settings()));
+//?} else {
+    /*private static Block register(String id, Function<RegistryKey<Block>, Block> factory) {
         Identifier identifier = Identifier.of("newzealandnatives", id);
         RegistryKey<Block> blockKey = RegistryKey.of(RegistryKeys.BLOCK, identifier);
         RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, identifier);
@@ -47,6 +72,7 @@ public final class NativesBlocks {
         Block registered = Registry.register(Registries.BLOCK, identifier, block);
         Registry.register(Registries.ITEM, identifier,
                 new BlockItem(registered, new Item.Settings().registryKey(itemKey)));
+*///?}
         return registered;
     }
 }

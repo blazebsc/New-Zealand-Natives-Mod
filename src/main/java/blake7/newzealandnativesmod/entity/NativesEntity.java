@@ -21,10 +21,14 @@ import java.util.Map;
 import java.util.Set;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.manager.AnimatableManager;
+//? if >1.21.1 {
+/*import software.bernie.geckolib.animatable.manager.AnimatableManager;
+*///?}
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.object.PlayState;
+//? if >1.21.1 {
+/*import software.bernie.geckolib.animation.object.PlayState;
 import software.bernie.geckolib.animation.state.AnimationTest;
+*///?}
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class NativesEntity extends AnimalEntity implements GeoEntity {
@@ -49,7 +53,11 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
     }
 
     @Override
-    public boolean handleFallDamage(double fallDistance, float damageMultiplier,
+//? if <=1.21.1 {
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier,
+//?} else {
+    /*public boolean handleFallDamage(double fallDistance, float damageMultiplier,
+*///?}
             net.minecraft.entity.damage.DamageSource damageSource) {
         if (FALL_IMMUNE.contains(NativesAnimRegistry.getId(this.getType()))) {
             return false;
@@ -67,7 +75,13 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
         MovementType mt = moveType != null ? moveType : resolveMoveType();
         if (mt == MovementType.FLY) {
             BirdNavigation nav = new BirdNavigation(this, world);
+//? if <=1.21.1 {
+            nav.setCanPathThroughDoors(false);
+//?}
             nav.setCanSwim(false);
+//? if <=1.21.1 {
+            nav.setCanEnterOpenDoors(true);
+//?}
             return nav;
         }
         return super.createNavigation(world);
@@ -194,7 +208,11 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>("main", 0, state -> {
+//? if <=1.21.1 {
+        controllers.add(new AnimationController<>(this, "main", 0, state -> {
+//?} else {
+        /*controllers.add(new AnimationController<>("main", 0, state -> {
+*///?}
             NativesAnimRegistry.AnimSet set =
                     NativesAnimRegistry.getAnims(NativesAnimRegistry.getId(this.getType()));
             if (this.isTouchingWater() && set.swim() != null) {
@@ -213,11 +231,19 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
         }));
         String extra = NativesAnimRegistry.getExtra(NativesAnimRegistry.getId(this.getType()));
         if (extra != null) {
-            controllers.add(new AnimationController<>("extra", 0, state -> loop(state, extra)));
+//? if <=1.21.1 {
+            controllers.add(new AnimationController<>(this, "extra", 0, state -> loop(state, extra)));
+//?} else {
+            /*controllers.add(new AnimationController<>("extra", 0, state -> loop(state, extra)));
+*///?}
         }
     }
 
-    private static PlayState loop(AnimationTest state, String anim) {
+//? if <=1.21.1 {
+    private static PlayState loop(software.bernie.geckolib.animation.AnimationState<?> state, String anim) {
+//?} else {
+    /*private static PlayState loop(AnimationTest state, String anim) {
+*///?}
         state.setAnimation(RawAnimation.begin().thenLoop(anim));
         return PlayState.CONTINUE;
     }

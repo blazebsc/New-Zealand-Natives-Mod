@@ -1,19 +1,27 @@
 package blake7.newzealandnativesmod.block;
 
-import blake7.newzealandnativesmod.registry.NativesBlocks;
+//? if >1.21.1 {
+/*import blake7.newzealandnativesmod.registry.NativesBlocks;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.MapLike;
 import com.mojang.serialization.RecordBuilder;
+*///?}
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.LeavesBlock;
-import net.minecraft.util.math.BlockPos;
+//? if >1.21.1 {
+/*import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+*///?}
 
 public class KowhaiLeaves extends LeavesBlock {
-    // ponytail: no throwaway instance here — an unregistered block trips the registry freeze check.
+//? if <=1.21.1 {
+    public KowhaiLeaves(AbstractBlock.Settings settings) {
+        super(settings);
+//?} else {
+    /*// ponytail: no throwaway instance here — an unregistered block trips the registry freeze check.
     public static final MapCodec<KowhaiLeaves> CODEC = new MapCodec<>() {
         @Override
         public <T> RecordBuilder<T> encode(KowhaiLeaves input, DynamicOps<T> ops, RecordBuilder<T> prefix) {
@@ -47,5 +55,6 @@ public class KowhaiLeaves extends LeavesBlock {
 
     @Override
     protected void spawnLeafParticle(World world, BlockPos pos, Random random) {
+*///?}
     }
 }

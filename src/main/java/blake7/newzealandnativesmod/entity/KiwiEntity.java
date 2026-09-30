@@ -9,16 +9,22 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.registry.RegistryKey;
+//? if >1.21.1 {
+/*import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+*///?}
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import blake7.newzealandnativesmod.registry.NativesSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.manager.AnimatableManager;
+//? if >1.21.1 {
+/*import software.bernie.geckolib.animatable.manager.AnimatableManager;
+*///?}
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.object.PlayState;
+//? if >1.21.1 {
+/*import software.bernie.geckolib.animation.object.PlayState;
+*///?}
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class KiwiEntity extends AnimalEntity implements GeoEntity {
@@ -26,7 +32,11 @@ public class KiwiEntity extends AnimalEntity implements GeoEntity {
 
     public static final EntityType<KiwiEntity> TYPE = EntityType.Builder.create(KiwiEntity::new, SpawnGroup.CREATURE)
             .dimensions(0.6f, 0.7f)
-            .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", "kiwi")));
+//? if <=1.21.1 {
+            .build(Identifier.of("newzealandnatives", "kiwi").toString());
+//?} else {
+            /*.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", "kiwi")));
+*///?}
 
     public KiwiEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
@@ -51,7 +61,11 @@ public class KiwiEntity extends AnimalEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>("walk", 0, state -> {
+//? if <=1.21.1 {
+        controllers.add(new AnimationController<>(this, "walk", 0, state -> {
+//?} else {
+        /*controllers.add(new AnimationController<>("walk", 0, state -> {
+*///?}
             if (state.isMoving()) {
                 state.setAnimation(RawAnimation.begin().thenLoop("animation.kiwi.walk"));
                 return PlayState.CONTINUE;
@@ -77,7 +91,11 @@ public class KiwiEntity extends AnimalEntity implements GeoEntity {
     }
 
     @Override
-    public boolean handleFallDamage(double fallDistance, float damageMultiplier,
+//? if <=1.21.1 {
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier,
+//?} else {
+    /*public boolean handleFallDamage(double fallDistance, float damageMultiplier,
+*///?}
             net.minecraft.entity.damage.DamageSource damageSource) {
         return false;
     }
