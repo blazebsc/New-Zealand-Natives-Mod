@@ -1,0 +1,44 @@
+# AGENTS.md — New Zealand Natives Mod
+
+Fabric Minecraft mods (Java, GeckoLib entities, ModMenu config) ported from the Bedrock addon in `bedrock_code/` (`convert_bedrock.py` assists the port; Bedrock behavior is the spec when in doubt).
+
+## Branches — the version matrix
+
+- `1.21.x` — **Stonecutter branch**, builds 1.21.1 + 1.21.11 jars from one tree.
+- `26.2` (default), `26.3` — plain Loom branches, one MC version each.
+- `1.21.1`, `1.21.11` — legacy, superseded by `1.21.x`. Don't develop here.
+- `bedrock` — upstream Bedrock reference, not Java.
+
+## Stonecutter rules (`1.21.x` only)
+
+- Plugin 0.9.8, Groovy DSL (`kotlinController = false`, `centralScript = "build.gradle"`).
+- Per-version deps live in `versions/<mc>/gradle.properties`, never root.
+- Per-version assets go in `versions/<mc>/src/main/resources`. Shared `src/*/resources` must contain only byte-identical files.
+- Version deltas in shared `src/` use `//? if <predicate> { … //?} else { … //?}` (see existing files for the pattern).
+- Jars are named `{mod_version}+{mc}` via `sc.current.version` — keep it, releases depend on it.
+- **Switch active version before building/running a target** (`Set active project to …` task); **run `Reset active project` before committing** or diffs carry the wrong morphed state.
+- Never commit `versions/*/build` or `stonecutter.gradle` (generated, gitignored).
+
+## Build
+
+- `./gradlew build` (root task builds all Stonecutter nodes on `1.21.x`).
+- Target one version: `./gradlew :1.21.1:build :1.21.11:build`; run client: `:1.21.1:runClient`.
+- JDKs: Temurin 21 for `1.21.x`, Temurin 25 for `26.x` (local: `/home/blake7/.jdks/`). CI uses the same split.
+- Dependency versions come from `gradle.properties` (per-branch, or per-node under `versions/`) — check https://modmuss50.me/fabric.html for current sets. GeckoLib is v4 on 1.21.1, v5 elsewhere; ModMenu versions also differ per MC — don't unify them.
+- `26.x` uses Mojang mappings (no `yarn`/`mappings` line in `build.gradle`); `1.21.x` uses Yarn. Client code lives under both `src/client/java/blake7/client/` and `.../newzealandnativesmod/` — check which package a file belongs to before moving it.
+
+## Release flow (CI)
+
+- `build.yml` (every branch): build + upload jars on push/PR.
+- `publish.yml` (default branch only): when **all** version branches share `mod_version` and no `vX` release exists, matrix-builds each branch and publishes **one** combined release. `0.*`/`*-*` versions publish as pre-release.
+- To cut a release: bump `mod_version` in `gradle.properties` on every version branch and push. Manual escape hatch: `git tag vX && git push origin vX`.
+
+## In-game verification
+
+- Run the client headless: `Xvfb :NN -screen 0 1280x800x24`, then `DISPLAY=:NN ... ./gradlew runClient` (prefix `:1.21.1:` etc. on `1.21.x`). Drive menus/chat with `xdotool`, screenshot with `import -window root /tmp/*.png`, assert via server log output — not screenshots.
+- Each version branch has its own `run/` dir (gitignored). Never reuse a save across MC versions without expecting an upgrade prompt.
+- Keep screenshot reads to a minimum per session; image-heavy sessions hit provider limits — prefer log assertions (`Summoned…`, `Placed …`, `Changed the block …`).
+
+## Stack decisions (don't relitigate without new evidence)
+
+- Stonecutter + Fabric Loom (+ NeoGradle if NeoForge ever happens). No Architectury anything — the Stonecutter org archived its Architectury template; the maintained multiloader template is Loom + NeoGradle.
