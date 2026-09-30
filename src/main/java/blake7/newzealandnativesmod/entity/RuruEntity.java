@@ -88,7 +88,9 @@ public class RuruEntity extends TameableEntity implements GeoEntity {
 //? if <=1.21.1 {
         nav.setCanPathThroughDoors(false);
 //?}
+//? if fabric {
         nav.setCanSwim(false);
+//?}
 //? if <=1.21.1 {
         nav.setCanEnterOpenDoors(true);
 //?}

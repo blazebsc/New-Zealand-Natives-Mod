@@ -78,7 +78,9 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
 //? if <=1.21.1 {
             nav.setCanPathThroughDoors(false);
 //?}
+//? if fabric {
             nav.setCanSwim(false);
+//?}
 //? if <=1.21.1 {
             nav.setCanEnterOpenDoors(true);
 //?}
@@ -87,11 +89,14 @@ public class NativesEntity extends AnimalEntity implements GeoEntity {
         return super.createNavigation(world);
     }
 
+//? if fabric {
+    // Yarn-only hook; NeoForge relies on vanilla flight handling.
     @Override
     public boolean canMoveVoluntarily() {
         MovementType mt = moveType != null ? moveType : resolveMoveType();
         return mt == MovementType.FLY || super.canMoveVoluntarily();
     }
+//?}
 
     // Bedrock tempt/breed items per species (bare ids resolved: fish->cod, dye:0->ink, S4->4 seeds, F7->3 flowers).
     private static final Set<Item> SEEDS = Set.of(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS);

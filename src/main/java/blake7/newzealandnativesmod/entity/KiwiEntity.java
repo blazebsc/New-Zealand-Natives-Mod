@@ -45,7 +45,12 @@ public class KiwiEntity extends AnimalEntity implements GeoEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
+//? if fabric {
         this.goalSelector.add(1, new AvoidSunlightGoal(this));
+//?}
+//? if neoforge {
+        /*this.goalSelector.add(1, new FleeSunGoal(this, 1.0));
+*///?}
         // ponytail: daytime nap has no vanilla equivalent; shade-seeking covers flee_sun/restrict_sun.
         this.goalSelector.add(2, new TemptGoal(this, 1.1, stack ->
                 stack.isOf(net.minecraft.item.Items.WHEAT_SEEDS)

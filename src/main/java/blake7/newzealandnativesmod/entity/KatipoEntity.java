@@ -4,6 +4,9 @@ import blake7.newzealandnativesmod.registry.NativesConfig;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.ai.goal.*;
+//? if neoforge {
+/*import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+*///?}
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;

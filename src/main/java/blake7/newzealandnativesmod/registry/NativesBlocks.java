@@ -58,12 +58,15 @@ public final class NativesBlocks {
     public static void register() {
     }
 
-//? if <=1.21.1 {
+//? if fabric && <=1.21.1 {
     private static Block register(String id, Block block) {
         Block registered = Registry.register(Registries.BLOCK, Identifier.of("newzealandnatives", id), block);
         Registry.register(Registries.ITEM, Identifier.of("newzealandnatives", id),
                 new BlockItem(registered, new Item.Settings()));
-//?} else {
+        return registered;
+    }
+//?}
+//? if fabric && >1.21.1 {
     /*private static Block register(String id, Function<RegistryKey<Block>, Block> factory) {
         Identifier identifier = Identifier.of("newzealandnatives", id);
         RegistryKey<Block> blockKey = RegistryKey.of(RegistryKeys.BLOCK, identifier);
@@ -72,7 +75,12 @@ public final class NativesBlocks {
         Block registered = Registry.register(Registries.BLOCK, identifier, block);
         Registry.register(Registries.ITEM, identifier,
                 new BlockItem(registered, new Item.Settings().registryKey(itemKey)));
-*///?}
         return registered;
     }
+*///?}
+//? if neoforge {
+    /*private static Block register(String id, Block block) {
+        return block;
+    }
+*///?}
 }

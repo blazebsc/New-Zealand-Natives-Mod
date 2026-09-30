@@ -12,16 +12,24 @@ Fabric Minecraft mods (Java, GeckoLib entities, ModMenu config) ported from the 
 ## Stonecutter rules (`1.21.x` only)
 
 - Plugin 0.9.8, Groovy DSL (`kotlinController = false`, `centralScript = "build.gradle"`).
+- Nodes: `1.21.1`, `1.21.11` (Fabric) and `1.21.1-neoforge` (pilot, ModDevGradle). Per-loader buildscripts: `build.gradle` (Fabric) vs `build.neoforge.gradle` (NeoForge).
 - Per-version deps live in `versions/<mc>/gradle.properties`, never root.
 - Per-version assets go in `versions/<mc>/src/main/resources`. Shared `src/*/resources` must contain only byte-identical files.
-- Version deltas in shared `src/` use `//? if <predicate> { … //?} else { … //?}` (see existing files for the pattern).
+- Version deltas in shared `src/` use `//? if <predicate> { … //?} else { … //?}` (see existing files for the pattern). Loader deltas use `//? if fabric { … //?}` / `//? if neoforge { … //?}` gates — never nest them.
 - Jars are named `{mod_version}+{mc}` via `sc.current.version` — keep it, releases depend on it.
 - **Switch active version before building/running a target** (`Set active project to …` task); **run `Reset active project` before committing** or diffs carry the wrong morphed state.
 - Never commit `versions/*/build` or `stonecutter.gradle` (generated, gitignored).
 
+## NeoForge node (`1.21.1-neoforge`)
+
+- Shared `src/` stays Yarn; `build.neoforge.gradle` carries ~200 `replace` rules mapping Yarn→Mojang-official names at generate time (verified against Mojang `client_mappings.txt`). Fix name mismatches by adding/changing a rule there, not by editing generated output.
+- `NeoForgeMod.java` (node-local, `versions/1.21.1-neoforge/src/main/java/`) registers everything via `DeferredRegister` — entities, items, blocks, sounds, creative tab, features, attributes, renderers. Fabric-only files (`NewZealandNativesMod`, `NativesSpawns`, `NativesItemGroups`, ModMenu/datagen/client entrypoints) are excluded from the NeoForge compile.
+- `versions/1.21.1-neoforge/src/client/{java,resources}/` must exist (`.gitkeep`) or Stonecutter skips the client sourceset.
+- Pilot scope: registration + renderers + attributes. Spawns/worldgen injection (Fabric `BiomeModifications`) has no NeoForge wiring yet — biome-modifier JSONs are the follow-up.
+
 ## Build
 
-- `./gradlew build` (root task builds all Stonecutter nodes on `1.21.x`).
+- `./gradlew build` (root task builds all Stonecutter nodes on `1.21.x` — including the NeoForge jar).
 - Target one version: `./gradlew :1.21.1:build :1.21.11:build`; run client: `:1.21.1:runClient`.
 - JDKs: Temurin 21 for `1.21.x`, Temurin 25 for `26.x` (local: `/home/blake7/.jdks/`). CI uses the same split.
 - Dependency versions come from `gradle.properties` (per-branch, or per-node under `versions/`) — check https://modmuss50.me/fabric.html for current sets. GeckoLib is v4 on 1.21.1, v5 elsewhere; ModMenu versions also differ per MC — don't unify them.

@@ -23,16 +23,28 @@ public class FallenLogFeature extends Feature<DefaultFeatureConfig> {
         super(codec);
     }
 
+    //? if fabric {
     public static void register() {
         Registry.register(Registries.FEATURE, Identifier.of("newzealandnatives", "fallen_log"),
                 new FallenLogFeature(DefaultFeatureConfig.CODEC));
     }
+    //?}
 
     @Override
     public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+//? if fabric {
         StructureWorldAccess world = context.getWorld();
+//?}
+//? if neoforge {
+        /*ServerLevelAccessor world = (ServerLevelAccessor) context.level();
+*///?}
         BlockPos origin = context.getOrigin();
+//? if fabric {
         Random random = context.getRandom();
+//?}
+//? if neoforge {
+        /*RandomSource random = context.random();
+*///?}
         // ponytail: dense forest rarely fits a 3-4 log runway on the first try; poke around.
         for (int attempt = 0; attempt < 6; attempt++) {
             BlockPos candidate = origin.add(random.nextInt(13) - 6, 0, random.nextInt(13) - 6);

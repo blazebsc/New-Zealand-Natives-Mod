@@ -82,19 +82,29 @@ public final class NativesItems {
     public static List<Item> all() { return Collections.unmodifiableList(REGISTERED); }
     public static int size() { return REGISTERED.size(); }
 
-//? if <=1.21.1 {
+//? if fabric && <=1.21.1 {
     private static Item register(String id, Item item) {
         Item registered = Registry.register(Registries.ITEM, Identifier.of("newzealandnatives", id), item);
-//?} else {
+        REGISTERED.add(registered);
+        return registered;
+    }
+//?}
+//? if fabric && >1.21.1 {
     /*private static Item register(String id, Function<Item.Settings, Item> factory) {
         Identifier identifier = Identifier.of("newzealandnatives", id);
         RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, identifier);
         Item item = factory.apply(new Item.Settings().registryKey(key));
         Item registered = Registry.register(Registries.ITEM, identifier, item);
-*///?}
         REGISTERED.add(registered);
         return registered;
     }
+*///?}
+//? if neoforge {
+    /*private static Item register(String id, Item item) {
+        REGISTERED.add(item);
+        return item;
+    }
+*///?}
 //? if <=1.21.1 {
 
     private static final Map<String, int[]> EGG_COLORS = Map.ofEntries(

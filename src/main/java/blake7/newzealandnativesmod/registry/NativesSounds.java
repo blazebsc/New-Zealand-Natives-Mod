@@ -50,12 +50,28 @@ public final class NativesSounds {
         register("whio.say");
     }
 
+    //? if fabric {
     private static void register(String path) {
         Identifier id = Identifier.of("newzealandnatives", path);
         EVENTS.put(path, Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id)));
     }
+    //?}
+    //? if neoforge {
+    /*private static void register(String path) {
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("newzealandnatives", path);
+        EVENTS.put(path, SoundEvent.createVariableRangeEvent(id));
+    }
+    *///?}
 
     public static SoundEvent get(String species, String kind) {
         return EVENTS.get(species + "." + kind);
+    }
+
+    public static java.util.Set<String> paths() {
+        return java.util.Collections.unmodifiableSet(EVENTS.keySet());
+    }
+
+    public static SoundEvent byPath(String path) {
+        return EVENTS.get(path);
     }
 }

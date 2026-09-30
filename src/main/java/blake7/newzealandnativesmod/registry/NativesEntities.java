@@ -32,47 +32,84 @@ public final class NativesEntities {
         for (Entry e : SPECIES) {
             EntityType<?> type;
             if (e.shortId().equals("kiwi")) {
+                //? if fabric {
                 type = Registry.register(
                         Registries.ENTITY_TYPE,
                         Identifier.of("newzealandnatives", e.shortId()),
                         KiwiEntity.TYPE
                 );
+                //?}
+                //? if neoforge {
+                /*type = KiwiEntity.TYPE;
+                *///?}
             } else if (e.shortId().equals("katipo")) {
+                //? if fabric {
                 type = Registry.register(
                         Registries.ENTITY_TYPE,
                         Identifier.of("newzealandnatives", e.shortId()),
                         KatipoEntity.TYPE
                 );
+                //?}
+                //? if neoforge {
+                /*type = KatipoEntity.TYPE;
+                *///?}
             } else if (e.shortId().equals("haasts_eagle")) {
+                //? if fabric {
                 type = Registry.register(
                         Registries.ENTITY_TYPE,
                         Identifier.of("newzealandnatives", e.shortId()),
                         HaastsEagleEntity.TYPE
                 );
+                //?}
+                //? if neoforge {
+                /*type = HaastsEagleEntity.TYPE;
+                *///?}
             } else if (e.shortId().equals("ruru")) {
+                //? if fabric {
                 type = Registry.register(
                         Registries.ENTITY_TYPE,
                         Identifier.of("newzealandnatives", e.shortId()),
                         RuruEntity.TYPE
                 );
+                //?}
+                //? if neoforge {
+                /*type = RuruEntity.TYPE;
+                *///?}
             } else if (e.shortId().equals("hectors_dolphin")) {
+                //? if fabric {
                 type = Registry.register(
                         Registries.ENTITY_TYPE,
                         Identifier.of("newzealandnatives", e.shortId()),
                         HectorsDolphinEntity.TYPE
                 );
+                //?}
+                //? if neoforge {
+                /*type = HectorsDolphinEntity.TYPE;
+                *///?}
             } else {
+                //? if fabric && <=1.21.1 {
                 type = Registry.register(
                         Registries.ENTITY_TYPE,
                         Identifier.of("newzealandnatives", e.shortId()),
                         EntityType.Builder.create(SpeciesEntities.factoryFor(e), e.spawnGroup())
-                                .dimensions(SpeciesEntities.sizeFor(e).width(), SpeciesEntities.sizeFor(e).height())
-//? if <=1.21.1 {
+                                .dimensions(SpeciesEntities.sizeFor(e)[0], SpeciesEntities.sizeFor(e)[1])
                                 .build(Identifier.of("newzealandnatives", e.shortId()).toString())
-//?} else {
-                                /*.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", e.shortId())))
-*///?}
                 );
+                //?}
+                //? if fabric && >1.21.1 {
+                /*type = Registry.register(
+                        Registries.ENTITY_TYPE,
+                        Identifier.of("newzealandnatives", e.shortId()),
+                        EntityType.Builder.create(SpeciesEntities.factoryFor(e), e.spawnGroup())
+                                .dimensions(SpeciesEntities.sizeFor(e)[0], SpeciesEntities.sizeFor(e)[1])
+                                .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", e.shortId())))
+                );
+                *///?}
+                //? if neoforge {
+                /*type = EntityType.Builder.of(SpeciesEntities.factoryFor(e), e.spawnGroup())
+                        .sized(SpeciesEntities.sizeFor(e)[0], SpeciesEntities.sizeFor(e)[1])
+                        .build(ResourceLocation.fromNamespaceAndPath("newzealandnatives", e.shortId()).toString());
+                *///?}
             }
             REGISTERED.add(type);
             NativesAnimRegistry.registerType(type, e.shortId());

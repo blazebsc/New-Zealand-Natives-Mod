@@ -22,6 +22,26 @@ loom {
     }
 }
 
+stonecutter {
+    constants.put('fabric', true)
+    constants.put('neoforge', false)
+}
+
+// NeoForge-only sources must not compile on Fabric nodes (and vice versa).
+// Each entry is a no-op if the path does not exist in that source set.
+sourceSets {
+    main {
+        java {
+            exclude 'blake7/neoforge/**'
+        }
+    }
+    client {
+        java {
+            exclude 'blake7/neoforge/**'
+        }
+    }
+}
+
 fabricApi {
     configureDataGeneration {
         client = true
