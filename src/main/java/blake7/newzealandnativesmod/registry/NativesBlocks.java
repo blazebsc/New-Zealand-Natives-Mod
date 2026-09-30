@@ -2,20 +2,21 @@ package blake7.newzealandnativesmod.registry;
 
 import blake7.newzealandnativesmod.block.KowhaiLeaves;
 import blake7.newzealandnativesmod.block.KowhaiSapling;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.block.SaplingGenerator;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.grower.TreeGrower;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 import java.util.Optional;
 //? if >1.21.1 {
@@ -27,32 +28,32 @@ public final class NativesBlocks {
 
 //? if <=1.21.1 {
     public static final Block ROTTEN_LOG = register("rotten_log",
-            new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(MapColor.BROWN)));
+            new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.COLOR_BROWN)));
 //?} else {
     /*public static final Block ROTTEN_LOG = register("rotten_log", key ->
-            new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(MapColor.BROWN).registryKey(key)));
+            new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.COLOR_BROWN).setId(key)));
 *///?}
 
-    public static final RegistryKey<ConfiguredFeature<?, ?>> KOWHAI_TREE = RegistryKey.of(
-            RegistryKeys.CONFIGURED_FEATURE, Identifier.of("newzealandnatives", "kowhai"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> KOWHAI_TREE = ResourceKey.create(
+            Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kowhai"));
 //? if <=1.21.1 {
     public static final Block KOWHAI_LOG = register("kowhai_log",
-            new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(MapColor.OAK_TAN)));
+            new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.WOOD)));
     public static final Block KOWHAI_LEAVES = register("kowhai_leaves",
-            new KowhaiLeaves(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)));
+            new KowhaiLeaves(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
     public static final Block KOWHAI_SAPLING = register("kowhai_sapling",
 //?} else {
     /*public static final Block KOWHAI_LOG = register("kowhai_log", key ->
-            new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(MapColor.OAK_TAN).registryKey(key)));
+            new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.WOOD).setId(key)));
     public static final Block KOWHAI_LEAVES = register("kowhai_leaves", key ->
-            new KowhaiLeaves(0.0f, AbstractBlock.Settings.copy(Blocks.OAK_LEAVES).registryKey(key)));
+            new KowhaiLeaves(0.0f, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).setId(key)));
     public static final Block KOWHAI_SAPLING = register("kowhai_sapling", key ->
 *///?}
-            new KowhaiSapling(new SaplingGenerator("kowhai", Optional.empty(), Optional.of(KOWHAI_TREE), Optional.empty()),
+            new KowhaiSapling(new TreeGrower("kowhai", Optional.empty(), Optional.of(KOWHAI_TREE), Optional.empty()),
 //? if <=1.21.1 {
-                    AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)));
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 //?} else {
-                    /*AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).registryKey(key)));
+                    /*BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING).setId(key)));
 *///?}
 
     public static void register() {
@@ -60,21 +61,21 @@ public final class NativesBlocks {
 
 //? if fabric && <=1.21.1 {
     private static Block register(String id, Block block) {
-        Block registered = Registry.register(Registries.BLOCK, Identifier.of("newzealandnatives", id), block);
-        Registry.register(Registries.ITEM, Identifier.of("newzealandnatives", id),
-                new BlockItem(registered, new Item.Settings()));
+        Block registered = Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("newzealandnatives", id), block);
+        Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("newzealandnatives", id),
+                new BlockItem(registered, new Item.Properties()));
         return registered;
     }
 //?}
 //? if fabric && >1.21.1 {
-    /*private static Block register(String id, Function<RegistryKey<Block>, Block> factory) {
-        Identifier identifier = Identifier.of("newzealandnatives", id);
-        RegistryKey<Block> blockKey = RegistryKey.of(RegistryKeys.BLOCK, identifier);
-        RegistryKey<Item> itemKey = RegistryKey.of(RegistryKeys.ITEM, identifier);
+    /*private static Block register(String id, Function<ResourceKey<Block>, Block> factory) {
+        ResourceLocation identifier = ResourceLocation.fromNamespaceAndPath("newzealandnatives", id);
+        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, identifier);
+        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, identifier);
         Block block = factory.apply(blockKey);
-        Block registered = Registry.register(Registries.BLOCK, identifier, block);
-        Registry.register(Registries.ITEM, identifier,
-                new BlockItem(registered, new Item.Settings().registryKey(itemKey)));
+        Block registered = Registry.register(BuiltInRegistries.BLOCK, identifier, block);
+        Registry.register(BuiltInRegistries.ITEM, identifier,
+                new BlockItem(registered, new Item.Properties().setId(itemKey)));
         return registered;
     }
 *///?}

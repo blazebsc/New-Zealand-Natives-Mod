@@ -1,36 +1,36 @@
 package blake7.newzealandnativesmod.entity;
 
 import blake7.newzealandnativesmod.registry.NativesSounds;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.ai.control.FlightMoveControl;
-import net.minecraft.entity.ai.goal.AnimalMateGoal;
-import net.minecraft.entity.ai.goal.FlyGoal;
-import net.minecraft.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.entity.ai.goal.FollowParentGoal;
-import net.minecraft.entity.ai.goal.LookAroundGoal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.SitGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
-import net.minecraft.entity.ai.pathing.BirdNavigation;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 //? if >1.21.1 {
-/*import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
+/*import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.registries.Registries;
 *///?}
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 //? if <=1.21.1 {
@@ -48,92 +48,82 @@ import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 // Bedrock parrot_wild/parrot_tame groups: tamed with seeds (1/3), sits, follows owner.
-public class RuruEntity extends TameableEntity implements GeoEntity {
+public class RuruEntity extends TamableAnimal implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public static final EntityType<RuruEntity> TYPE = EntityType.Builder.create(RuruEntity::new, SpawnGroup.CREATURE)
-            .dimensions(0.6f, 0.7f)
+    public static final EntityType<RuruEntity> TYPE = EntityType.Builder.of(RuruEntity::new, MobCategory.CREATURE)
+            .sized(0.6f, 0.7f)
 //? if <=1.21.1 {
-            .build(Identifier.of("newzealandnatives", "ruru").toString());
+            .build(ResourceLocation.fromNamespaceAndPath("newzealandnatives", "ruru").toString());
 //?} else {
-            /*.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", "ruru")));
+            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("newzealandnatives", "ruru")));
 *///?}
 
-    public RuruEntity(EntityType<? extends TameableEntity> entityType, World world) {
+    public RuruEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
         super(entityType, world);
-        this.moveControl = new FlightMoveControl(this, 20, true);
+        this.moveControl = new FlyingMoveControl(this, 20, true);
     }
 
     private static boolean isSeed(ItemStack stack) {
-        return stack.isOf(Items.WHEAT_SEEDS) || stack.isOf(Items.BEETROOT_SEEDS)
-                || stack.isOf(Items.MELON_SEEDS) || stack.isOf(Items.PUMPKIN_SEEDS);
+        return stack.is(Items.WHEAT_SEEDS) || stack.is(Items.BEETROOT_SEEDS)
+                || stack.is(Items.MELON_SEEDS) || stack.is(Items.PUMPKIN_SEEDS);
     }
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new SitGoal(this));
-        this.goalSelector.add(2, new FollowOwnerGoal(this, 1.0, 5.0f, 1.0f));
-        this.goalSelector.add(3, new TemptGoal(this, 1.1, RuruEntity::isSeed, false));
-        this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(5, new WanderFlyGoal(this));
-        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.add(8, new LookAroundGoal(this));
-        this.goalSelector.add(9, new FollowParentGoal(this, 1.2));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0, 5.0f, 1.0f));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, RuruEntity::isSeed, false));
+        this.goalSelector.addGoal(4, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(5, new WanderFlyGoal(this));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0f));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new FollowParentGoal(this, 1.2));
     }
 
     @Override
-    protected EntityNavigation createNavigation(World world) {
-        BirdNavigation nav = new BirdNavigation(this, world);
+    protected PathNavigation createNavigation(Level world) {
+        FlyingPathNavigation nav = new FlyingPathNavigation(this, world);
 //? if <=1.21.1 {
-        nav.setCanPathThroughDoors(false);
+        nav.setCanPassDoors(false);
 //?}
-//? if fabric {
-        nav.setCanSwim(false);
-//?}
+        nav.setCanFloat(false);
 //? if <=1.21.1 {
-        nav.setCanEnterOpenDoors(true);
+        nav.setCanOpenDoors(true);
 //?}
         return nav;
     }
 
     @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getStackInHand(hand);
-        if (this.isTamed()) {
-            if (this.isOwner(player) && !isSeed(stack)) {
-                this.setSitting(!this.isSitting());
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (this.isTame()) {
+            if (this.isOwnedBy(player) && !isSeed(stack)) {
+                this.setInSittingPose(!this.isInSittingPose());
 //? if <=1.21.1 {
-                return ActionResult.success(this.getWorld().isClient);
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
 //?} else {
-                /*return ActionResult.SUCCESS;
+                /*return InteractionResult.SUCCESS;
 *///?}
             }
         } else if (isSeed(stack)) {
-            stack.decrementUnlessCreative(1, player);
+            if (!player.getAbilities().instabuild) stack.shrink(1);
             if (this.getRandom().nextInt(3) == 0) {
-                this.setOwner(player);
-                this.setTamed(true, true);
-                this.setSitting(true);
-//? if <=1.21.1 {
-                this.getWorld().sendEntityStatus(this, (byte) 7);
-//?} else {
-                /*this.getEntityWorld().sendEntityStatus(this, (byte) 7);
-*///?}
+                this.tame(player);
+                this.setTame(true, true);
+                this.setInSittingPose(true);
+                if (this.level() instanceof ServerLevel serverLevel) serverLevel.broadcastEntityEvent(this, (byte) 7);
             } else {
-//? if <=1.21.1 {
-                this.getWorld().sendEntityStatus(this, (byte) 6);
-//?} else {
-                /*this.getEntityWorld().sendEntityStatus(this, (byte) 6);
-*///?}
+                if (this.level() instanceof ServerLevel serverLevel) serverLevel.broadcastEntityEvent(this, (byte) 6);
             }
 //? if <=1.21.1 {
-            return ActionResult.success(this.getWorld().isClient);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
 //?} else {
-            /*return ActionResult.SUCCESS;
+            /*return InteractionResult.SUCCESS;
 *///?}
         }
-        return super.interactMob(player, hand);
+        return super.mobInteract(player, hand);
     }
 
     @Override
@@ -143,7 +133,7 @@ public class RuruEntity extends TameableEntity implements GeoEntity {
 //?} else {
         /*controllers.add(new AnimationController<>("main", 0, state -> {
 *///?}
-            if (!this.isOnGround()) {
+            if (!this.onGround()) {
                 state.setAnimation(RawAnimation.begin().thenLoop("animation.ruru.fly"));
                 return PlayState.CONTINUE;
             }
@@ -157,11 +147,11 @@ public class RuruEntity extends TameableEntity implements GeoEntity {
 
     @Override
 //? if <=1.21.1 {
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier,
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier,
 //?} else {
-    /*public boolean handleFallDamage(double fallDistance, float damageMultiplier,
+    /*public boolean causeFallDamage(double fallDistance, float damageMultiplier,
 *///?}
-            net.minecraft.entity.damage.DamageSource damageSource) {
+            net.minecraft.world.damagesource.DamageSource damageSource) {
         return false;
     }
 
@@ -176,17 +166,17 @@ public class RuruEntity extends TameableEntity implements GeoEntity {
     }
 
     @Override
-    public float getScaleFactor() {
-        return this.isBaby() ? 0.6f : super.getScaleFactor();
+    public float getAgeScale() {
+        return this.isBaby() ? 0.6f : super.getAgeScale();
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
+    public boolean isFood(ItemStack stack) {
         return isSeed(stack);
     }
 
     @Override
-    public RuruEntity createChild(ServerWorld world, PassiveEntity entity) {
+    public RuruEntity getBreedOffspring(ServerLevel world, AgeableMob entity) {
         return new RuruEntity(TYPE, world);
     }
 }

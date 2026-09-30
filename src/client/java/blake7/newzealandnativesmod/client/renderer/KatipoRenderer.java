@@ -1,8 +1,8 @@
 package blake7.newzealandnativesmod.client.renderer;
 
 import blake7.newzealandnativesmod.entity.KatipoEntity;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
 //? if >1.21.1 {
 /*import net.minecraft.client.render.entity.state.EntityRenderState;
 *///?}
@@ -16,7 +16,7 @@ public class KatipoRenderer extends GeoEntityRenderer<KatipoEntity> {
 //?} else {
 /*public class KatipoRenderer extends GeoEntityRenderer<KatipoEntity, EntityRenderState> {
 *///?}
-    public KatipoRenderer(EntityRendererFactory.Context ctx) {
+    public KatipoRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new KatipoModel());
     }
 }
@@ -24,29 +24,29 @@ public class KatipoRenderer extends GeoEntityRenderer<KatipoEntity> {
 class KatipoModel extends software.bernie.geckolib.model.GeoModel<KatipoEntity> {
     @Override
 //? if <=1.21.1 {
-    public Identifier getModelResource(KatipoEntity object) {
-        return Identifier.of("newzealandnatives", "geo/katipo.geo.json");
+    public ResourceLocation getModelResource(KatipoEntity object) {
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/katipo.geo.json");
 //?} else {
-    /*public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/katipo");
+    /*public ResourceLocation getModelResource(GeoRenderState renderState) {
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/katipo");
 *///?}
     }
 
     @Override
 //? if <=1.21.1 {
-    public Identifier getTextureResource(KatipoEntity object) {
+    public ResourceLocation getTextureResource(KatipoEntity object) {
 //?} else {
-    /*public Identifier getTextureResource(GeoRenderState renderState) {
+    /*public ResourceLocation getTextureResource(GeoRenderState renderState) {
 *///?}
-        return Identifier.of("newzealandnatives", "textures/entity/katipo/katipo.png");
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/katipo/katipo.png");
     }
 
     @Override
-    public Identifier getAnimationResource(KatipoEntity animatable) {
+    public ResourceLocation getAnimationResource(KatipoEntity animatable) {
 //? if <=1.21.1 {
-        return Identifier.of("newzealandnatives", "animations/katipo.animation.json");
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "animations/katipo.animation.json");
 //?} else {
-        /*return Identifier.of("newzealandnatives", "katipo");
+        /*return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "katipo");
 *///?}
     }
 }

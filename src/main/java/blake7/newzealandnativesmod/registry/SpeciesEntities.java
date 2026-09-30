@@ -1,6 +1,6 @@
 package blake7.newzealandnativesmod.registry;
 
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.EntityType;
 import blake7.newzealandnativesmod.entity.NativesEntity;
 
 public final class SpeciesEntities {

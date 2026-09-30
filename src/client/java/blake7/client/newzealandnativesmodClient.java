@@ -16,11 +16,17 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 *///?}
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 //? if <=1.21.1 {
-import net.minecraft.client.render.RenderLayer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 //?} else {
-/*import net.minecraft.client.render.BlockRenderLayer;
+/*import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 *///?}
-import net.minecraft.entity.EntityType;
+//? if <=1.21.1 {
+import net.minecraft.client.renderer.RenderType;
+//?}
+//? if >1.21.1 {
+/*import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+*///?}
+import net.minecraft.world.entity.EntityType;
 
 public class newzealandnativesmodClient implements ClientModInitializer {
 
@@ -147,11 +153,11 @@ public class newzealandnativesmodClient implements ClientModInitializer {
         }
 
 //? if <=1.21.1 {
-        BlockRenderLayerMap.INSTANCE.putBlock(NativesBlocks.KOWHAI_LEAVES, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(NativesBlocks.KOWHAI_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(NativesBlocks.KOWHAI_LEAVES, RenderType.cutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(NativesBlocks.KOWHAI_SAPLING, RenderType.cutout());
 //?} else {
-        /*BlockRenderLayerMap.putBlock(NativesBlocks.KOWHAI_LEAVES, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(NativesBlocks.KOWHAI_SAPLING, BlockRenderLayer.CUTOUT);
+        /*BlockRenderLayerMap.putBlock(NativesBlocks.KOWHAI_LEAVES, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(NativesBlocks.KOWHAI_SAPLING, ChunkSectionLayer.CUTOUT);
 *///?}
     }
 }

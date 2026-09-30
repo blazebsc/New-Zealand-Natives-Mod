@@ -8,17 +8,17 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.MapLike;
 import com.mojang.serialization.RecordBuilder;
 *///?}
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.LeavesBlock;
 //? if >1.21.1 {
-/*import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+/*import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
 *///?}
 
 public class KowhaiLeaves extends LeavesBlock {
 //? if <=1.21.1 {
-    public KowhaiLeaves(AbstractBlock.Settings settings) {
+    public KowhaiLeaves(BlockBehaviour.Properties settings) {
         super(settings);
 //?} else {
     /*// ponytail: no throwaway instance here — an unregistered block trips the registry freeze check.
@@ -44,17 +44,17 @@ public class KowhaiLeaves extends LeavesBlock {
         }
     };
 
-    public KowhaiLeaves(float leafParticleChance, AbstractBlock.Settings settings) {
+    public KowhaiLeaves(float leafParticleChance, BlockBehaviour.Properties settings) {
         super(leafParticleChance, settings);
     }
 
     @Override
-    public MapCodec<? extends LeavesBlock> getCodec() {
+    public MapCodec<? extends LeavesBlock> codec() {
         return CODEC;
     }
 
     @Override
-    protected void spawnLeafParticle(World world, BlockPos pos, Random random) {
+    public void spawnFallingLeavesParticle(Level world, BlockPos pos, RandomSource random) {
 *///?}
     }
 }

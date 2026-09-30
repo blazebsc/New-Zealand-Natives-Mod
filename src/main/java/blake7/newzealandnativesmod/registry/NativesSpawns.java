@@ -2,21 +2,18 @@ package blake7.newzealandnativesmod.registry;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
-import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.entity.SpawnLocation;
-import net.minecraft.entity.SpawnLocationTypes;
-import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.Heightmap;
-//? if 1.21.1 {
-import net.minecraft.world.biome.SpawnSettings;
-//?}
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.entity.SpawnPlacementType;
+import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -102,17 +99,17 @@ public final class NativesSpawns {
         if (NativesConfig.INSTANCE.fallenLogs) {
             BiomeModifications.addFeature(
                     NativesSpawns::forest,
-                    GenerationStep.Feature.VEGETAL_DECORATION,
-                    RegistryKey.of(RegistryKeys.PLACED_FEATURE,
-                            Identifier.of("newzealandnatives", "rotten_log_patch")));
+                    GenerationStep.Decoration.VEGETAL_DECORATION,
+                    ResourceKey.create(Registries.PLACED_FEATURE,
+                            ResourceLocation.fromNamespaceAndPath("newzealandnatives", "rotten_log_patch")));
         }
         // Kowhai trees dot open country, never closed canopy (Bedrock lists plains/savanna first).
         if (NativesConfig.INSTANCE.kowhaiTrees) {
             BiomeModifications.addFeature(
                     NativesSpawns::openCountry,
-                    GenerationStep.Feature.VEGETAL_DECORATION,
-                    RegistryKey.of(RegistryKeys.PLACED_FEATURE,
-                            Identifier.of("newzealandnatives", "kowhai_trees")));
+                    GenerationStep.Decoration.VEGETAL_DECORATION,
+                    ResourceKey.create(Registries.PLACED_FEATURE,
+                            ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kowhai_trees")));
         }
     }
 
@@ -120,19 +117,19 @@ public final class NativesSpawns {
     private static void gate(Map<String, EntityType<?>> byId, String id, boolean day) {
         EntityType type = byId.get(id);
         if (type == null) return;
-        boolean water = type.getSpawnGroup() == SpawnGroup.WATER_AMBIENT
-                || type.getSpawnGroup() == SpawnGroup.WATER_CREATURE;
-        SpawnLocation loc = water ? SpawnLocationTypes.IN_WATER : SpawnLocationTypes.ON_GROUND;
+        boolean water = type.getCategory() == MobCategory.WATER_AMBIENT
+                || type.getCategory() == MobCategory.WATER_CREATURE;
+        SpawnPlacementType loc = water ? SpawnPlacementTypes.IN_WATER : SpawnPlacementTypes.ON_GROUND;
         // ponytail: no light gate underwater — sunlight rarely reaches depth, vanilla fish have none.
         if (water && day) {
-            SpawnRestriction.register(type, loc, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+            SpawnPlacements.register(type, loc, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     (t, world, reason, pos, random) -> true);
             return;
         }
-        SpawnRestriction.register(type, loc, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+        SpawnPlacements.register(type, loc, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (t, world, reason, pos, random) -> day
-                        ? world.getLightLevel(pos) >= 7
-                        : world.getLightLevel(pos) <= 7);
+                        ? world.getMaxLocalRawBrightness(pos) >= 7
+                        : world.getMaxLocalRawBrightness(pos) <= 7);
     }
 
     private static boolean overworld(BiomeSelectionContext ctx) {
@@ -183,7 +180,7 @@ public final class NativesSpawns {
         }
         EntityType<?> raw = byId.get(id);
         if (raw == null) return;
-        SpawnGroup group = null;
+        MobCategory group = null;
         for (var e : NativesEntities.SPECIES) {
             if (e.shortId().equals(id)) {
                 group = e.spawnGroup();
@@ -194,11 +191,4 @@ public final class NativesSpawns {
         int scaled = Math.max(1, (int) Math.round(weight * NativesConfig.INSTANCE.spawnRate));
         BiomeModifications.addSpawn(selector, group, (EntityType) raw, scaled, min, max);
     }
-//? if <=1.21.1 {
-
-    @SuppressWarnings("unused")
-    private static SpawnSettings.SpawnEntry entry(EntityType<?> type, int weight, int min, int max) {
-        return new SpawnSettings.SpawnEntry((EntityType<?>) type, weight, min, max);
-    }
-//?}
 }

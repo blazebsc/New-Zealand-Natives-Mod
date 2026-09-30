@@ -1,11 +1,11 @@
 package blake7.newzealandnativesmod.block;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.SaplingGenerator;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.TreeGrower;
 
 public class KowhaiSapling extends SaplingBlock {
-    public KowhaiSapling(SaplingGenerator generator, AbstractBlock.Settings settings) {
+    public KowhaiSapling(TreeGrower generator, BlockBehaviour.Properties settings) {
         super(generator, settings);
     }
 }

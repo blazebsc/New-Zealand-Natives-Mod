@@ -1,8 +1,8 @@
 package blake7.newzealandnativesmod.client.renderer;
 
 import blake7.newzealandnativesmod.entity.NativesEntity;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
 //? if >1.21.1 {
 /*import net.minecraft.client.render.entity.state.EntityRenderState;
 *///?}
@@ -16,7 +16,7 @@ public class KororaRenderer extends GeoEntityRenderer<NativesEntity> {
 //?} else {
 /*public class KororaRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderState> {
 *///?}
-    public KororaRenderer(EntityRendererFactory.Context ctx) {
+    public KororaRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new KororaModel());
     }
 }
@@ -24,29 +24,29 @@ public class KororaRenderer extends GeoEntityRenderer<NativesEntity> {
 class KororaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
 //? if <=1.21.1 {
-    public Identifier getModelResource(NativesEntity object) {
-        return Identifier.of("newzealandnatives", "geo/korora.geo.json");
+    public ResourceLocation getModelResource(NativesEntity object) {
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/korora.geo.json");
 //?} else {
-    /*public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/korora");
+    /*public ResourceLocation getModelResource(GeoRenderState renderState) {
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/korora");
 *///?}
     }
 
     @Override
 //? if <=1.21.1 {
-    public Identifier getTextureResource(NativesEntity object) {
+    public ResourceLocation getTextureResource(NativesEntity object) {
 //?} else {
-    /*public Identifier getTextureResource(GeoRenderState renderState) {
+    /*public ResourceLocation getTextureResource(GeoRenderState renderState) {
 *///?}
-        return Identifier.of("newzealandnatives", "textures/entity/korora/korora.png");
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/korora/korora.png");
     }
 
     @Override
-    public Identifier getAnimationResource(NativesEntity animatable) {
+    public ResourceLocation getAnimationResource(NativesEntity animatable) {
 //? if <=1.21.1 {
-        return Identifier.of("newzealandnatives", "animations/korora.animation.json");
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "animations/korora.animation.json");
 //?} else {
-        /*return Identifier.of("newzealandnatives", "korora");
+        /*return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "korora");
 *///?}
     }
 }

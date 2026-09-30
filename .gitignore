@@ -6,7 +6,6 @@
 build
 versions/*/build
 # Stonecutter local state (regenerated on sync)
-stonecutter.gradle
 # IntelliJ
 out/
 .idea

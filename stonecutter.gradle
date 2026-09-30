@@ -1,0 +1,20 @@
+plugins {
+    id "dev.kikugie.stonecutter"
+}
+
+stonecutter.active "1.21.1"
+
+// Version-scoped Mojang name drift, same mechanism the official multiloader
+// template uses. 1.21.11+ renamed ResourceLocation -> Identifier (factory
+// methods unchanged) and moved Dolphin into its own subpackage.
+stonecutter.parameters {
+    replacements {
+        string(current.parsed >= '1.21.11') {
+            replace 'ResourceLocation', 'Identifier'
+            replace 'net.minecraft.world.entity.animal.Dolphin', 'net.minecraft.world.entity.animal.dolphin.Dolphin'
+            replace 'net.minecraft.client.render.entity.state.DolphinEntityRenderState', 'net.minecraft.client.renderer.entity.state.DolphinRenderState'
+            replace 'net.minecraft.client.render.entity.state.EntityRenderState', 'net.minecraft.client.renderer.entity.state.EntityRenderState'
+            replace 'DolphinEntityRenderState', 'DolphinRenderState'
+        }
+    }
+}

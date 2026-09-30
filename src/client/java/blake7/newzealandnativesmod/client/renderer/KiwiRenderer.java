@@ -1,8 +1,8 @@
 package blake7.newzealandnativesmod.client.renderer;
 
 import blake7.newzealandnativesmod.entity.KiwiEntity;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
 //? if >1.21.1 {
 /*import net.minecraft.client.render.entity.state.EntityRenderState;
 *///?}
@@ -16,7 +16,7 @@ public class KiwiRenderer extends GeoEntityRenderer<KiwiEntity> {
 //?} else {
 /*public class KiwiRenderer extends GeoEntityRenderer<KiwiEntity, EntityRenderState> {
 *///?}
-    public KiwiRenderer(EntityRendererFactory.Context ctx) {
+    public KiwiRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new KiwiModel());
     }
 }
@@ -24,29 +24,29 @@ public class KiwiRenderer extends GeoEntityRenderer<KiwiEntity> {
 class KiwiModel extends software.bernie.geckolib.model.GeoModel<KiwiEntity> {
     @Override
 //? if <=1.21.1 {
-    public Identifier getModelResource(KiwiEntity object) {
-        return Identifier.of("newzealandnatives", "geo/kiwi.geo.json");
+    public ResourceLocation getModelResource(KiwiEntity object) {
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/kiwi.geo.json");
 //?} else {
-    /*public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/kiwi");
+    /*public ResourceLocation getModelResource(GeoRenderState renderState) {
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/kiwi");
 *///?}
     }
 
     @Override
 //? if <=1.21.1 {
-    public Identifier getTextureResource(KiwiEntity object) {
+    public ResourceLocation getTextureResource(KiwiEntity object) {
 //?} else {
-    /*public Identifier getTextureResource(GeoRenderState renderState) {
+    /*public ResourceLocation getTextureResource(GeoRenderState renderState) {
 *///?}
-        return Identifier.of("newzealandnatives", "textures/entity/kiwi/kiwi.png");
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/kiwi/kiwi.png");
     }
 
     @Override
-    public Identifier getAnimationResource(KiwiEntity animatable) {
+    public ResourceLocation getAnimationResource(KiwiEntity animatable) {
 //? if <=1.21.1 {
-        return Identifier.of("newzealandnatives", "animations/kiwi.animation.json");
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "animations/kiwi.animation.json");
 //?} else {
-        /*return Identifier.of("newzealandnatives", "kiwi");
+        /*return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kiwi");
 *///?}
     }
 }

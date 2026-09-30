@@ -1,20 +1,20 @@
 package blake7.newzealandnativesmod.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 //? if >1.21.1 {
-/*import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
+/*import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.registries.Registries;
 *///?}
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import blake7.newzealandnativesmod.registry.NativesSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -27,41 +27,36 @@ import software.bernie.geckolib.animation.*;
 *///?}
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class KiwiEntity extends AnimalEntity implements GeoEntity {
+public class KiwiEntity extends Animal implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public static final EntityType<KiwiEntity> TYPE = EntityType.Builder.create(KiwiEntity::new, SpawnGroup.CREATURE)
-            .dimensions(0.6f, 0.7f)
+    public static final EntityType<KiwiEntity> TYPE = EntityType.Builder.of(KiwiEntity::new, MobCategory.CREATURE)
+            .sized(0.6f, 0.7f)
 //? if <=1.21.1 {
-            .build(Identifier.of("newzealandnatives", "kiwi").toString());
+            .build(ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kiwi").toString());
 //?} else {
-            /*.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("newzealandnatives", "kiwi")));
+            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kiwi")));
 *///?}
 
-    public KiwiEntity(EntityType<? extends AnimalEntity> entityType, World world) {
+    public KiwiEntity(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
     }
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-//? if fabric {
-        this.goalSelector.add(1, new AvoidSunlightGoal(this));
-//?}
-//? if neoforge {
-        /*this.goalSelector.add(1, new FleeSunGoal(this, 1.0));
-*///?}
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new FleeSunGoal(this, 1.0));
         // ponytail: daytime nap has no vanilla equivalent; shade-seeking covers flee_sun/restrict_sun.
-        this.goalSelector.add(2, new TemptGoal(this, 1.1, stack ->
-                stack.isOf(net.minecraft.item.Items.WHEAT_SEEDS)
-                        || stack.isOf(net.minecraft.item.Items.BEETROOT_SEEDS)
-                        || stack.isOf(net.minecraft.item.Items.MELON_SEEDS)
-                        || stack.isOf(net.minecraft.item.Items.PUMPKIN_SEEDS), false));
-        this.goalSelector.add(3, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.add(6, new LookAroundGoal(this));
-        this.goalSelector.add(7, new FollowParentGoal(this, 1.2));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.1, stack ->
+                stack.is(net.minecraft.world.item.Items.WHEAT_SEEDS)
+                        || stack.is(net.minecraft.world.item.Items.BEETROOT_SEEDS)
+                        || stack.is(net.minecraft.world.item.Items.MELON_SEEDS)
+                        || stack.is(net.minecraft.world.item.Items.PUMPKIN_SEEDS), false));
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0f));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new FollowParentGoal(this, 1.2));
     }
 
     @Override
@@ -91,27 +86,27 @@ public class KiwiEntity extends AnimalEntity implements GeoEntity {
     }
 
     @Override
-    public float getScaleFactor() {
-        return this.isBaby() ? 0.33f : super.getScaleFactor();
+    public float getAgeScale() {
+        return this.isBaby() ? 0.33f : super.getAgeScale();
     }
 
     @Override
 //? if <=1.21.1 {
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier,
+    public boolean causeFallDamage(float fallDistance, float damageMultiplier,
 //?} else {
-    /*public boolean handleFallDamage(double fallDistance, float damageMultiplier,
+    /*public boolean causeFallDamage(double fallDistance, float damageMultiplier,
 *///?}
-            net.minecraft.entity.damage.DamageSource damageSource) {
+            net.minecraft.world.damagesource.DamageSource damageSource) {
         return false;
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
-        return stack.isOf(blake7.newzealandnativesmod.registry.NativesItems.HUHU_GRUB);
+    public boolean isFood(ItemStack stack) {
+        return stack.is(blake7.newzealandnativesmod.registry.NativesItems.HUHU_GRUB);
     }
 
     @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return new KiwiEntity((EntityType<? extends AnimalEntity>) this.getType(), world);
+    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
+        return new KiwiEntity((EntityType<? extends Animal>) this.getType(), world);
     }
 }

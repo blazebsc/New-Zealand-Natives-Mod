@@ -1,8 +1,8 @@
 package blake7.newzealandnativesmod.client.renderer;
 
 import blake7.newzealandnativesmod.entity.NativesEntity;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
 //? if >1.21.1 {
 /*import net.minecraft.client.render.entity.state.EntityRenderState;
 *///?}
@@ -16,7 +16,7 @@ public class KotukuRenderer extends GeoEntityRenderer<NativesEntity> {
 //?} else {
 /*public class KotukuRenderer extends GeoEntityRenderer<NativesEntity, EntityRenderState> {
 *///?}
-    public KotukuRenderer(EntityRendererFactory.Context ctx) {
+    public KotukuRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new KotukuModel());
     }
 }
@@ -24,29 +24,29 @@ public class KotukuRenderer extends GeoEntityRenderer<NativesEntity> {
 class KotukuModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> {
     @Override
 //? if <=1.21.1 {
-    public Identifier getModelResource(NativesEntity object) {
-        return Identifier.of("newzealandnatives", "geo/kotuku.geo.json");
+    public ResourceLocation getModelResource(NativesEntity object) {
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/kotuku.geo.json");
 //?} else {
-    /*public Identifier getModelResource(GeoRenderState renderState) {
-        return Identifier.of("newzealandnatives", "geo/kotuku");
+    /*public ResourceLocation getModelResource(GeoRenderState renderState) {
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/kotuku");
 *///?}
     }
 
     @Override
 //? if <=1.21.1 {
-    public Identifier getTextureResource(NativesEntity object) {
+    public ResourceLocation getTextureResource(NativesEntity object) {
 //?} else {
-    /*public Identifier getTextureResource(GeoRenderState renderState) {
+    /*public ResourceLocation getTextureResource(GeoRenderState renderState) {
 *///?}
-        return Identifier.of("newzealandnatives", "textures/entity/kotuku/kotuku.png");
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/kotuku/kotuku.png");
     }
 
     @Override
-    public Identifier getAnimationResource(NativesEntity animatable) {
+    public ResourceLocation getAnimationResource(NativesEntity animatable) {
 //? if <=1.21.1 {
-        return Identifier.of("newzealandnatives", "animations/kotuku.animation.json");
+        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "animations/kotuku.animation.json");
 //?} else {
-        /*return Identifier.of("newzealandnatives", "kotuku");
+        /*return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kotuku");
 *///?}
     }
 }

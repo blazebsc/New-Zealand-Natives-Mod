@@ -1,9 +1,9 @@
 package blake7.newzealandnativesmod.registry;
 
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,8 +52,8 @@ public final class NativesSounds {
 
     //? if fabric {
     private static void register(String path) {
-        Identifier id = Identifier.of("newzealandnatives", path);
-        EVENTS.put(path, Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id)));
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("newzealandnatives", path);
+        EVENTS.put(path, Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id)));
     }
     //?}
     //? if neoforge {

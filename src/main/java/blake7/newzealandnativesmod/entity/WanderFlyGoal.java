@@ -1,27 +1,27 @@
 package blake7.newzealandnativesmod.entity;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.core.BlockPos;
 
 import java.util.EnumSet;
 
 // Picks a nearby patch of open air and steers straight at it.
 // Fire-and-forget: avoids FlyGoal stalling when a target or navigation state pins it.
 public class WanderFlyGoal extends Goal {
-    private final PathAwareEntity mob;
+    private final PathfinderMob mob;
     private int cooldown;
 
-    public WanderFlyGoal(PathAwareEntity mob) {
+    public WanderFlyGoal(PathfinderMob mob) {
         this.mob = mob;
-        this.setControls(EnumSet.of(Control.MOVE));
+        this.setFlags(EnumSet.of(Flag.MOVE));
         this.cooldown = mob.getRandom().nextInt(60);
     }
 
     @Override
-    public boolean canStart() {
+    public boolean canUse() {
         if (mob.getTarget() != null) return false;
-        if (mob.isTouchingWater()) return false;
+        if (mob.isInWater()) return false;
         if (--cooldown > 0) return false;
         return true;
     }
@@ -34,19 +34,18 @@ public class WanderFlyGoal extends Goal {
             double y = mob.getY() + (mob.getRandom().nextDouble() - 0.5) * 10.0;
             double z = mob.getZ() + (mob.getRandom().nextDouble() - 0.5) * 24.0;
 //? if <=1.21.1 {
-            if (y < mob.getWorld().getBottomY() + 2) continue;
-            if (!mob.getWorld().isAir(BlockPos.ofFloored(x, y, z))) continue;
+            if (y < mob.level().getMinBuildHeight() + 2) continue;
 //?} else {
-            /*if (y < mob.getEntityWorld().getBottomY() + 2) continue;
-            if (!mob.getEntityWorld().isAir(BlockPos.ofFloored(x, y, z))) continue;
+            /*if (y < mob.level().getMinY() + 2) continue;
 *///?}
-            mob.getMoveControl().moveTo(x, y, z, 1.0);
+            if (!mob.level().getBlockState(BlockPos.containing(x, y, z)).isAir()) continue;
+            mob.getMoveControl().setWantedPosition(x, y, z, 1.0);
             break;
         }
     }
 
     @Override
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         return false;
     }
 }
