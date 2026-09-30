@@ -16,7 +16,13 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+//? if <26.3 {
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+//?}
+//? if >=26.3 {
+/*import net.minecraft.util.random.WeightedList;
+import net.minecraft.world.level.levelgen.feature.Feature;
+*///?}
 
 import java.util.Optional;
 //? if >1.21.1 {
@@ -34,26 +40,50 @@ public final class NativesBlocks {
             new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.COLOR_BROWN).setId(key)));
 *///?}
 
+//? if <26.3 {
     public static final ResourceKey<ConfiguredFeature<?, ?>> KOWHAI_TREE = ResourceKey.create(
             Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kowhai"));
+//?}
+//? if >=26.3 {
+    /*public static final ResourceKey<Feature> KOWHAI_TREE = ResourceKey.create(
+            Registries.FEATURE,
+            ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kowhai"));
+*///?}
 //? if <=1.21.1 {
     public static final Block KOWHAI_LOG = register("kowhai_log",
             new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.WOOD)));
     public static final Block KOWHAI_LEAVES = register("kowhai_leaves",
             new KowhaiLeaves(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
     public static final Block KOWHAI_SAPLING = register("kowhai_sapling",
-//?} else {
+            new KowhaiSapling(new TreeGrower("kowhai", Optional.empty(), Optional.of(KOWHAI_TREE), Optional.empty()),
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
+//?}
+//? if >1.21.1 && <26.1 {
     /*public static final Block KOWHAI_LOG = register("kowhai_log", key ->
             new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.WOOD).setId(key)));
     public static final Block KOWHAI_LEAVES = register("kowhai_leaves", key ->
             new KowhaiLeaves(0.0f, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).setId(key)));
     public static final Block KOWHAI_SAPLING = register("kowhai_sapling", key ->
-*///?}
             new KowhaiSapling(new TreeGrower("kowhai", Optional.empty(), Optional.of(KOWHAI_TREE), Optional.empty()),
-//? if <=1.21.1 {
-                    BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
-//?} else {
-                    /*BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING).setId(key)));
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING).setId(key)));
+*///?}
+//? if >=26.1 && <26.3 {
+    /*public static final Block KOWHAI_LOG = register("kowhai_log", key ->
+            new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.WOOD).setId(key)));
+    public static final Block KOWHAI_LEAVES = register("kowhai_leaves", key ->
+            new KowhaiLeaves(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).setId(key)));
+    public static final Block KOWHAI_SAPLING = register("kowhai_sapling", key ->
+            new KowhaiSapling(new TreeGrower("kowhai", Optional.empty(), Optional.of(KOWHAI_TREE), Optional.empty()),
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING).setId(key)));
+*///?}
+//? if >=26.3 {
+    /*public static final Block KOWHAI_LOG = register("kowhai_log", key ->
+            new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG).mapColor(MapColor.WOOD).setId(key)));
+    public static final Block KOWHAI_LEAVES = register("kowhai_leaves", key ->
+            new KowhaiLeaves(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).setId(key)));
+    public static final Block KOWHAI_SAPLING = register("kowhai_sapling", key ->
+            new KowhaiSapling(new TreeGrower("kowhai", WeightedList.of(KOWHAI_TREE), WeightedList.of(), WeightedList.of(), KOWHAI_TREE),
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING).setId(key)));
 *///?}
 
     public static void register() {

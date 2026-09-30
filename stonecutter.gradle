@@ -16,5 +16,9 @@ stonecutter.parameters {
             replace 'net.minecraft.client.render.entity.state.EntityRenderState', 'net.minecraft.client.renderer.entity.state.EntityRenderState'
             replace 'DolphinEntityRenderState', 'DolphinRenderState'
         }
+        string(current.parsed >= '26.1') {
+            replace 'GuiGraphics', 'GuiGraphicsExtractor'
+            replace 'software.bernie.geckolib', 'com.geckolib'
+        }
     }
 }

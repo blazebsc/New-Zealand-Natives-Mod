@@ -1,7 +1,8 @@
 plugins {
-    id 'fabric-loom' version '1.17-SNAPSHOT'
     id 'maven-publish'
     id 'dev.kikugie.stonecutter' version '0.9.8'
+    // Applies the right fabric-loom variant per Minecraft version (26.x vs older).
+    id 'dev.kikugie.loom-back-compat'
 }
 
 version = "${project.mod_version}+${sc.current.version}"
@@ -58,6 +59,10 @@ repositories {
         name = 'TerraformersMC'
         url = 'https://maven.terraformersmc.com/releases/'
     }
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+    }
     mavenCentral()
     // You should only use this when depending on other mods because
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -68,12 +73,21 @@ repositories {
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
+    // Applies official Mojang mappings on obfuscated versions, no-op on 26.x.
+    loomx.applyMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation "software.bernie.geckolib:${project.geckolib_artifact}:${project.geckolib_version}"
-    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    if (project.hasProperty('geckolib_artifact')) {
+        modImplementation "software.bernie.geckolib:${project.geckolib_artifact}:${project.geckolib_version}"
+    } else {
+        modImplementation "maven.modrinth:geckolib:${project.geckolib_version}"
+    }
+    if (project.hasProperty('modmenu_version')) {
+        modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    } else {
+        modImplementation "maven.modrinth:modmenu:${project.modmenu_modrinth}"
+    }
 }
 
 processResources {
@@ -89,7 +103,7 @@ processResources {
     }
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = sc.current.parsed >= '26.1' ? 25 : 21
 tasks.withType(JavaCompile).configureEach {
     // ensure that the encoding is set to UTF-8, no matter what the system default is
     // this fixes some edge cases with special characters not displaying correctly

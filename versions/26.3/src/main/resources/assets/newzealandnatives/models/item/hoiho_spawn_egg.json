@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "newzealandnatives:item/hoiho_spawn_egg"
+  }
+}

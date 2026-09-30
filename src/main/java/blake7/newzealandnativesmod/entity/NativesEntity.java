@@ -87,6 +87,15 @@ public class NativesEntity extends Animal implements GeoEntity {
         return super.createNavigation(world);
     }
 
+//? if >1.21.1 && <26.3 {
+    /*// Late-Mojang hook replacing the Yarn-era canMoveVoluntarily override; final again in 26.3.
+    @Override
+    public boolean canSimulateMovement() {
+        MovementType mt = moveType != null ? moveType : resolveMoveType();
+        return mt == MovementType.FLY || super.canSimulateMovement();
+    }
+*///?}
+
     // Bedrock tempt/breed items per species (bare ids resolved: fish->cod, dye:0->ink, S4->4 seeds, F7->3 flowers).
     private static final Set<Item> SEEDS = Set.of(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS);
     private static final Set<Item> FLOWERS = Set.of(Items.POPPY, Items.DANDELION, Items.WITHER_ROSE);

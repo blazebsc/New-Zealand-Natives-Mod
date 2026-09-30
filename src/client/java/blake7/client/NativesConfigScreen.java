@@ -74,15 +74,29 @@ public class NativesConfigScreen extends Screen {
                 .bounds(x, y, w, h).build());
     }
 
+//? if <26.1 {
     @Override
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
         context.drawCenteredString(this.font, this.title, this.width / 2, 20, 0xFFFFFF);
     }
+//?}
+//? if >=26.1 {
+    /*@Override
+    public void extractRenderState(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+        graphics.centeredText(this.font, this.title, this.width / 2, 20, 0xFFFFFF);
+    }
+*///?}
 
     @Override
     public void onClose() {
+//? if >=26.1 {
+        /*if (this.minecraft != null) this.minecraft.setScreenAndShow(this.parent);
+*///?}
+//? if <26.1 {
         if (this.minecraft != null) this.minecraft.setScreen(this.parent);
+//?}
     }
 
     @Override

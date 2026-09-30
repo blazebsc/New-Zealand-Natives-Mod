@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "newzealandnatives:item/king_shag_spawn_egg"
+  }
+}

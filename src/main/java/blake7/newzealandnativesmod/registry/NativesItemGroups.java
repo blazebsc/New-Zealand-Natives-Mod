@@ -1,6 +1,11 @@
 package blake7.newzealandnativesmod.registry;
 
+//? if <26.1 {
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+//?}
+//? if >=26.1 {
+/*import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
+*///?}
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -11,7 +16,12 @@ import net.minecraft.resources.ResourceLocation;
 public final class NativesItemGroups {
     private NativesItemGroups() {}
 
-    public static final CreativeModeTab NATIVES = FabricItemGroup.builder()
+    public static final CreativeModeTab NATIVES =
+//? if <26.1 {
+            FabricItemGroup.builder()
+//?} else {
+            /*FabricCreativeModeTab.builder()
+*///?}
             .title(Component.translatable("itemGroup.newzealandnatives.natives"))
             .icon(() -> new ItemStack(NativesItems.KIWI_SPAWN_EGG))
             .displayItems((params, output) -> {

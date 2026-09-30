@@ -38,7 +38,7 @@ public class WanderFlyGoal extends Goal {
 //?} else {
             /*if (y < mob.level().getMinY() + 2) continue;
 *///?}
-            if (!mob.level().getBlockState(BlockPos.containing(x, y, z)).isAir()) continue;
+            if (!mob.level().isEmptyBlock(BlockPos.containing(x, y, z))) continue;
             mob.getMoveControl().setWantedPosition(x, y, z, 1.0);
             break;
         }

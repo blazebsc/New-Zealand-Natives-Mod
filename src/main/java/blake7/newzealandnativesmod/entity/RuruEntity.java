@@ -100,7 +100,7 @@ public class RuruEntity extends TamableAnimal implements GeoEntity {
         ItemStack stack = player.getItemInHand(hand);
         if (this.isTame()) {
             if (this.isOwnedBy(player) && !isSeed(stack)) {
-                this.setInSittingPose(!this.isInSittingPose());
+                this.setOrderedToSit(!this.isOrderedToSit());
 //? if <=1.21.1 {
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
 //?} else {
@@ -108,14 +108,29 @@ public class RuruEntity extends TamableAnimal implements GeoEntity {
 *///?}
             }
         } else if (isSeed(stack)) {
-            if (!player.getAbilities().instabuild) stack.shrink(1);
+            stack.consume(1, player);
             if (this.getRandom().nextInt(3) == 0) {
+//? if >=26.1 {
+                /*this.setOwner(player);
+*///?}
+//? if <26.1 {
                 this.tame(player);
+//?}
                 this.setTame(true, true);
-                this.setInSittingPose(true);
+                this.setOrderedToSit(true);
+//? if >=26.1 {
+                /*this.level().broadcastEntityEvent(this, (byte) 7);
+*///?}
+//? if <26.1 {
                 if (this.level() instanceof ServerLevel serverLevel) serverLevel.broadcastEntityEvent(this, (byte) 7);
+//?}
             } else {
+//? if >=26.1 {
+                /*this.level().broadcastEntityEvent(this, (byte) 6);
+*///?}
+//? if <26.1 {
                 if (this.level() instanceof ServerLevel serverLevel) serverLevel.broadcastEntityEvent(this, (byte) 6);
+//?}
             }
 //? if <=1.21.1 {
             return InteractionResult.sidedSuccess(this.level().isClientSide);

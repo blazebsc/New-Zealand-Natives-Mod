@@ -45,7 +45,7 @@ public class KiwiEntity extends Animal implements GeoEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new FleeSunGoal(this, 1.0));
+        this.goalSelector.addGoal(1, new RestrictSunGoal(this));
         // ponytail: daytime nap has no vanilla equivalent; shade-seeking covers flee_sun/restrict_sun.
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.1, stack ->
                 stack.is(net.minecraft.world.item.Items.WHEAT_SEEDS)
