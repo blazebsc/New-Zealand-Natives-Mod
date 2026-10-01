@@ -63,6 +63,10 @@ repositories {
         name = 'Modrinth'
         url = 'https://api.modrinth.com/maven'
     }
+    maven {
+        name = 'Nucleoid'
+        url = 'https://maven.nucleoid.xyz'
+    }
     mavenCentral()
     // You should only use this when depending on other mods because
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -95,6 +99,11 @@ processResources {
     inputs.property "minecraft_version", project.minecraft_version
     inputs.property "loader_version", project.loader_version
     filteringCharset "UTF-8"
+
+    // Pre-1.21 uses the plural loot_tables dir; the shared singular copy is dead weight there.
+    if (sc.current.parsed <= '1.20.6') {
+        exclude 'data/**/loot_table/**'
+    }
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version,

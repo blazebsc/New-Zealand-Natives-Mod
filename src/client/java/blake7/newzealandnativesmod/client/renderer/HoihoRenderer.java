@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.client.renderer;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.entity.NativesEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -25,10 +26,10 @@ class HoihoModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> 
     @Override
 //? if <=1.21.1 {
     public ResourceLocation getModelResource(NativesEntity object) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/hoiho.geo.json");
+        return NativesId.of("geo/hoiho.geo.json");
 //?} else {
     /*public ResourceLocation getModelResource(GeoRenderState renderState) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/hoiho");
+        return NativesId.of("geo/hoiho");
 *///?}
     }
 
@@ -38,15 +39,15 @@ class HoihoModel extends software.bernie.geckolib.model.GeoModel<NativesEntity> 
 //?} else {
     /*public ResourceLocation getTextureResource(GeoRenderState renderState) {
 *///?}
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/hoiho/hoiho.png");
+        return NativesId.of("textures/entity/hoiho/hoiho.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(NativesEntity animatable) {
 //? if <=1.21.1 {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "animations/hoiho.animation.json");
+        return NativesId.of("animations/hoiho.animation.json");
 //?} else {
-        /*return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "hoiho");
+        /*return NativesId.of("hoiho");
 *///?}
     }
 }

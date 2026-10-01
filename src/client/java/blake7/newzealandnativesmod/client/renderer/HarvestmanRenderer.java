@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.client.renderer;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.entity.NativesEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -25,10 +26,10 @@ class HarvestmanModel extends software.bernie.geckolib.model.GeoModel<NativesEnt
     @Override
 //? if <=1.21.1 {
     public ResourceLocation getModelResource(NativesEntity object) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/harvestman.geo.json");
+        return NativesId.of("geo/harvestman.geo.json");
 //?} else {
     /*public ResourceLocation getModelResource(GeoRenderState renderState) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/harvestman");
+        return NativesId.of("geo/harvestman");
 *///?}
     }
 
@@ -38,15 +39,15 @@ class HarvestmanModel extends software.bernie.geckolib.model.GeoModel<NativesEnt
 //?} else {
     /*public ResourceLocation getTextureResource(GeoRenderState renderState) {
 *///?}
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/harvestman/harvestman.png");
+        return NativesId.of("textures/entity/harvestman/harvestman.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(NativesEntity animatable) {
 //? if <=1.21.1 {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "animations/harvestman.animation.json");
+        return NativesId.of("animations/harvestman.animation.json");
 //?} else {
-        /*return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "harvestman");
+        /*return NativesId.of("harvestman");
 *///?}
     }
 }

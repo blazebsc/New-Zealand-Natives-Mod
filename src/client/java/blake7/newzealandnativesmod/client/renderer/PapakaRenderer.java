@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.client.renderer;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.entity.NativesEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -25,10 +26,10 @@ class PapakaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
     @Override
 //? if <=1.21.1 {
     public ResourceLocation getModelResource(NativesEntity object) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/papaka.geo.json");
+        return NativesId.of("geo/papaka.geo.json");
 //?} else {
     /*public ResourceLocation getModelResource(GeoRenderState renderState) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/papaka");
+        return NativesId.of("geo/papaka");
 *///?}
     }
 
@@ -38,15 +39,15 @@ class PapakaModel extends software.bernie.geckolib.model.GeoModel<NativesEntity>
 //?} else {
     /*public ResourceLocation getTextureResource(GeoRenderState renderState) {
 *///?}
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/papaka/papaka.png");
+        return NativesId.of("textures/entity/papaka/papaka.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(NativesEntity animatable) {
 //? if <=1.21.1 {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "animations/papaka.animation.json");
+        return NativesId.of("animations/papaka.animation.json");
 //?} else {
-        /*return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "papaka");
+        /*return NativesId.of("papaka");
 *///?}
     }
 }

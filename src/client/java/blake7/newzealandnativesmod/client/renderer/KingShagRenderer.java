@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.client.renderer;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.entity.NativesEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -25,10 +26,10 @@ class KingShagModel extends software.bernie.geckolib.model.GeoModel<NativesEntit
     @Override
 //? if <=1.21.1 {
     public ResourceLocation getModelResource(NativesEntity object) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/king_shag.geo.json");
+        return NativesId.of("geo/king_shag.geo.json");
 //?} else {
     /*public ResourceLocation getModelResource(GeoRenderState renderState) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/king_shag");
+        return NativesId.of("geo/king_shag");
 *///?}
     }
 
@@ -38,15 +39,15 @@ class KingShagModel extends software.bernie.geckolib.model.GeoModel<NativesEntit
 //?} else {
     /*public ResourceLocation getTextureResource(GeoRenderState renderState) {
 *///?}
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/king_shag/king_shag.png");
+        return NativesId.of("textures/entity/king_shag/king_shag.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(NativesEntity animatable) {
 //? if <=1.21.1 {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "animations/king_shag.animation.json");
+        return NativesId.of("animations/king_shag.animation.json");
 //?} else {
-        /*return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "king_shag");
+        /*return NativesId.of("king_shag");
 *///?}
     }
 }

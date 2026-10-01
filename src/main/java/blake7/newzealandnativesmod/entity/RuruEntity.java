@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.entity;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.registry.NativesSounds;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 //? if >1.21.1 {
@@ -32,19 +34,39 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-//? if <=1.21.1 {
-import software.bernie.geckolib.animation.AnimatableManager;
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 //?} else {
+/*import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+*///?}
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.animation.AnimatableManager;
+//?}
+//? if >1.20.4 && <=1.21.1 {
+/*import software.bernie.geckolib.animation.AnimatableManager;
+*///?}
+//? if >1.21.1 {
 /*import software.bernie.geckolib.animatable.manager.AnimatableManager;
 *///?}
-import software.bernie.geckolib.animation.AnimationController;
-//? if <=1.21.1 {
-import software.bernie.geckolib.animation.PlayState;
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.animation.AnimationController;
 //?} else {
+/*import software.bernie.geckolib.animation.AnimationController;
+*///?}
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.object.PlayState;
+//?}
+//? if >1.20.4 && <=1.21.1 {
+/*import software.bernie.geckolib.animation.PlayState;
+*///?}
+//? if >1.21.1 {
 /*import software.bernie.geckolib.animation.object.PlayState;
 *///?}
-import software.bernie.geckolib.animation.RawAnimation;
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.animation.RawAnimation;
+//?} else {
+/*import software.bernie.geckolib.animation.RawAnimation;
+*///?}
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 // Bedrock parrot_wild/parrot_tame groups: tamed with seeds (1/3), sits, follows owner.
@@ -54,9 +76,9 @@ public class RuruEntity extends TamableAnimal implements GeoEntity {
     public static final EntityType<RuruEntity> TYPE = EntityType.Builder.of(RuruEntity::new, MobCategory.CREATURE)
             .sized(0.6f, 0.7f)
 //? if <=1.21.1 {
-            .build(ResourceLocation.fromNamespaceAndPath("newzealandnatives", "ruru").toString());
+            .build(NativesId.of("ruru").toString());
 //?} else {
-            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("newzealandnatives", "ruru")));
+            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, NativesId.of("ruru")));
 *///?}
 
     public RuruEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
@@ -73,8 +95,18 @@ public class RuruEntity extends TamableAnimal implements GeoEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0, 5.0f, 1.0f));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, RuruEntity::isSeed, false));
+//? if <1.21 {
+        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0, 5.0f, 1.0f, true));
+//?}
+//? if >=1.21 {
+        /*this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0, 5.0f, 1.0f));
+*///?}
+//? if <=1.20.4 {
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, Ingredient.of(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS), false));
+//?}
+//? if >1.20.4 {
+        /*this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, RuruEntity::isSeed, false));
+*///?}
         this.goalSelector.addGoal(4, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(5, new WanderFlyGoal(this));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0f));
@@ -100,7 +132,12 @@ public class RuruEntity extends TamableAnimal implements GeoEntity {
         ItemStack stack = player.getItemInHand(hand);
         if (this.isTame()) {
             if (this.isOwnedBy(player) && !isSeed(stack)) {
-                this.setOrderedToSit(!this.isOrderedToSit());
+//? if <1.20.2 {
+                this.setInSittingPose(!this.isOrderedToSit());
+//?}
+//? if >1.20.4 {
+                /*this.setOrderedToSit(!this.isOrderedToSit());
+*///?}
 //? if <=1.21.1 {
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
 //?} else {
@@ -108,7 +145,12 @@ public class RuruEntity extends TamableAnimal implements GeoEntity {
 *///?}
             }
         } else if (isSeed(stack)) {
-            stack.consume(1, player);
+//? if <=1.20.4 {
+            if (!player.getAbilities().instabuild) stack.shrink(1);
+//?}
+//? if >1.20.4 {
+            /*stack.consume(1, player);
+*///?}
             if (this.getRandom().nextInt(3) == 0) {
 //? if >=26.1 {
                 /*this.setOwner(player);
@@ -116,8 +158,14 @@ public class RuruEntity extends TamableAnimal implements GeoEntity {
 //? if <26.1 {
                 this.tame(player);
 //?}
-                this.setTame(true, true);
+//? if <1.20.2 {
+                this.setTame(true);
+                this.setInSittingPose(true);
+//?}
+//? if >1.20.4 {
+                /*this.setTame(true, true);
                 this.setOrderedToSit(true);
+*///?}
 //? if >=26.1 {
                 /*this.level().broadcastEntityEvent(this, (byte) 7);
 *///?}
@@ -144,9 +192,9 @@ public class RuruEntity extends TamableAnimal implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 //? if <=1.21.1 {
-        controllers.add(new AnimationController<>(this, "main", 0, state -> {
+        controllers.add(new AnimationController<>(this, "main", state -> {
 //?} else {
-        /*controllers.add(new AnimationController<>("main", 0, state -> {
+        /*controllers.add(new AnimationController<>("main", state -> {
 *///?}
             if (!this.onGround()) {
                 state.setAnimation(RawAnimation.begin().thenLoop("animation.ruru.fly"));
@@ -181,9 +229,16 @@ public class RuruEntity extends TamableAnimal implements GeoEntity {
     }
 
     @Override
-    public float getAgeScale() {
+//? if <=1.20.4 {
+    public float getScale() {
+        return this.isBaby() ? 0.6f : super.getScale();
+    }
+//?}
+//? if >1.20.4 {
+    /*public float getAgeScale() {
         return this.isBaby() ? 0.6f : super.getAgeScale();
     }
+*///?}
 
     @Override
     public boolean isFood(ItemStack stack) {

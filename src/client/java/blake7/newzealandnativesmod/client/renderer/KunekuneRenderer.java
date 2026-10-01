@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.client.renderer;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.entity.NativesEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -25,10 +26,10 @@ class KunekuneModel extends software.bernie.geckolib.model.GeoModel<NativesEntit
     @Override
 //? if <=1.21.1 {
     public ResourceLocation getModelResource(NativesEntity object) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/kunekune.geo.json");
+        return NativesId.of("geo/kunekune.geo.json");
 //?} else {
     /*public ResourceLocation getModelResource(GeoRenderState renderState) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/kunekune");
+        return NativesId.of("geo/kunekune");
 *///?}
     }
 
@@ -38,15 +39,15 @@ class KunekuneModel extends software.bernie.geckolib.model.GeoModel<NativesEntit
 //?} else {
     /*public ResourceLocation getTextureResource(GeoRenderState renderState) {
 *///?}
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/kunekune/kunekune.png");
+        return NativesId.of("textures/entity/kunekune/kunekune.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(NativesEntity animatable) {
 //? if <=1.21.1 {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "animations/kunekune.animation.json");
+        return NativesId.of("animations/kunekune.animation.json");
 //?} else {
-        /*return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kunekune");
+        /*return NativesId.of("kunekune");
 *///?}
     }
 }

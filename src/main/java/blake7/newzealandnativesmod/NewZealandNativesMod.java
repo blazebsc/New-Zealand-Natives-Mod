@@ -108,12 +108,4 @@ public class NewZealandNativesMod implements ModInitializer {
         LOGGER.info("New Zealand Natives Mod initialized — {} entities, {} items registered.",
                 NativesEntities.size(), NativesItems.size());
     }
-
-    public static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
-    }
-
-    public static ResourceLocation bedrockId(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
-    }
 }

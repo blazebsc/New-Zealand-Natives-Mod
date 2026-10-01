@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.registry;
 
+import blake7.newzealandnativesmod.NativesId;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.Registry;
@@ -36,7 +37,7 @@ public final class NativesEntities {
                 //? if fabric {
                 type = Registry.register(
                         BuiltInRegistries.ENTITY_TYPE,
-                        ResourceLocation.fromNamespaceAndPath("newzealandnatives", e.shortId()),
+                        NativesId.of(e.shortId()),
                         KiwiEntity.TYPE
                 );
                 //?}
@@ -47,7 +48,7 @@ public final class NativesEntities {
                 //? if fabric {
                 type = Registry.register(
                         BuiltInRegistries.ENTITY_TYPE,
-                        ResourceLocation.fromNamespaceAndPath("newzealandnatives", e.shortId()),
+                        NativesId.of(e.shortId()),
                         KatipoEntity.TYPE
                 );
                 //?}
@@ -58,7 +59,7 @@ public final class NativesEntities {
                 //? if fabric {
                 type = Registry.register(
                         BuiltInRegistries.ENTITY_TYPE,
-                        ResourceLocation.fromNamespaceAndPath("newzealandnatives", e.shortId()),
+                        NativesId.of(e.shortId()),
                         HaastsEagleEntity.TYPE
                 );
                 //?}
@@ -69,7 +70,7 @@ public final class NativesEntities {
                 //? if fabric {
                 type = Registry.register(
                         BuiltInRegistries.ENTITY_TYPE,
-                        ResourceLocation.fromNamespaceAndPath("newzealandnatives", e.shortId()),
+                        NativesId.of(e.shortId()),
                         RuruEntity.TYPE
                 );
                 //?}
@@ -80,7 +81,7 @@ public final class NativesEntities {
                 //? if fabric {
                 type = Registry.register(
                         BuiltInRegistries.ENTITY_TYPE,
-                        ResourceLocation.fromNamespaceAndPath("newzealandnatives", e.shortId()),
+                        NativesId.of(e.shortId()),
                         HectorsDolphinEntity.TYPE
                 );
                 //?}
@@ -91,25 +92,25 @@ public final class NativesEntities {
                 //? if fabric && <=1.21.1 {
                 type = Registry.register(
                         BuiltInRegistries.ENTITY_TYPE,
-                        ResourceLocation.fromNamespaceAndPath("newzealandnatives", e.shortId()),
+                        NativesId.of(e.shortId()),
                         EntityType.Builder.of(SpeciesEntities.factoryFor(e), e.spawnGroup())
                                 .sized(SpeciesEntities.sizeFor(e)[0], SpeciesEntities.sizeFor(e)[1])
-                                .build(ResourceLocation.fromNamespaceAndPath("newzealandnatives", e.shortId()).toString())
+                                .build(NativesId.of(e.shortId()).toString())
                 );
                 //?}
                 //? if fabric && >1.21.1 {
                 /*type = Registry.register(
                         BuiltInRegistries.ENTITY_TYPE,
-                        ResourceLocation.fromNamespaceAndPath("newzealandnatives", e.shortId()),
+                        NativesId.of(e.shortId()),
                         EntityType.Builder.of(SpeciesEntities.factoryFor(e), e.spawnGroup())
                                 .sized(SpeciesEntities.sizeFor(e)[0], SpeciesEntities.sizeFor(e)[1])
-                                .build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("newzealandnatives", e.shortId())))
+                                .build(ResourceKey.create(Registries.ENTITY_TYPE, NativesId.of(e.shortId())))
                 );
                 *///?}
                 //? if neoforge {
                 /*type = EntityType.Builder.of(SpeciesEntities.factoryFor(e), e.spawnGroup())
                         .sized(SpeciesEntities.sizeFor(e)[0], SpeciesEntities.sizeFor(e)[1])
-                        .build(ResourceLocation.fromNamespaceAndPath("newzealandnatives", e.shortId()).toString());
+                        .build(NativesId.of(e.shortId()).toString());
                 *///?}
             }
             REGISTERED.add(type);

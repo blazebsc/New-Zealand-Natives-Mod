@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.worldgen;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.registry.NativesBlocks;
 //? if <26.3 {
 import com.mojang.serialization.Codec;
@@ -43,13 +44,13 @@ public class FallenLogFeature extends Feature<NoneFeatureConfiguration> {
 
 //? if fabric && <26.3 {
     public static void register() {
-        Registry.register(BuiltInRegistries.FEATURE, ResourceLocation.fromNamespaceAndPath("newzealandnatives", "fallen_log"),
+        Registry.register(BuiltInRegistries.FEATURE, NativesId.of("fallen_log"),
                 new FallenLogFeature(NoneFeatureConfiguration.CODEC));
     }
 //?}
 //? if fabric && >=26.3 {
     /*public static void register() {
-        Registry.register(BuiltInRegistries.FEATURE_TYPE, ResourceLocation.fromNamespaceAndPath("newzealandnatives", "fallen_log"),
+        Registry.register(BuiltInRegistries.FEATURE_TYPE, NativesId.of("fallen_log"),
                 CODEC);
     }
 *///?}

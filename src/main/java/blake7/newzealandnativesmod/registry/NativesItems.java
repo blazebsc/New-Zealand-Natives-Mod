@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.registry;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.entity.KiwiEntity;
 import blake7.newzealandnativesmod.entity.KatipoEntity;
 import net.minecraft.world.food.FoodProperties;
@@ -37,7 +38,7 @@ public final class NativesItems {
     /*public static final Item HUHU_GRUB = register("huhu_grub", props -> new Item(props.food(
 *///?}
             new FoodProperties.Builder()
-                    .nutrition(3).saturationModifier(0.6f).build())));
+                    .nutrition(3).saturationMod(0.6f).build())));
 
     public static final Item KIWI_SPAWN_EGG = register("kiwi_spawn_egg",
 //? if <=1.21.1 {
@@ -85,14 +86,14 @@ public final class NativesItems {
 
 //? if fabric && <=1.21.1 {
     private static Item register(String id, Item item) {
-        Item registered = Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("newzealandnatives", id), item);
+        Item registered = Registry.register(BuiltInRegistries.ITEM, NativesId.of(id), item);
         REGISTERED.add(registered);
         return registered;
     }
 //?}
 //? if fabric && >1.21.1 {
     /*private static Item register(String id, Function<Item.Properties, Item> factory) {
-        ResourceLocation identifier = ResourceLocation.fromNamespaceAndPath("newzealandnatives", id);
+        ResourceLocation identifier = NativesId.of(id);
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, identifier);
         Item item = factory.apply(new Item.Properties().setId(key));
         Item registered = Registry.register(BuiltInRegistries.ITEM, identifier, item);

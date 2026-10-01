@@ -9,11 +9,11 @@ Fabric Minecraft mods (Java, GeckoLib entities, ModMenu config) ported from the 
 - `1.21.1`, `1.21.11` — legacy, superseded by `1.21.x`. Don't develop here.
 - `bedrock` — upstream Bedrock reference, not Java.
 
-## Stonecutter rules (`1.21.x` only)
+## Stonecutter rules (whole tree)
 
 - Plugin 0.9.8, Groovy DSL (`kotlinController = false`, `centralScript = "build.gradle"`).
-- Nodes: `1.21.1`, `1.21.11`, `26.2`, `26.3` (Fabric) and `1.21.1-neoforge` (pilot, ModDevGradle). Per-loader buildscripts: `build.gradle` (Fabric) vs `build.neoforge.gradle` (NeoForge).
-- **Shared `src/` is Mojang-official mapped for every node** — fabric nodes use `loomx.applyMojangMappings()` (`loom-back-compat` plugin picks the right Loom per MC), no Yarn anywhere. Version-scoped name drift lives in `stonecutter.gradle` `parameters.replacements`: `>=1.21.11` renames `ResourceLocation`→`Identifier`, moves `Dolphin`, render-state packages; `>=26.1` renames `GuiGraphics`→`GuiGraphicsExtractor` and GeckoLib `software.bernie.geckolib`→`com.geckolib`.
+- Nodes: `1.20.1`, `1.20.4`, `1.20.6`, `1.21.1`, `1.21.11`, `26.2`, `26.3` (Fabric) and `1.21.1-neoforge` (pilot, ModDevGradle). Per-loader buildscripts: `build.gradle` (Fabric) vs `build.neoforge.gradle` (NeoForge).
+- **Shared `src/` is Mojang-official mapped for every node** — fabric nodes use `loomx.applyMojangMappings()` (`loom-back-compat` plugin picks the right Loom per MC), no Yarn anywhere. Version-scoped drift lives in `stonecutter.gradle` `parameters.replacements` as bands: `>=1.21.11` renames `ResourceLocation`→`Identifier` + render-state classes; `>=26.1` renames `GuiGraphics`→`GuiGraphicsExtractor` and GeckoLib `software.bernie.geckolib`→`com.geckolib`; `<=1.20.4` flips `saturationMod`/`SpawnPlacements.Type`/v1 biome tags/controller arity; `<1.20.2` `.copy(`. **The stitcher shields any text matching a rule's target from other rules** — never add a band whose target contains another band's source; put such rewrites in `//? if` hand-gates (see `NativesId` for the id-factory split: 1.20.x takes the public ctor, every 1.21+ takes `fromNamespaceAndPath`; and the entity files' geckolib `core.*` import gates for 1.20.x).
 - Per-version deps live in `versions/<mc>/gradle.properties`, never root. 26.x pulls geckolib/modmenu from Modrinth maven (`geckolib_version`/`modmenu_modrinth`); 1.21.x uses geckolib_artifact/modmenu_version — `build.gradle` switches on `hasProperty`.
 - Era-specific resources (worldgen JSON, loot tables, `items/` item models, geckolib assets, lang) live in `versions/<mc>/src/main/resources`; only byte-identical files stay in shared `src/*/resources`.
 - Version deltas in shared `src/` use `//? if <predicate> { … //?}` sibling gates — flat, never nested (an inactive outer gate mangles inner markers). Common bands: `<=1.21.1`, `>1.21.1 && <26.1`, `>=26.1`, `>=26.3`. Loader deltas use `//? if fabric { … //?}` / `//? if neoforge { … //?}`. Raw file state must compile for the ACTIVE node: true-branch code plain, false branches inside `/* */`.
@@ -30,7 +30,7 @@ Fabric Minecraft mods (Java, GeckoLib entities, ModMenu config) ported from the 
 
 ## Build
 
-- `./gradlew build` (root task builds all Stonecutter nodes — fabric ×4 eras plus the NeoForge jar).
+- `./gradlew build` (root task builds all Stonecutter nodes — fabric ×7 eras plus the NeoForge jar).
 - Target one version: `./gradlew :1.21.1:build :26.2:build`; run client: `:1.21.1:runClient`.
 - **Run Gradle on Temurin 25 for the whole branch** (`/home/blake7/.jdks/`) — Loom refuses 26.x nodes on a Java 21 daemon. Older nodes still compile at `release=21`. CI mirrors this.
 - Mappings: all nodes Mojang-official (fabric: `loomx.applyMojangMappings()`; 26.x unobfuscated). Client code lives under both `src/client/java/blake7/client/` and `.../newzealandnativesmod/` — check which package a file belongs to before moving it.

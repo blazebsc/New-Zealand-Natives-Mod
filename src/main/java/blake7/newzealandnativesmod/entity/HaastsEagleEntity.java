@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.entity;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.registry.NativesConfig;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -20,9 +21,9 @@ public class HaastsEagleEntity extends NativesEntity {
     public static final EntityType<HaastsEagleEntity> TYPE = EntityType.Builder.of(HaastsEagleEntity::new, MobCategory.CREATURE)
             .sized(0.7f, 0.8f)
 //? if <=1.21.1 {
-            .build(ResourceLocation.fromNamespaceAndPath("newzealandnatives", "haasts_eagle").toString());
+            .build(NativesId.of("haasts_eagle").toString());
 //?} else {
-            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("newzealandnatives", "haasts_eagle")));
+            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, NativesId.of("haasts_eagle")));
 *///?}
 
     public HaastsEagleEntity(EntityType<? extends Animal> entityType, Level world) {

@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.client.renderer;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.entity.NativesEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -25,10 +26,10 @@ class PohutukawaModel extends software.bernie.geckolib.model.GeoModel<NativesEnt
     @Override
 //? if <=1.21.1 {
     public ResourceLocation getModelResource(NativesEntity object) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/pohutukawa.geo.json");
+        return NativesId.of("geo/pohutukawa.geo.json");
 //?} else {
     /*public ResourceLocation getModelResource(GeoRenderState renderState) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/pohutukawa");
+        return NativesId.of("geo/pohutukawa");
 *///?}
     }
 
@@ -38,15 +39,15 @@ class PohutukawaModel extends software.bernie.geckolib.model.GeoModel<NativesEnt
 //?} else {
     /*public ResourceLocation getTextureResource(GeoRenderState renderState) {
 *///?}
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/flora/pohutukawa.png");
+        return NativesId.of("textures/entity/flora/pohutukawa.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(NativesEntity animatable) {
 //? if <=1.21.1 {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "animations/flora.animation.json");
+        return NativesId.of("animations/flora.animation.json");
 //?} else {
-        /*return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "flora");
+        /*return NativesId.of("flora");
 *///?}
     }
 }

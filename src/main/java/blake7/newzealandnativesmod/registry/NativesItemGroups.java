@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.registry;
 
+import blake7.newzealandnativesmod.NativesId;
 //? if <26.1 {
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 //?}
@@ -38,6 +39,6 @@ public final class NativesItemGroups {
 
     public static void register() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
-                ResourceLocation.fromNamespaceAndPath("newzealandnatives", "natives"), NATIVES);
+                NativesId.of("natives"), NATIVES);
     }
 }

@@ -1,13 +1,21 @@
 package blake7.newzealandnativesmod.registry;
 
+import blake7.newzealandnativesmod.NativesId;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
+//? if <=1.20.4 {
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
+//?}
+//? if >1.20.4 {
+/*import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
+*///?}
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.entity.SpawnPlacementType;
+//? if >1.20.4 {
+/*import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
+*///?}
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
@@ -101,7 +109,7 @@ public final class NativesSpawns {
                     NativesSpawns::forest,
                     GenerationStep.Decoration.VEGETAL_DECORATION,
                     ResourceKey.create(Registries.PLACED_FEATURE,
-                            ResourceLocation.fromNamespaceAndPath("newzealandnatives", "rotten_log_patch")));
+                            NativesId.of("rotten_log_patch")));
         }
         // Kowhai trees dot open country, never closed canopy (Bedrock lists plains/savanna first).
         if (NativesConfig.INSTANCE.kowhaiTrees) {
@@ -109,7 +117,7 @@ public final class NativesSpawns {
                     NativesSpawns::openCountry,
                     GenerationStep.Decoration.VEGETAL_DECORATION,
                     ResourceKey.create(Registries.PLACED_FEATURE,
-                            ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kowhai_trees")));
+                            NativesId.of("kowhai_trees")));
         }
     }
 
@@ -119,7 +127,7 @@ public final class NativesSpawns {
         if (type == null) return;
         boolean water = type.getCategory() == MobCategory.WATER_AMBIENT
                 || type.getCategory() == MobCategory.WATER_CREATURE;
-        SpawnPlacementType loc = water ? SpawnPlacementTypes.IN_WATER : SpawnPlacementTypes.ON_GROUND;
+        SpawnPlacements.Type loc = water ? SpawnPlacements.Type.IN_WATER : SpawnPlacements.Type.ON_GROUND;
         // ponytail: no light gate underwater — sunlight rarely reaches depth, vanilla fish have none.
         if (water && day) {
             SpawnPlacements.register(type, loc, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
@@ -141,9 +149,9 @@ public final class NativesSpawns {
     }
 
     private static boolean openCountry(BiomeSelectionContext ctx) {
-        return ctx.hasTag(ConventionalBiomeTags.IS_PLAINS)
-                || ctx.hasTag(ConventionalBiomeTags.IS_SAVANNA)
-                || ctx.hasTag(ConventionalBiomeTags.IS_FLOWER_FOREST);
+        return ctx.hasTag(ConventionalBiomeTags.PLAINS)
+                || ctx.hasTag(ConventionalBiomeTags.SAVANNA)
+                || ctx.hasTag(ConventionalBiomeTags.FLOWER_FORESTS);
     }
 
     private static boolean ocean(BiomeSelectionContext ctx) {
@@ -155,7 +163,7 @@ public final class NativesSpawns {
     }
 
     private static boolean wetland(BiomeSelectionContext ctx) {
-        return ctx.hasTag(BiomeTags.IS_RIVER) || ctx.hasTag(ConventionalBiomeTags.IS_SWAMP) || ctx.hasTag(BiomeTags.IS_OCEAN);
+        return ctx.hasTag(BiomeTags.IS_RIVER) || ctx.hasTag(ConventionalBiomeTags.SWAMP) || ctx.hasTag(BiomeTags.IS_OCEAN);
     }
 
     private static boolean shore(BiomeSelectionContext ctx) {
@@ -163,7 +171,7 @@ public final class NativesSpawns {
     }
 
     private static boolean plains(BiomeSelectionContext ctx) {
-        return ctx.hasTag(ConventionalBiomeTags.IS_PLAINS) || ctx.hasTag(BiomeTags.IS_FOREST);
+        return ctx.hasTag(ConventionalBiomeTags.PLAINS) || ctx.hasTag(BiomeTags.IS_FOREST);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})

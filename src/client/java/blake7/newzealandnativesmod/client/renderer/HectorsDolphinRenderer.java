@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.client.renderer;
 
+import blake7.newzealandnativesmod.NativesId;
 import net.minecraft.client.renderer.entity.DolphinRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 //? if <=1.21.1 {
@@ -10,7 +11,7 @@ import net.minecraft.world.entity.animal.Dolphin;
 import net.minecraft.resources.ResourceLocation;
 
 public class HectorsDolphinRenderer extends DolphinRenderer {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/hectors_dolphin/hectors_dolphin.png");
+    private static final ResourceLocation TEXTURE = NativesId.of("textures/entity/hectors_dolphin/hectors_dolphin.png");
 
     public HectorsDolphinRenderer(EntityRendererProvider.Context ctx) {
         super(ctx);

@@ -2,16 +2,18 @@ plugins {
     id "dev.kikugie.stonecutter"
 }
 
-stonecutter.active "1.21.1"
+stonecutter.active "1.20.1"
 
-// Version-scoped Mojang name drift, same mechanism the official multiloader
-// template uses. 1.21.11+ renamed ResourceLocation -> Identifier (factory
-// methods unchanged) and moved Dolphin into its own subpackage.
+// Version-scoped Mojang name drift. The stitcher shields any text matching a
+// rule's TARGET from every other rule, so string bands must never have a
+// target containing another band's source (that poisoned ResourceLocation ->
+// Identifier inside fromNamespaceAndPath call sites, and the geckolib package
+// rename inside core.animation targets). Cross-cutting rewrites that would
+// overlap go through the regex executor or hand-gates in the sources instead.
 stonecutter.parameters {
     replacements {
         string(current.parsed >= '1.21.11') {
             replace 'ResourceLocation', 'Identifier'
-            replace 'net.minecraft.world.entity.animal.Dolphin', 'net.minecraft.world.entity.animal.dolphin.Dolphin'
             replace 'net.minecraft.client.render.entity.state.DolphinEntityRenderState', 'net.minecraft.client.renderer.entity.state.DolphinRenderState'
             replace 'net.minecraft.client.render.entity.state.EntityRenderState', 'net.minecraft.client.renderer.entity.state.EntityRenderState'
             replace 'DolphinEntityRenderState', 'DolphinRenderState'
@@ -19,6 +21,19 @@ stonecutter.parameters {
         string(current.parsed >= '26.1') {
             replace 'GuiGraphics', 'GuiGraphicsExtractor'
             replace 'software.bernie.geckolib', 'com.geckolib'
+        }
+        string(current.parsed <= '1.20.4') {
+            replace 'saturationModifier(', 'saturationMod('
+            replace 'SpawnPlacementTypes.', 'SpawnPlacements.Type.'
+            replace 'SpawnPlacementType ', 'SpawnPlacements.Type '
+            replace 'ConventionalBiomeTags.IS_PLAINS', 'ConventionalBiomeTags.PLAINS'
+            replace 'ConventionalBiomeTags.IS_SAVANNA', 'ConventionalBiomeTags.SAVANNA'
+            replace 'ConventionalBiomeTags.IS_SWAMP', 'ConventionalBiomeTags.SWAMP'
+            replace 'ConventionalBiomeTags.IS_FLOWER_FOREST', 'ConventionalBiomeTags.FLOWER_FORESTS'
+            replace ', 0, state -> ', ', state -> '
+        }
+        string(current.parsed < '1.20.2') {
+            replace '.ofFullCopy(', '.copy('
         }
     }
 }

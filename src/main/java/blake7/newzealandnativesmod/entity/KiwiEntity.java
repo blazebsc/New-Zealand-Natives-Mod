@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.entity;
 
+import blake7.newzealandnativesmod.NativesId;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.goal.*;
@@ -7,6 +8,8 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 //? if >1.21.1 {
@@ -17,11 +20,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import blake7.newzealandnativesmod.registry.NativesSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+//?} else {
+/*import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+*///?}
 //? if >1.21.1 {
 /*import software.bernie.geckolib.animatable.manager.AnimatableManager;
 *///?}
-import software.bernie.geckolib.animation.*;
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.animation.*;
+//?} else {
+/*import software.bernie.geckolib.animation.*;
+*///?}
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.object.PlayState;
+//?}
 //? if >1.21.1 {
 /*import software.bernie.geckolib.animation.object.PlayState;
 *///?}
@@ -33,9 +47,9 @@ public class KiwiEntity extends Animal implements GeoEntity {
     public static final EntityType<KiwiEntity> TYPE = EntityType.Builder.of(KiwiEntity::new, MobCategory.CREATURE)
             .sized(0.6f, 0.7f)
 //? if <=1.21.1 {
-            .build(ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kiwi").toString());
+            .build(NativesId.of("kiwi").toString());
 //?} else {
-            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("newzealandnatives", "kiwi")));
+            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, NativesId.of("kiwi")));
 *///?}
 
     public KiwiEntity(EntityType<? extends Animal> entityType, Level world) {
@@ -47,11 +61,16 @@ public class KiwiEntity extends Animal implements GeoEntity {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new RestrictSunGoal(this));
         // ponytail: daytime nap has no vanilla equivalent; shade-seeking covers flee_sun/restrict_sun.
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.1, stack ->
+//? if <=1.20.4 {
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.1, Ingredient.of(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS), false));
+//?}
+//? if >1.20.4 {
+        /*this.goalSelector.addGoal(2, new TemptGoal(this, 1.1, stack ->
                 stack.is(net.minecraft.world.item.Items.WHEAT_SEEDS)
                         || stack.is(net.minecraft.world.item.Items.BEETROOT_SEEDS)
                         || stack.is(net.minecraft.world.item.Items.MELON_SEEDS)
                         || stack.is(net.minecraft.world.item.Items.PUMPKIN_SEEDS), false));
+*///?}
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0f));
@@ -62,9 +81,9 @@ public class KiwiEntity extends Animal implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 //? if <=1.21.1 {
-        controllers.add(new AnimationController<>(this, "walk", 0, state -> {
+        controllers.add(new AnimationController<>(this, "walk", state -> {
 //?} else {
-        /*controllers.add(new AnimationController<>("walk", 0, state -> {
+        /*controllers.add(new AnimationController<>("walk", state -> {
 *///?}
             if (state.isMoving()) {
                 state.setAnimation(RawAnimation.begin().thenLoop("animation.kiwi.walk"));
@@ -86,9 +105,16 @@ public class KiwiEntity extends Animal implements GeoEntity {
     }
 
     @Override
-    public float getAgeScale() {
+//? if <=1.20.4 {
+    public float getScale() {
+        return this.isBaby() ? 0.33f : super.getScale();
+    }
+//?}
+//? if >1.20.4 {
+    /*public float getAgeScale() {
         return this.isBaby() ? 0.33f : super.getAgeScale();
     }
+*///?}
 
     @Override
 //? if <=1.21.1 {

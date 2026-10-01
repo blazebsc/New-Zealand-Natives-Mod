@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.entity;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.registry.NativesConfig;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -17,11 +18,22 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+//?} else {
+/*import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+*///?}
 //? if >1.21.1 {
 /*import software.bernie.geckolib.animatable.manager.AnimatableManager;
 *///?}
-import software.bernie.geckolib.animation.*;
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.animation.*;
+//?} else {
+/*import software.bernie.geckolib.animation.*;
+*///?}
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.object.PlayState;
+//?}
 //? if >1.21.1 {
 /*import software.bernie.geckolib.animation.object.PlayState;
 *///?}
@@ -33,9 +45,9 @@ public class KatipoEntity extends Monster implements GeoEntity {
     public static final EntityType<KatipoEntity> TYPE = EntityType.Builder.of(KatipoEntity::new, MobCategory.MONSTER)
             .sized(0.75f, 0.5f)
 //? if <=1.21.1 {
-            .build(ResourceLocation.fromNamespaceAndPath("newzealandnatives", "katipo").toString());
+            .build(NativesId.of("katipo").toString());
 //?} else {
-            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("newzealandnatives", "katipo")));
+            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, NativesId.of("katipo")));
 *///?}
 
     public KatipoEntity(EntityType<? extends Monster> entityType, Level world) {
@@ -85,9 +97,9 @@ public class KatipoEntity extends Monster implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 //? if <=1.21.1 {
-        controllers.add(new AnimationController<>(this, "walk", 0, state -> {
+        controllers.add(new AnimationController<>(this, "walk", state -> {
 //?} else {
-        /*controllers.add(new AnimationController<>("walk", 0, state -> {
+        /*controllers.add(new AnimationController<>("walk", state -> {
 *///?}
             if (state.isMoving()) {
                 state.setAnimation(RawAnimation.begin().thenLoop("katipo.walk"));

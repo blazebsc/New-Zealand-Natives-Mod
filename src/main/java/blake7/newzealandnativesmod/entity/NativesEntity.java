@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.Level;
@@ -20,11 +21,22 @@ import blake7.newzealandnativesmod.registry.NativesSounds;
 import java.util.Map;
 import java.util.Set;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+//?} else {
+/*import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+*///?}
 //? if >1.21.1 {
 /*import software.bernie.geckolib.animatable.manager.AnimatableManager;
 *///?}
-import software.bernie.geckolib.animation.*;
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.animation.*;
+//?} else {
+/*import software.bernie.geckolib.animation.*;
+*///?}
+//? if <=1.20.4 {
+import software.bernie.geckolib.core.object.PlayState;
+//?}
 //? if >1.21.1 {
 /*import software.bernie.geckolib.animation.object.PlayState;
 import software.bernie.geckolib.animation.state.AnimationTest;
@@ -187,7 +199,12 @@ public class NativesEntity extends Animal implements GeoEntity {
         }
         Set<Item> tempt = TEMPT.getOrDefault(id, Set.of());
         if (!tempt.isEmpty()) {
-            this.goalSelector.addGoal(1, new TemptGoal(this, 1.1, stack -> tempt.contains(stack.getItem()), false));
+//? if <=1.20.4 {
+            this.goalSelector.addGoal(1, new TemptGoal(this, 1.1, Ingredient.of(tempt.toArray(new Item[0])), false));
+//?}
+//? if >1.20.4 {
+            /*this.goalSelector.addGoal(1, new TemptGoal(this, 1.1, stack -> tempt.contains(stack.getItem()), false));
+*///?}
         }
         if (BREED.containsKey(id)) {
             this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
@@ -212,9 +229,9 @@ public class NativesEntity extends Animal implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 //? if <=1.21.1 {
-        controllers.add(new AnimationController<>(this, "main", 0, state -> {
+        controllers.add(new AnimationController<>(this, "main", state -> {
 //?} else {
-        /*controllers.add(new AnimationController<>("main", 0, state -> {
+        /*controllers.add(new AnimationController<>("main", state -> {
 *///?}
             NativesAnimRegistry.AnimSet set =
                     NativesAnimRegistry.getAnims(NativesAnimRegistry.getId(this.getType()));
@@ -235,15 +252,15 @@ public class NativesEntity extends Animal implements GeoEntity {
         String extra = NativesAnimRegistry.getExtra(NativesAnimRegistry.getId(this.getType()));
         if (extra != null) {
 //? if <=1.21.1 {
-            controllers.add(new AnimationController<>(this, "extra", 0, state -> loop(state, extra)));
+            controllers.add(new AnimationController<>(this, "extra", state -> loop(state, extra)));
 //?} else {
-            /*controllers.add(new AnimationController<>("extra", 0, state -> loop(state, extra)));
+            /*controllers.add(new AnimationController<>("extra", state -> loop(state, extra)));
 *///?}
         }
     }
 
 //? if <=1.21.1 {
-    private static PlayState loop(software.bernie.geckolib.animation.AnimationState<?> state, String anim) {
+    private static PlayState loop(AnimationState<?> state, String anim) {
 //?} else {
     /*private static PlayState loop(AnimationTest state, String anim) {
 *///?}
@@ -301,7 +318,18 @@ public class NativesEntity extends Animal implements GeoEntity {
             Map.entry("whio", 0.6f)
     );
 
+//? if <=1.20.4 {
     @Override
+    public float getScale() {
+        if (this.isBaby()) {
+            Float s = BABY_SCALE.get(NativesAnimRegistry.getId(this.getType()));
+            if (s != null) return s;
+        }
+        return super.getScale();
+    }
+//?}
+//? if >1.20.4 {
+    /*@Override
     public float getAgeScale() {
         if (this.isBaby()) {
             Float s = BABY_SCALE.get(NativesAnimRegistry.getId(this.getType()));
@@ -309,6 +337,7 @@ public class NativesEntity extends Animal implements GeoEntity {
         }
         return super.getAgeScale();
     }
+*///?}
 
     @Override
     public boolean isFood(ItemStack stack) {

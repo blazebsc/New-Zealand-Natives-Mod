@@ -1,5 +1,6 @@
 package blake7.newzealandnativesmod.client.renderer;
 
+import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.entity.NativesEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -25,10 +26,10 @@ class HaastsEagleModel extends software.bernie.geckolib.model.GeoModel<NativesEn
     @Override
 //? if <=1.21.1 {
     public ResourceLocation getModelResource(NativesEntity object) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/haasts_eagle.geo.json");
+        return NativesId.of("geo/haasts_eagle.geo.json");
 //?} else {
     /*public ResourceLocation getModelResource(GeoRenderState renderState) {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "geo/haasts_eagle");
+        return NativesId.of("geo/haasts_eagle");
 *///?}
     }
 
@@ -38,15 +39,15 @@ class HaastsEagleModel extends software.bernie.geckolib.model.GeoModel<NativesEn
 //?} else {
     /*public ResourceLocation getTextureResource(GeoRenderState renderState) {
 *///?}
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "textures/entity/haasts_eagle/haasts_eagle.png");
+        return NativesId.of("textures/entity/haasts_eagle/haasts_eagle.png");
     }
 
     @Override
     public ResourceLocation getAnimationResource(NativesEntity animatable) {
 //? if <=1.21.1 {
-        return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "animations/falcon.animation.json");
+        return NativesId.of("animations/falcon.animation.json");
 //?} else {
-        /*return ResourceLocation.fromNamespaceAndPath("newzealandnatives", "falcon");
+        /*return NativesId.of("falcon");
 *///?}
     }
 }
