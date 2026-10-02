@@ -129,9 +129,4 @@ public final class NativesBlocks {
         return registered;
     }
 *///?}
-//? if neoforge {
-    /*private static Block register(String id, Block block) {
-        return block;
-    }
-*///?}
 }

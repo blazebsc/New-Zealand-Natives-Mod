@@ -101,12 +101,6 @@ public final class NativesItems {
         return registered;
     }
 *///?}
-//? if neoforge {
-    /*private static Item register(String id, Item item) {
-        REGISTERED.add(item);
-        return item;
-    }
-*///?}
 //? if <=1.21.1 {
 
     private static final Map<String, int[]> EGG_COLORS = Map.ofEntries(

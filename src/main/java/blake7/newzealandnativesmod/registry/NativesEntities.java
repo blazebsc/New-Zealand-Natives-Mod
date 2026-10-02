@@ -41,9 +41,6 @@ public final class NativesEntities {
                         KiwiEntity.TYPE
                 );
                 //?}
-                //? if neoforge {
-                /*type = KiwiEntity.TYPE;
-                *///?}
             } else if (e.shortId().equals("katipo")) {
                 //? if fabric {
                 type = Registry.register(
@@ -52,9 +49,6 @@ public final class NativesEntities {
                         KatipoEntity.TYPE
                 );
                 //?}
-                //? if neoforge {
-                /*type = KatipoEntity.TYPE;
-                *///?}
             } else if (e.shortId().equals("haasts_eagle")) {
                 //? if fabric {
                 type = Registry.register(
@@ -63,9 +57,6 @@ public final class NativesEntities {
                         HaastsEagleEntity.TYPE
                 );
                 //?}
-                //? if neoforge {
-                /*type = HaastsEagleEntity.TYPE;
-                *///?}
             } else if (e.shortId().equals("ruru")) {
                 //? if fabric {
                 type = Registry.register(
@@ -74,9 +65,6 @@ public final class NativesEntities {
                         RuruEntity.TYPE
                 );
                 //?}
-                //? if neoforge {
-                /*type = RuruEntity.TYPE;
-                *///?}
             } else if (e.shortId().equals("hectors_dolphin")) {
                 //? if fabric {
                 type = Registry.register(
@@ -85,9 +73,6 @@ public final class NativesEntities {
                         HectorsDolphinEntity.TYPE
                 );
                 //?}
-                //? if neoforge {
-                /*type = HectorsDolphinEntity.TYPE;
-                *///?}
             } else {
                 //? if fabric && <=1.21.1 {
                 type = Registry.register(
@@ -106,11 +91,6 @@ public final class NativesEntities {
                                 .sized(SpeciesEntities.sizeFor(e)[0], SpeciesEntities.sizeFor(e)[1])
                                 .build(ResourceKey.create(Registries.ENTITY_TYPE, NativesId.of(e.shortId())))
                 );
-                *///?}
-                //? if neoforge {
-                /*type = EntityType.Builder.of(SpeciesEntities.factoryFor(e), e.spawnGroup())
-                        .sized(SpeciesEntities.sizeFor(e)[0], SpeciesEntities.sizeFor(e)[1])
-                        .build(NativesId.of(e.shortId()).toString());
                 *///?}
             }
             REGISTERED.add(type);

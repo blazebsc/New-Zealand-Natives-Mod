@@ -57,12 +57,6 @@ public final class NativesSounds {
         EVENTS.put(path, Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id)));
     }
     //?}
-    //? if neoforge {
-    /*private static void register(String path) {
-        ResourceLocation id = NativesId.of(path);
-        EVENTS.put(path, SoundEvent.createVariableRangeEvent(id));
-    }
-    *///?}
 
     public static SoundEvent get(String species, String kind) {
         return EVENTS.get(species + "." + kind);

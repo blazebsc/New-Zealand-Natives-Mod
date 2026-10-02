@@ -6,9 +6,6 @@ import com.google.gson.JsonSyntaxException;
 //? if fabric {
 import net.fabricmc.loader.api.FabricLoader;
 //?}
-//? if neoforge {
-/*import net.neoforged.fml.loading.FMLPaths;
-*///?}
 
 import java.io.IOException;
 import java.io.Reader;
@@ -35,9 +32,6 @@ public final class NativesConfig {
 //? if fabric {
         Path path = FabricLoader.getInstance().getConfigDir().resolve("newzealandnatives.json");
 //?}
-//? if neoforge {
-        /*Path path = FMLPaths.CONFIGDIR.get().resolve("newzealandnatives.json");
-*///?}
         if (!Files.exists(path)) return;
         try (Reader reader = Files.newBufferedReader(path)) {
             NativesConfig loaded = new Gson().fromJson(reader, NativesConfig.class);
@@ -50,9 +44,6 @@ public final class NativesConfig {
 //? if fabric {
         Path path = FabricLoader.getInstance().getConfigDir().resolve("newzealandnatives.json");
 //?}
-//? if neoforge {
-        /*Path path = FMLPaths.CONFIGDIR.get().resolve("newzealandnatives.json");
-*///?}
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (Writer writer = Files.newBufferedWriter(path)) {
             gson.toJson(INSTANCE, writer);
