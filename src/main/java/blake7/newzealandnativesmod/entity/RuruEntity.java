@@ -2,201 +2,226 @@ package blake7.newzealandnativesmod.entity;
 
 import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.registry.NativesSounds;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
-import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.ai.control.FlightMoveControl;
+import net.minecraft.entity.ai.goal.AnimalMateGoal;
+import net.minecraft.entity.ai.goal.FlyGoal;
+import net.minecraft.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.entity.ai.goal.FollowParentGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.SitGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.TemptGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
+import net.minecraft.entity.ai.pathing.BirdNavigation;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 //? if >1.21.1 {
-/*import net.minecraft.resources.ResourceKey;
-import net.minecraft.core.registries.Registries;
+/*import net.minecraft.registry.RegistryKey;
+
+import net.minecraft.registry.RegistryKeys;
 *///?}
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
+//? if >=26.1 {
+/*import net.minecraft.core.registries.Registries;
+*///?}
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 import software.bernie.geckolib.animatable.GeoEntity;
 //? if <=1.20.4 {
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-//?} else {
-/*import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-*///?}
-//? if <=1.20.4 {
-import software.bernie.geckolib.core.animation.AnimatableManager;
+/*import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+*///?} else {
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 //?}
-//? if >1.20.4 && <=1.21.1 {
-/*import software.bernie.geckolib.animation.AnimatableManager;
+//? if <=1.20.4 {
+/*import software.bernie.geckolib.core.animation.AnimatableManager;
 *///?}
+//? if >1.20.4 && <=1.21.1 {
+import software.bernie.geckolib.animation.AnimatableManager;
+//?}
 //? if >1.21.1 {
 /*import software.bernie.geckolib.animatable.manager.AnimatableManager;
 *///?}
 //? if <=1.20.4 {
-import software.bernie.geckolib.core.animation.AnimationController;
-//?} else {
-/*import software.bernie.geckolib.animation.AnimationController;
-*///?}
-//? if <=1.20.4 {
-import software.bernie.geckolib.core.object.PlayState;
+/*import software.bernie.geckolib.core.animation.AnimationController;
+*///?} else {
+import software.bernie.geckolib.animation.AnimationController;
 //?}
-//? if >1.20.4 && <=1.21.1 {
-/*import software.bernie.geckolib.animation.PlayState;
+//? if <=1.20.4 {
+/*import software.bernie.geckolib.core.object.PlayState;
 *///?}
+//? if >1.20.4 && <=1.21.1 {
+import software.bernie.geckolib.animation.PlayState;
+//?}
 //? if >1.21.1 {
 /*import software.bernie.geckolib.animation.object.PlayState;
 *///?}
 //? if <=1.20.4 {
-import software.bernie.geckolib.core.animation.RawAnimation;
-//?} else {
-/*import software.bernie.geckolib.animation.RawAnimation;
-*///?}
+/*import software.bernie.geckolib.core.animation.RawAnimation;
+*///?} else {
+import software.bernie.geckolib.animation.RawAnimation;
+//?}
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 // Bedrock parrot_wild/parrot_tame groups: tamed with seeds (1/3), sits, follows owner.
-public class RuruEntity extends TamableAnimal implements GeoEntity {
+public class RuruEntity extends TameableEntity implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public static final EntityType<RuruEntity> TYPE = EntityType.Builder.of(RuruEntity::new, MobCategory.CREATURE)
-            .sized(0.6f, 0.7f)
+    public static final EntityType<RuruEntity> TYPE = EntityType.Builder.create(RuruEntity::new, SpawnGroup.CREATURE)
+            //? if <=1.20.4 {
+                /*.setDimensions(0.6f, 0.7f)
+            *///?}
+            //? if >1.20.4 && <26.1 {
+                /*.dimensions(0.6f, 0.7f)
+            *///?}
+            //? if >=26.1 {
+                /*.sized(0.6f, 0.7f)
+            *///?}
 //? if <=1.21.1 {
             .build(NativesId.of("ruru").toString());
 //?} else {
-            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, NativesId.of("ruru")));
+            /*.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, NativesId.of("ruru")));
 *///?}
 
-    public RuruEntity(EntityType<? extends TamableAnimal> entityType, Level world) {
+    public RuruEntity(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
-        this.moveControl = new FlyingMoveControl(this, 20, true);
+        this.moveControl = new FlightMoveControl(this, 20, true);
     }
+
+//? if <=1.20.6 {
+    /*// Yarn 1.20.x ships Tameable#method_48926() as ACC_SYNTHETIC, so javac
+    // ignores it when checking overrides and then rejects the class as not
+    // implementing the abstract interface method. Declaring it here satisfies
+    // both. Same signature as the interface; delegates to the level accessor.
+    @Override
+    public net.minecraft.world.EntityView method_48926() {
+        return this.getEntityWorld();
+    }
+*///?}
+
+
 
     private static boolean isSeed(ItemStack stack) {
-        return stack.is(Items.WHEAT_SEEDS) || stack.is(Items.BEETROOT_SEEDS)
-                || stack.is(Items.MELON_SEEDS) || stack.is(Items.PUMPKIN_SEEDS);
+        return stack.isOf(Items.WHEAT_SEEDS) || stack.isOf(Items.BEETROOT_SEEDS)
+                || stack.isOf(Items.MELON_SEEDS) || stack.isOf(Items.PUMPKIN_SEEDS);
     }
 
     @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+    protected void initGoals() {
+        this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(1, new SitGoal(this));
 //? if <1.21 {
-        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0, 5.0f, 1.0f, true));
-//?}
+        /*this.goalSelector.add(2, new FollowOwnerGoal(this, 1.0, 5.0f, 1.0f, true));
+*///?}
 //? if >=1.21 {
-        /*this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0, 5.0f, 1.0f));
-*///?}
-//? if <=1.20.4 {
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, Ingredient.of(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS), false));
+        this.goalSelector.add(2, new FollowOwnerGoal(this, 1.0, 5.0f, 1.0f));
 //?}
-//? if >1.20.4 {
-        /*this.goalSelector.addGoal(3, new TemptGoal(this, 1.1, RuruEntity::isSeed, false));
+//? if <=1.20.4 {
+        /*this.goalSelector.add(3, new TemptGoal(this, 1.1, Ingredient.ofItems(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS), false));
 *///?}
-        this.goalSelector.addGoal(4, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(5, new WanderFlyGoal(this));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0f));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(9, new FollowParentGoal(this, 1.2));
+//? if >1.20.4 {
+        this.goalSelector.add(3, new TemptGoal(this, 1.1, RuruEntity::isSeed, false));
+//?}
+        this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
+        this.goalSelector.add(5, new WanderFlyGoal(this));
+        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
+        this.goalSelector.add(8, new LookAroundGoal(this));
+        this.goalSelector.add(9, new FollowParentGoal(this, 1.2));
     }
 
     @Override
-    protected PathNavigation createNavigation(Level world) {
-        FlyingPathNavigation nav = new FlyingPathNavigation(this, world);
+    protected EntityNavigation createNavigation(World world) {
+        BirdNavigation nav = new BirdNavigation(this, world);
 //? if <=1.21.1 {
-        nav.setCanPassDoors(false);
+        nav.setCanPathThroughDoors(false);
 //?}
-        nav.setCanFloat(false);
+        nav.setCanSwim(false);
 //? if <=1.21.1 {
-        nav.setCanOpenDoors(true);
+        nav.setCanEnterOpenDoors(true);
 //?}
         return nav;
     }
 
     @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-        if (this.isTame()) {
-            if (this.isOwnedBy(player) && !isSeed(stack)) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getStackInHand(hand);
+        if (this.isTamed()) {
+            if (this.isOwner(player) && !isSeed(stack)) {
 //? if <1.20.2 {
-                this.setInSittingPose(!this.isOrderedToSit());
-//?}
-//? if >1.20.4 {
-                /*this.setOrderedToSit(!this.isOrderedToSit());
+                /*this.setSitting(!this.isSitting());
 *///?}
+//? if >1.20.4 {
+                this.setSitting(!this.isSitting());
+//?}
 //? if <=1.21.1 {
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return ActionResult.success(this.getEntityWorld().isClient);
 //?} else {
-                /*return InteractionResult.SUCCESS;
+                /*return ActionResult.SUCCESS;
 *///?}
             }
         } else if (isSeed(stack)) {
 //? if <=1.20.4 {
-            if (!player.getAbilities().instabuild) stack.shrink(1);
-//?}
-//? if >1.20.4 {
-            /*stack.consume(1, player);
+            /*if (!player.getAbilities().creativeMode) stack.decrement(1);
 *///?}
+//? if >1.20.4 {
+            stack.decrementUnlessCreative(1, player);
+//?}
             if (this.getRandom().nextInt(3) == 0) {
 //? if >=26.1 {
                 /*this.setOwner(player);
 *///?}
 //? if <26.1 {
-                this.tame(player);
+                this.setOwner(player);
 //?}
 //? if <1.20.2 {
-                this.setTame(true);
-                this.setInSittingPose(true);
-//?}
-//? if >1.20.4 {
-                /*this.setTame(true, true);
-                this.setOrderedToSit(true);
+                /*this.setTamed(true);
+                this.setSitting(true);
 *///?}
+//? if >1.20.4 {
+                this.setTamed(true, true);
+                this.setSitting(true);
+//?}
 //? if >=26.1 {
-                /*this.level().broadcastEntityEvent(this, (byte) 7);
+                /*this.getEntityWorld().broadcastEntityEvent(this, (byte) 7);
 *///?}
 //? if <26.1 {
-                if (this.level() instanceof ServerLevel serverLevel) serverLevel.broadcastEntityEvent(this, (byte) 7);
+                this.getEntityWorld().sendEntityStatus(this, (byte) 7);
 //?}
             } else {
 //? if >=26.1 {
-                /*this.level().broadcastEntityEvent(this, (byte) 6);
+                /*this.getEntityWorld().broadcastEntityEvent(this, (byte) 6);
 *///?}
 //? if <26.1 {
-                if (this.level() instanceof ServerLevel serverLevel) serverLevel.broadcastEntityEvent(this, (byte) 6);
+                this.getEntityWorld().sendEntityStatus(this, (byte) 6);
 //?}
             }
 //? if <=1.21.1 {
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return ActionResult.success(this.getEntityWorld().isClient);
 //?} else {
-            /*return InteractionResult.SUCCESS;
+            /*return ActionResult.SUCCESS;
 *///?}
         }
-        return super.mobInteract(player, hand);
+        return super.interactMob(player, hand);
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 //? if <=1.21.1 {
-        controllers.add(new AnimationController<>(this, "main", state -> {
+        controllers.add(new AnimationController<>(this, "main", 0, state -> {
 //?} else {
-        /*controllers.add(new AnimationController<>("main", state -> {
+        /*controllers.add(new AnimationController<>("main", 0, state -> {
 *///?}
-            if (!this.onGround()) {
+            if (!this.isOnGround()) {
                 state.setAnimation(RawAnimation.begin().thenLoop("animation.ruru.fly"));
                 return PlayState.CONTINUE;
             }
@@ -210,11 +235,11 @@ public class RuruEntity extends TamableAnimal implements GeoEntity {
 
     @Override
 //? if <=1.21.1 {
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier,
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier,
 //?} else {
-    /*public boolean causeFallDamage(double fallDistance, float damageMultiplier,
+    /*public boolean handleFallDamage(double fallDistance, float damageMultiplier,
 *///?}
-            net.minecraft.world.damagesource.DamageSource damageSource) {
+            net.minecraft.entity.damage.DamageSource damageSource) {
         return false;
     }
 
@@ -229,24 +254,24 @@ public class RuruEntity extends TamableAnimal implements GeoEntity {
     }
 
     @Override
-//? if <=1.20.4 {
-    public float getScale() {
-        return this.isBaby() ? 0.6f : super.getScale();
-    }
-//?}
-//? if >1.20.4 {
+//? if >=26.1 {
     /*public float getAgeScale() {
         return this.isBaby() ? 0.6f : super.getAgeScale();
     }
 *///?}
+//? if <26.1 {
+    public float getScaleFactor() {
+        return this.isBaby() ? 0.6f : super.getScaleFactor();
+    }
+//?}
 
     @Override
-    public boolean isFood(ItemStack stack) {
+    public boolean isBreedingItem(ItemStack stack) {
         return isSeed(stack);
     }
 
     @Override
-    public RuruEntity getBreedOffspring(ServerLevel world, AgeableMob entity) {
+    public RuruEntity createChild(ServerWorld world, PassiveEntity entity) {
         return new RuruEntity(TYPE, world);
     }
 }

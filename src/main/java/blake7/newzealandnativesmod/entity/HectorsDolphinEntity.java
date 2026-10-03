@@ -2,33 +2,45 @@ package blake7.newzealandnativesmod.entity;
 
 import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.registry.NativesSounds;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
-//? if >=1.21.11 {
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
+//? if >=26.1 {
 /*import net.minecraft.world.entity.animal.dolphin.Dolphin;
 *///?} else {
-import net.minecraft.world.entity.animal.Dolphin;
+import net.minecraft.entity.passive.DolphinEntity;
 //?}
 //? if >1.21.1 {
-/*import net.minecraft.resources.ResourceKey;
-import net.minecraft.core.registries.Registries;
+/*import net.minecraft.registry.RegistryKey;
+
+import net.minecraft.registry.RegistryKeys;
 *///?}
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
+//? if >=26.1 {
+/*import net.minecraft.core.registries.Registries;
+*///?}
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 
 // Bedrock uses vanilla dolphin geometry/animations, so this extends Dolphin
 // (swim AI, breaching, treasure-seeking come free) with a custom texture + sounds.
-public class HectorsDolphinEntity extends Dolphin {
-    public static final EntityType<HectorsDolphinEntity> TYPE = EntityType.Builder.of(HectorsDolphinEntity::new, MobCategory.WATER_CREATURE)
-            .sized(0.9f, 0.6f)
+public class HectorsDolphinEntity extends DolphinEntity {
+    public static final EntityType<HectorsDolphinEntity> TYPE = EntityType.Builder.create(HectorsDolphinEntity::new, SpawnGroup.WATER_CREATURE)
+            //? if <=1.20.4 {
+                /*.setDimensions(0.9f, 0.6f)
+            *///?}
+            //? if >1.20.4 && <26.1 {
+                /*.dimensions(0.9f, 0.6f)
+            *///?}
+            //? if >=26.1 {
+                /*.sized(0.9f, 0.6f)
+            *///?}
 //? if <=1.21.1 {
             .build(NativesId.of("hectors_dolphin").toString());
 //?} else {
-            /*.build(ResourceKey.create(Registries.ENTITY_TYPE, NativesId.of("hectors_dolphin")));
+            /*.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, NativesId.of("hectors_dolphin")));
 *///?}
 
-    public HectorsDolphinEntity(EntityType<? extends Dolphin> entityType, Level world) {
+    public HectorsDolphinEntity(EntityType<? extends DolphinEntity> entityType, World world) {
         super(entityType, world);
     }
 

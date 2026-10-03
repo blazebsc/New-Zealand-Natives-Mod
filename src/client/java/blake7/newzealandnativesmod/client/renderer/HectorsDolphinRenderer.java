@@ -1,27 +1,27 @@
 package blake7.newzealandnativesmod.client.renderer;
 
 import blake7.newzealandnativesmod.NativesId;
-import net.minecraft.client.renderer.entity.DolphinRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.render.entity.DolphinEntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 //? if <=1.21.1 {
-import net.minecraft.world.entity.animal.Dolphin;
+import net.minecraft.entity.passive.DolphinEntity;
 //?} else {
 /*import net.minecraft.client.render.entity.state.DolphinEntityRenderState;
 *///?}
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Identifier;
 
-public class HectorsDolphinRenderer extends DolphinRenderer {
-    private static final ResourceLocation TEXTURE = NativesId.of("textures/entity/hectors_dolphin/hectors_dolphin.png");
+public class HectorsDolphinRenderer extends DolphinEntityRenderer {
+    private static final Identifier TEXTURE = NativesId.of("textures/entity/hectors_dolphin/hectors_dolphin.png");
 
-    public HectorsDolphinRenderer(EntityRendererProvider.Context ctx) {
+    public HectorsDolphinRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
     }
 
     @Override
 //? if <=1.21.1 {
-    public ResourceLocation getTextureLocation(Dolphin entity) {
+    public Identifier getTexture(DolphinEntity entity) {
 //?} else {
-    /*public ResourceLocation getTextureLocation(DolphinEntityRenderState state) {
+    /*public Identifier getTexture(DolphinEntityRenderState state) {
 *///?}
         return TEXTURE;
     }

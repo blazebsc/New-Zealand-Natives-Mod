@@ -30,7 +30,7 @@ Fabric Minecraft mods (Java, GeckoLib entities, ModMenu config) ported from the 
 
 ## Build
 
-- `./gradlew build` (root task builds all Stonecutter nodes — fabric ×7 eras plus the NeoForge jar).
+- `./gradlew build` (root task builds all Stonecutter nodes — 1.20.1/1.20.4/1.20.6/1.21.1/1.21.11/26.2/26.3 on the 1.21.x branch).
 - Target one version: `./gradlew :1.21.1:build :26.2:build`; run client: `:1.21.1:runClient`.
 - **Run Gradle on Temurin 25 for the whole branch** (`/home/blake7/.jdks/`) — Loom refuses 26.x nodes on a Java 21 daemon. Older nodes still compile at `release=21`. CI mirrors this.
 - Mappings: all nodes Mojang-official (fabric: `loomx.applyMojangMappings()`; 26.x unobfuscated). Client code lives under both `src/client/java/blake7/client/` and `.../newzealandnativesmod/` — check which package a file belongs to before moving it.

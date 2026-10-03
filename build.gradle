@@ -61,8 +61,10 @@ repositories {
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    // Applies official Mojang mappings on obfuscated versions, no-op on 26.x.
-    loomx.applyMojangMappings()
+    // Yarn on fabric nodes (<26.1); nothing for 26.x (mojang-native).
+    if (sc.current.parsed < '26.1') {
+        mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    }
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"

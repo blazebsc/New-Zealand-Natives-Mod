@@ -1,10 +1,13 @@
 package blake7.newzealandnativesmod.registry;
 
 import blake7.newzealandnativesmod.NativesId;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.Registry;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.registry.Registries;
+//? if >=26.1 {
+/*import net.minecraft.core.registries.BuiltInRegistries;
+*///?}
+import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,8 +56,8 @@ public final class NativesSounds {
 
     //? if fabric {
     private static void register(String path) {
-        ResourceLocation id = NativesId.of(path);
-        EVENTS.put(path, Registry.register(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(id)));
+        Identifier id = NativesId.of(path);
+        EVENTS.put(path, Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id)));
     }
     //?}
 

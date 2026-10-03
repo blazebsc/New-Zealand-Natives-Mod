@@ -7,38 +7,41 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 //? if >=26.1 {
 /*import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 *///?}
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.Registry;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+//? if >=26.1 {
+/*import net.minecraft.core.registries.BuiltInRegistries;
+*///?}
+import net.minecraft.registry.Registry;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 public final class NativesItemGroups {
     private NativesItemGroups() {}
 
-    public static final CreativeModeTab NATIVES =
+    public static final ItemGroup NATIVES =
 //? if <26.1 {
             FabricItemGroup.builder()
 //?} else {
             /*FabricCreativeModeTab.builder()
 *///?}
-            .title(Component.translatable("itemGroup.newzealandnatives.natives"))
+            .displayName(Text.translatable("itemGroup.newzealandnatives.natives"))
             .icon(() -> new ItemStack(NativesItems.KIWI_SPAWN_EGG))
-            .displayItems((params, output) -> {
+            .entries((params, output) -> {
                 for (var egg : NativesItems.spawnEggs().values()) {
-                    output.accept(egg);
+                    output.add(egg);
                 }
-                output.accept(NativesItems.HUHU_GRUB);
-                output.accept(NativesBlocks.ROTTEN_LOG);
-                output.accept(NativesBlocks.KOWHAI_LOG);
-                output.accept(NativesBlocks.KOWHAI_LEAVES);
-                output.accept(NativesBlocks.KOWHAI_SAPLING);
+                output.add(NativesItems.HUHU_GRUB);
+                output.add(NativesBlocks.ROTTEN_LOG);
+                output.add(NativesBlocks.KOWHAI_LOG);
+                output.add(NativesBlocks.KOWHAI_LEAVES);
+                output.add(NativesBlocks.KOWHAI_SAPLING);
             })
             .build();
 
     public static void register() {
-        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
+        Registry.register(Registries.ITEM_GROUP,
                 NativesId.of("natives"), NATIVES);
     }
 }

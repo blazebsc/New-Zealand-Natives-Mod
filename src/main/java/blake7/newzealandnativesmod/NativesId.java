@@ -1,10 +1,10 @@
 package blake7.newzealandnativesmod;
 
 //? if <1.21 {
-import net.minecraft.resources.ResourceLocation;
-//?} else {
-/*import net.minecraft.resources.ResourceLocation;
-*///?}
+/*import net.minecraft.util.Identifier;
+*///?} else {
+import net.minecraft.util.Identifier;
+//?}
 
 // Central id factory: 1.20.x has no fromNamespaceAndPath (its public
 // (String,String) ctor went private on every 1.21+ ResourceLocation), so the
@@ -15,12 +15,12 @@ public final class NativesId {
     public static final String NAMESPACE = "newzealandnatives";
 
 //? if <1.21 {
-    public static ResourceLocation of(String path) {
-        return new ResourceLocation(NAMESPACE, path);
+    /*public static Identifier of(String path) {
+        return new Identifier(NAMESPACE, path);
     }
-//?} else {
-    /*public static ResourceLocation of(String path) {
-        return ResourceLocation.fromNamespaceAndPath(NAMESPACE, path);
+*///?} else {
+    public static Identifier of(String path) {
+        return Identifier.of(NAMESPACE, path);
     }
-*///?}
+//?}
 }

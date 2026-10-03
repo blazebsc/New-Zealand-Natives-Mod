@@ -3,19 +3,30 @@ package blake7.newzealandnativesmod.registry;
 import blake7.newzealandnativesmod.NativesId;
 import blake7.newzealandnativesmod.entity.KiwiEntity;
 import blake7.newzealandnativesmod.entity.KatipoEntity;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.core.Registry;
-//? if >1.21.1 {
-/*import net.minecraft.resources.ResourceKey;
-import net.minecraft.core.registries.Registries;
+//? if <=1.20.4 {
+/*import net.minecraft.item.FoodComponent;
+*///?} else {
+//? if >=26.1 {
+/*import net.minecraft.world.food.FoodProperties;
+*///?} else {
+import net.minecraft.component.type.FoodComponent;
+//?}
+//?}
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.SpawnEggItem;
+import net.minecraft.registry.Registries;
+//? if >=26.1 {
+/*import net.minecraft.core.registries.BuiltInRegistries;
 *///?}
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.Registry;
+//? if >1.21.1 {
+/*import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+*///?}
+import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,22 +44,22 @@ public final class NativesItems {
     private static final Map<String, Item> SPAWN_EGGS = new LinkedHashMap<>();
 
 //? if <=1.21.1 {
-    public static final Item HUHU_GRUB = register("huhu_grub", new Item(new Item.Properties().food(
+    public static final Item HUHU_GRUB = register("huhu_grub", new Item(new Item.Settings().food(
 //?} else {
     /*public static final Item HUHU_GRUB = register("huhu_grub", props -> new Item(props.food(
 *///?}
-            new FoodProperties.Builder()
-                    .nutrition(3).saturationMod(0.6f).build())));
+            new FoodComponent.Builder()
+                    .nutrition(3).saturationModifier(0.6f).build())));
 
     public static final Item KIWI_SPAWN_EGG = register("kiwi_spawn_egg",
 //? if <=1.21.1 {
-            new SpawnEggItem(KiwiEntity.TYPE, 0x5C4033, 0x3B2814, new Item.Properties()));
+            new SpawnEggItem(KiwiEntity.TYPE, 0x5C4033, 0x3B2814, new Item.Settings()));
 //?} else {
             /*props -> new SpawnEggItem(props.spawnEgg(KiwiEntity.TYPE)));
 *///?}
     public static final Item KATIPO_SPAWN_EGG = register("katipo_spawn_egg",
 //? if <=1.21.1 {
-            new SpawnEggItem(KatipoEntity.TYPE, 0x1A1A1A, 0xCC0000, new Item.Properties()));
+            new SpawnEggItem(KatipoEntity.TYPE, 0x1A1A1A, 0xCC0000, new Item.Settings()));
 //?} else {
             /*props -> new SpawnEggItem(props.spawnEgg(KatipoEntity.TYPE)));
 *///?}
@@ -69,10 +80,10 @@ public final class NativesItems {
 //? if <=1.21.1 {
             int[] colors = EGG_COLORS.getOrDefault(id, new int[]{0x808080, 0x404040});
 //?}
-            EntityType<? extends Mob> type = (EntityType<? extends Mob>) all.get(i);
+            EntityType<? extends MobEntity> type = (EntityType<? extends MobEntity>) all.get(i);
             Item egg = register(id + "_spawn_egg",
 //? if <=1.21.1 {
-                    new SpawnEggItem(type, colors[0], colors[1], new Item.Properties()));
+                    new SpawnEggItem(type, colors[0], colors[1], new Item.Settings()));
 //?} else {
                     /*props -> new SpawnEggItem(props.spawnEgg(type)));
 *///?}
@@ -86,17 +97,17 @@ public final class NativesItems {
 
 //? if fabric && <=1.21.1 {
     private static Item register(String id, Item item) {
-        Item registered = Registry.register(BuiltInRegistries.ITEM, NativesId.of(id), item);
+        Item registered = Registry.register(Registries.ITEM, NativesId.of(id), item);
         REGISTERED.add(registered);
         return registered;
     }
 //?}
 //? if fabric && >1.21.1 {
-    /*private static Item register(String id, Function<Item.Properties, Item> factory) {
-        ResourceLocation identifier = NativesId.of(id);
-        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, identifier);
-        Item item = factory.apply(new Item.Properties().setId(key));
-        Item registered = Registry.register(BuiltInRegistries.ITEM, identifier, item);
+    /*private static Item register(String id, Function<Item.Settings, Item> factory) {
+        Identifier identifier = NativesId.of(id);
+        RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, identifier);
+        Item item = factory.apply(new Item.Settings().setId(key));
+        Item registered = Registry.register(Registries.ITEM, identifier, item);
         REGISTERED.add(registered);
         return registered;
     }

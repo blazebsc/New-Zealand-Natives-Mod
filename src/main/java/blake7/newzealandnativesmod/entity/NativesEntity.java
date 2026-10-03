@@ -1,20 +1,20 @@
 package blake7.newzealandnativesmod.entity;
 
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.control.FlightMoveControl;
+import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.BirdNavigation;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.world.World;
 import blake7.newzealandnativesmod.registry.NativesItems;
 import blake7.newzealandnativesmod.registry.NativesSounds;
 
@@ -22,28 +22,28 @@ import java.util.Map;
 import java.util.Set;
 import software.bernie.geckolib.animatable.GeoEntity;
 //? if <=1.20.4 {
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-//?} else {
-/*import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-*///?}
+/*import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+*///?} else {
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+//?}
 //? if >1.21.1 {
 /*import software.bernie.geckolib.animatable.manager.AnimatableManager;
 *///?}
 //? if <=1.20.4 {
-import software.bernie.geckolib.core.animation.*;
-//?} else {
-/*import software.bernie.geckolib.animation.*;
-*///?}
-//? if <=1.20.4 {
-import software.bernie.geckolib.core.object.PlayState;
+/*import software.bernie.geckolib.core.animation.*;
+*///?} else {
+import software.bernie.geckolib.animation.*;
 //?}
+//? if <=1.20.4 {
+/*import software.bernie.geckolib.core.object.PlayState;
+*///?}
 //? if >1.21.1 {
 /*import software.bernie.geckolib.animation.object.PlayState;
 import software.bernie.geckolib.animation.state.AnimationTest;
 *///?}
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class NativesEntity extends Animal implements GeoEntity {
+public class NativesEntity extends AnimalEntity implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private MovementType moveType;
 
@@ -56,25 +56,25 @@ public class NativesEntity extends Animal implements GeoEntity {
             "pateke", "pukeko", "puriri", "red_admiral", "ruru", "saddleback",
             "takahe", "tui", "wasp", "weka", "whio");
 
-    public NativesEntity(EntityType<? extends Animal> entityType, Level world) {
+    public NativesEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
         this.moveType = NativesAnimRegistry.getMovementType(NativesAnimRegistry.getId(entityType));
         if (moveType == MovementType.FLY) {
-            this.moveControl = new FlyingMoveControl(this, 20, true);
+            this.moveControl = new FlightMoveControl(this, 20, true);
         }
     }
 
     @Override
 //? if <=1.21.1 {
-    public boolean causeFallDamage(float fallDistance, float damageMultiplier,
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier,
 //?} else {
-    /*public boolean causeFallDamage(double fallDistance, float damageMultiplier,
+    /*public boolean handleFallDamage(double fallDistance, float damageMultiplier,
 *///?}
-            net.minecraft.world.damagesource.DamageSource damageSource) {
+            net.minecraft.entity.damage.DamageSource damageSource) {
         if (FALL_IMMUNE.contains(NativesAnimRegistry.getId(this.getType()))) {
             return false;
         }
-        return super.causeFallDamage(fallDistance, damageMultiplier, damageSource);
+        return super.handleFallDamage(fallDistance, damageMultiplier, damageSource);
     }
 
     private MovementType resolveMoveType() {
@@ -83,16 +83,16 @@ public class NativesEntity extends Animal implements GeoEntity {
     }
 
     @Override
-    protected PathNavigation createNavigation(Level world) {
+    protected EntityNavigation createNavigation(World world) {
         MovementType mt = moveType != null ? moveType : resolveMoveType();
         if (mt == MovementType.FLY) {
-            FlyingPathNavigation nav = new FlyingPathNavigation(this, world);
+            BirdNavigation nav = new BirdNavigation(this, world);
 //? if <=1.21.1 {
-            nav.setCanPassDoors(false);
+            nav.setCanPathThroughDoors(false);
 //?}
-            nav.setCanFloat(false);
+            nav.setCanSwim(false);
 //? if <=1.21.1 {
-            nav.setCanOpenDoors(true);
+            nav.setCanEnterOpenDoors(true);
 //?}
             return nav;
         }
@@ -178,67 +178,67 @@ public class NativesEntity extends Animal implements GeoEntity {
     }
 
     @Override
-    public boolean isPushedByFluid() {
-        return !FLORA.contains(NativesAnimRegistry.getId(this.getType())) && super.isPushedByFluid();
+    public boolean isPushedByFluids() {
+        return !FLORA.contains(NativesAnimRegistry.getId(this.getType())) && super.isPushedByFluids();
     }
 
     @Override
-    protected void registerGoals() {
+    protected void initGoals() {
         MovementType mt = resolveMoveType();
         String id = NativesAnimRegistry.getId(this.getType());
         boolean flora = FLORA.contains(id);
         if (!flora) {
-            this.goalSelector.addGoal(0, new FloatGoal(this));
+            this.goalSelector.add(0, new SwimGoal(this));
         }
         if (id.equals("eel")) {
-            this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 10.0f, 1.5, 2.0));
+            this.goalSelector.add(1, new FleeEntityGoal<>(this, PlayerEntity.class, 10.0f, 1.5, 2.0));
         } else if (id.equals("kokopu")) {
-            this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 6.0f, 1.5, 2.0));
+            this.goalSelector.add(1, new FleeEntityGoal<>(this, PlayerEntity.class, 6.0f, 1.5, 2.0));
         } else if (id.equals("moa")) {
-            this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 5.0f, 1.3, 1.8));
+            this.goalSelector.add(1, new FleeEntityGoal<>(this, PlayerEntity.class, 5.0f, 1.3, 1.8));
         }
         Set<Item> tempt = TEMPT.getOrDefault(id, Set.of());
         if (!tempt.isEmpty()) {
 //? if <=1.20.4 {
-            this.goalSelector.addGoal(1, new TemptGoal(this, 1.1, Ingredient.of(tempt.toArray(new Item[0])), false));
-//?}
-//? if >1.20.4 {
-            /*this.goalSelector.addGoal(1, new TemptGoal(this, 1.1, stack -> tempt.contains(stack.getItem()), false));
+            /*this.goalSelector.add(1, new TemptGoal(this, 1.1, Ingredient.ofItems(tempt.toArray(new Item[0])), false));
 *///?}
+//? if >1.20.4 {
+            this.goalSelector.add(1, new TemptGoal(this, 1.1, stack -> tempt.contains(stack.getItem()), false));
+//?}
         }
         if (BREED.containsKey(id)) {
-            this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
+            this.goalSelector.add(2, new AnimalMateGoal(this, 1.0));
         }
         if (flora) {
             // no movement goals: plants stay where planted
         } else if (mt == MovementType.FLY) {
-            this.goalSelector.addGoal(3, new WanderFlyGoal(this));
+            this.goalSelector.add(3, new WanderFlyGoal(this));
         } else if (mt == MovementType.WATER) {
-            this.goalSelector.addGoal(3, new WanderSwimGoal(this));
+            this.goalSelector.add(3, new WanderSwimGoal(this));
         } else if (mt == MovementType.AMPHIBIOUS) {
-            this.goalSelector.addGoal(3, new WanderSwimGoal(this));
-            this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0));
+            this.goalSelector.add(3, new WanderSwimGoal(this));
+            this.goalSelector.add(4, new WanderAroundFarGoal(this, 1.0));
         } else {
-            this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0));
+            this.goalSelector.add(3, new WanderAroundFarGoal(this, 1.0));
         }
-        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0f));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.2));
+        this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
+        this.goalSelector.add(5, new LookAroundGoal(this));
+        this.goalSelector.add(6, new FollowParentGoal(this, 1.2));
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 //? if <=1.21.1 {
-        controllers.add(new AnimationController<>(this, "main", state -> {
+        controllers.add(new AnimationController<>(this, "main", 0, state -> {
 //?} else {
-        /*controllers.add(new AnimationController<>("main", state -> {
+        /*controllers.add(new AnimationController<>("main", 0, state -> {
 *///?}
             NativesAnimRegistry.AnimSet set =
                     NativesAnimRegistry.getAnims(NativesAnimRegistry.getId(this.getType()));
-            if (this.isInWater() && set.swim() != null) {
+            if (this.isTouchingWater() && set.swim() != null) {
                 return loop(state, set.swim());
             }
-            if (!this.onGround() && !this.isInWater() && set.fly() != null) {
+            if (!this.isOnGround() && !this.isTouchingWater() && set.fly() != null) {
                 return loop(state, set.fly());
             }
             if (state.isMoving() && set.walk() != null) {
@@ -252,9 +252,9 @@ public class NativesEntity extends Animal implements GeoEntity {
         String extra = NativesAnimRegistry.getExtra(NativesAnimRegistry.getId(this.getType()));
         if (extra != null) {
 //? if <=1.21.1 {
-            controllers.add(new AnimationController<>(this, "extra", state -> loop(state, extra)));
+            controllers.add(new AnimationController<>(this, "extra", 0, state -> loop(state, extra)));
 //?} else {
-            /*controllers.add(new AnimationController<>("extra", state -> loop(state, extra)));
+            /*controllers.add(new AnimationController<>("extra", 0, state -> loop(state, extra)));
 *///?}
         }
     }
@@ -279,7 +279,7 @@ public class NativesEntity extends Animal implements GeoEntity {
     }
 
     @Override
-    protected SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource source) {
+    protected SoundEvent getHurtSound(net.minecraft.entity.damage.DamageSource source) {
         SoundEvent hurt = NativesSounds.get(NativesAnimRegistry.getId(this.getType()), "hurt");
         return hurt != null ? hurt : super.getHurtSound(source);
     }
@@ -318,17 +318,7 @@ public class NativesEntity extends Animal implements GeoEntity {
             Map.entry("whio", 0.6f)
     );
 
-//? if <=1.20.4 {
-    @Override
-    public float getScale() {
-        if (this.isBaby()) {
-            Float s = BABY_SCALE.get(NativesAnimRegistry.getId(this.getType()));
-            if (s != null) return s;
-        }
-        return super.getScale();
-    }
-//?}
-//? if >1.20.4 {
+//? if >=26.1 {
     /*@Override
     public float getAgeScale() {
         if (this.isBaby()) {
@@ -338,16 +328,26 @@ public class NativesEntity extends Animal implements GeoEntity {
         return super.getAgeScale();
     }
 *///?}
+//? if <26.1 {
+    @Override
+    public float getScaleFactor() {
+        if (this.isBaby()) {
+            Float s = BABY_SCALE.get(NativesAnimRegistry.getId(this.getType()));
+            if (s != null) return s;
+        }
+        return super.getScaleFactor();
+    }
+//?}
 
     @Override
-    public boolean isFood(ItemStack stack) {
+    public boolean isBreedingItem(ItemStack stack) {
         Set<Item> breed = BREED.get(NativesAnimRegistry.getId(this.getType()));
         return breed != null && breed.contains(stack.getItem());
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public AgeableMob getBreedOffspring(ServerLevel world, AgeableMob entity) {
-        return new NativesEntity((EntityType<? extends Animal>) this.getType(), world);
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return new NativesEntity((EntityType<? extends AnimalEntity>) this.getType(), world);
     }
 }

@@ -3,25 +3,39 @@ package blake7.newzealandnativesmod.registry;
 import blake7.newzealandnativesmod.NativesId;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 //? if <=1.20.4 {
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
-//?}
-//? if >1.20.4 {
-/*import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
+/*import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 *///?}
-import net.minecraft.tags.BiomeTags;
 //? if >1.20.4 {
-/*import net.minecraft.world.entity.SpawnPlacementType;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
+//?}
+import net.minecraft.registry.tag.BiomeTags;
+// Yarn's spawn-location naming changed twice (standalone SpawnLocation plus
+// SpawnLocationTypes constants in 1.20.6+, nested SpawnRestriction.Location in
+// 1.20.x) and the stitcher shields a string rule's target from every other rule,
+// so all three eras are hand-gated here rather than rewritten.
+//? if >=26.1 {
+/*import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 *///?}
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.Heightmap;
+//? if <26.1 {
+import net.minecraft.entity.SpawnRestriction;
+//?}
+//? if <26.1 && >1.20.4 {
+import net.minecraft.entity.SpawnLocation;
+import net.minecraft.entity.SpawnLocationTypes;
+//?}
+import net.minecraft.registry.RegistryKey;
+//? if >=26.1 {
+/*import net.minecraft.core.registries.Registries;
+*///?}
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.Heightmap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -107,16 +121,16 @@ public final class NativesSpawns {
         if (NativesConfig.INSTANCE.fallenLogs) {
             BiomeModifications.addFeature(
                     NativesSpawns::forest,
-                    GenerationStep.Decoration.VEGETAL_DECORATION,
-                    ResourceKey.create(Registries.PLACED_FEATURE,
+                    GenerationStep.Feature.VEGETAL_DECORATION,
+                    RegistryKey.of(RegistryKeys.PLACED_FEATURE,
                             NativesId.of("rotten_log_patch")));
         }
         // Kowhai trees dot open country, never closed canopy (Bedrock lists plains/savanna first).
         if (NativesConfig.INSTANCE.kowhaiTrees) {
             BiomeModifications.addFeature(
                     NativesSpawns::openCountry,
-                    GenerationStep.Decoration.VEGETAL_DECORATION,
-                    ResourceKey.create(Registries.PLACED_FEATURE,
+                    GenerationStep.Feature.VEGETAL_DECORATION,
+                    RegistryKey.of(RegistryKeys.PLACED_FEATURE,
                             NativesId.of("kowhai_trees")));
         }
     }
@@ -125,19 +139,41 @@ public final class NativesSpawns {
     private static void gate(Map<String, EntityType<?>> byId, String id, boolean day) {
         EntityType type = byId.get(id);
         if (type == null) return;
-        boolean water = type.getCategory() == MobCategory.WATER_AMBIENT
-                || type.getCategory() == MobCategory.WATER_CREATURE;
-        SpawnPlacements.Type loc = water ? SpawnPlacements.Type.IN_WATER : SpawnPlacements.Type.ON_GROUND;
+        boolean water = type.getSpawnGroup() == SpawnGroup.WATER_AMBIENT
+                || type.getSpawnGroup() == SpawnGroup.WATER_CREATURE;
+        //? if >=26.1 {
+/*SpawnPlacementType loc = water ? SpawnPlacementTypes.IN_WATER : SpawnPlacementTypes.ON_GROUND;
+*///?}
+//? if <=1.20.4 {
+/*SpawnRestriction.Location loc = water ? SpawnRestriction.Location.IN_WATER : SpawnRestriction.Location.ON_GROUND;
+*///?}
+//? if <26.1 && >1.20.4 {
+SpawnLocation loc = water ? SpawnLocationTypes.IN_WATER : SpawnLocationTypes.ON_GROUND;
+//?}
         // ponytail: no light gate underwater — sunlight rarely reaches depth, vanilla fish have none.
         if (water && day) {
-            SpawnPlacements.register(type, loc, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+//? if >=26.1 {
+/*SpawnPlacements.register(type, loc, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                     (t, world, reason, pos, random) -> true);
+*///?}
+//? if <26.1 {
+SpawnRestriction.register(type, loc, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                    (t, world, reason, pos, random) -> true);
+//?}
             return;
         }
-        SpawnPlacements.register(type, loc, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+//? if >=26.1 {
+/*SpawnPlacements.register(type, loc, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                 (t, world, reason, pos, random) -> day
-                        ? world.getMaxLocalRawBrightness(pos) >= 7
-                        : world.getMaxLocalRawBrightness(pos) <= 7);
+                        ? world.getLightLevel(pos) >= 7
+                        : world.getLightLevel(pos) <= 7);
+*///?}
+//? if <26.1 {
+SpawnRestriction.register(type, loc, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                (t, world, reason, pos, random) -> day
+                        ? world.getLightLevel(pos) >= 7
+                        : world.getLightLevel(pos) <= 7);
+//?}
     }
 
     private static boolean overworld(BiomeSelectionContext ctx) {
@@ -149,9 +185,9 @@ public final class NativesSpawns {
     }
 
     private static boolean openCountry(BiomeSelectionContext ctx) {
-        return ctx.hasTag(ConventionalBiomeTags.PLAINS)
-                || ctx.hasTag(ConventionalBiomeTags.SAVANNA)
-                || ctx.hasTag(ConventionalBiomeTags.FLOWER_FORESTS);
+        return ctx.hasTag(ConventionalBiomeTags.IS_PLAINS)
+                || ctx.hasTag(ConventionalBiomeTags.IS_SAVANNA)
+                || ctx.hasTag(ConventionalBiomeTags.IS_FLOWER_FOREST);
     }
 
     private static boolean ocean(BiomeSelectionContext ctx) {
@@ -163,7 +199,7 @@ public final class NativesSpawns {
     }
 
     private static boolean wetland(BiomeSelectionContext ctx) {
-        return ctx.hasTag(BiomeTags.IS_RIVER) || ctx.hasTag(ConventionalBiomeTags.SWAMP) || ctx.hasTag(BiomeTags.IS_OCEAN);
+        return ctx.hasTag(BiomeTags.IS_RIVER) || ctx.hasTag(ConventionalBiomeTags.IS_SWAMP) || ctx.hasTag(BiomeTags.IS_OCEAN);
     }
 
     private static boolean shore(BiomeSelectionContext ctx) {
@@ -171,7 +207,7 @@ public final class NativesSpawns {
     }
 
     private static boolean plains(BiomeSelectionContext ctx) {
-        return ctx.hasTag(ConventionalBiomeTags.PLAINS) || ctx.hasTag(BiomeTags.IS_FOREST);
+        return ctx.hasTag(ConventionalBiomeTags.IS_PLAINS) || ctx.hasTag(BiomeTags.IS_FOREST);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -180,7 +216,7 @@ public final class NativesSpawns {
         if (WATER.contains(id)) {
             if (!NativesConfig.INSTANCE.spawnWater) return;
         } else if (MONSTERS.contains(id)) {
-            if (!NativesConfig.INSTANCE.spawnMonsters) return;
+            if (!NativesConfig.INSTANCE.spawnHostileEntitys) return;
         } else if (PLANTS.contains(id)) {
             if (!NativesConfig.INSTANCE.spawnPlants) return;
         } else {
@@ -188,7 +224,7 @@ public final class NativesSpawns {
         }
         EntityType<?> raw = byId.get(id);
         if (raw == null) return;
-        MobCategory group = null;
+        SpawnGroup group = null;
         for (var e : NativesEntities.SPECIES) {
             if (e.shortId().equals(id)) {
                 group = e.spawnGroup();

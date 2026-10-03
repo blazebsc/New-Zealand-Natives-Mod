@@ -16,7 +16,7 @@ import java.nio.file.Path;
 public final class NativesConfig {
     public boolean spawnLand = true;
     public boolean spawnWater = true;
-    public boolean spawnMonsters = true;
+    public boolean spawnHostileEntitys = true;
     public boolean spawnPlants = true;
     public double spawnRate = 1.0;
     public boolean eagleHostile = true;
